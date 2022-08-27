@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lalezar&display=swap");
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.lalezarFont {
+  font-family: "Lalezar", cursive;
+}
+
+.quicksandFont {
+  font-family: "Quicksand", sans-serif;
+}
+
+.navStyle {
+  background: #ffffff;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.25);
+}
+
+.searchinput {
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+}
+
+.brdrEmojiBfr {
+  border: 1px solid #e0e0e0;
+  border-radius: 7px;
+}
+
+/* tooltip */
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #ff3294;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ff3294 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.heartSVG {
+  fill: #f2f2f2;
+}
+
+.heartSVG:hover {
+  fill: #ff3294;
+  cursor: pointer;
+}
+
+.modalShadow {
+  background: #ffffff;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  border: 1px solid #f2f2f2;
+}
+
+.inputboxStyle {
+  background: #ffffff;
+
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.logInInput {
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.mobileBarStyle {
+  background: #ffffff;
+  box-shadow: 0px -3px 7px rgba(0, 0, 0, 0.25);
+  border: 2px solid #bdbdbd;
+}
+
+.activeClassTab {
+  stroke: #ff3294;
+  color: #ff3294;
+}
+
+.animatedIcon {
+  fill: #f2f2f2;
+}
+
+.animatedDarkIcon {
+  fill: #333333;
+}
+.animatedIcon:hover {
+  transition: 0.9s;
+  fill: #ff3294;
+  transform: rotateY(180deg);
+}
+
+.animatedDarkIcon:hover {
+  transition: 0.9s;
+  fill: #ff3294;
+  transform: rotateY(180deg);
+}
+
+.onHoverPink {
+  fill: #bdbdbd;
+  color: #bdbdbd;
+}
+
+.onHoverPink:hover {
+  fill: #ff3294;
+  color: #ff3294;
+}
+
+.onHoverPink svg {
+  fill: #bdbdbd;
+}
+.onHoverPink:hover svg {
+  fill: #ff3294;
+}
+
+/* sharepage hoverr */
+
+.onHoverButton {
+  border: 1px solid #e0e0e0;
+  color: #828282;
+}
+
+.onHoverButton svg {
+  fill: #828282;
+}
+
+.onHoverButton:hover {
+  color: #ff3294;
+  border: 1px solid #ff3294;
+}
+
+.onHoverButton:hover svg {
+  fill: #ff3294;
+}
+
+/* stroke lines */
+
+.onHoverPinkStroke {
+  color: #bdbdbd;
+}
+
+.onHoverPinkStroke:hover {
+  color: #ff3294;
+}
+
+.onHoverPinkStroke svg {
+  stroke: #bdbdbd;
+}
+.onHoverPinkStroke:hover svg {
+  stroke: #ff3294;
+}
