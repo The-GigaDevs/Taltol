@@ -1,7 +1,6 @@
 import Head from 'next/head';
 
-import RegisterLoginModal from '../components/RegisterLoginModal';
-const index = () => {
+const Home = () => {
   return (
     <>
       <Head>
@@ -15,9 +14,8 @@ user experience for quotes."
         <meta name="author" content="Abdul Hameid" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <RegisterLoginModal />
     </>
   );
 };
 
-export default index;
+export default Home;
