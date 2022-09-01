@@ -1,3 +1,278 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* -----------Font From Google----------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap');
+
+/* -----------CSS Reset----------- */
+
+:root {
+  --clr-white: #ffffff;
+  --clr-black: #000000;
+  --clr-gray-dark: #333333;
+  --clr-gray-medium: #4f4f4f;
+  --clr-gray-semi: #828282;
+  --clr-gray-light: #bdbdbd;
+  --clr-pink: #ff3294;
+  --bg-primary: #f2f2f2;
+  --bg-secondary: #f5f5f5;
+  --doc-height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--clr-white);
+  color: var(--clr-black);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  max-width: 120rem;
+  width: (100% - 3rem);
+  margin: 0 auto;
+}
+
+/* -----------Login-Register-Modal----------- */
+.register-login-modal {
+  width: min(100% - 3rem);
+  margin: 0 auto;
+  position: relative;
+}
+
+.register-login-modal-close {
+  position: absolute;
+  right: 2rem;
+  top: 2.5rem;
+  cursor: pointer;
+}
+
+.register-login-modal-wrapper {
+  max-width: 30rem;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 85px;
+}
+
+.register-login-modal-title {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 4.5rem;
+  color: var(--clr-black);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.register-login-modal-socials-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 2.7rem;
+  height: 4.5rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
+
+.register-login-modal-socials-btn:last-child {
+  margin-bottom: 0;
+}
+
+.register-login-modal-socials-btn-text {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  line-height: 2.2rem;
+  width: 18.6rem;
+  color: var(--clr-gray-dark);
+}
+
+.register-login-modal-socials-btn-icon {
+  font-size: 2.2rem;
+  color: var(--clr-gray-medium);
+}
+
+.register-login-modal-or-text {
+  margin: 2.5rem 0;
+  position: relative;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  line-height: 2.2rem;
+  color: var(--clr-gray-semi);
+  padding: 0 15px;
+  background-color: var(--clr-white);
+  z-index: 2;
+}
+
+.register-login-modal-or-line {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.register-login-modal-or-line:before {
+  border-top: 2px solid var(--clr-gray-light);
+  content: '';
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.register-login-modal-or-text {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--clr-white);
+  padding: 0 15px;
+  text-align: center;
+  font-weight: 700;
+  line-height: 2.2rem;
+  color: var(--clr-gray-semi);
+}
+
+.register-login-modal-text {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  text-align: center;
+  line-height: 2.8rem;
+  max-width: 70rem;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 3.5rem;
+  color: var(--clr-gray-semi);
+  padding-bottom: 42.5px;
+}
+
+.register-login-modal-text-link,
+.register-login-modal-register-text-link,
+.register-login-modal-login-text-link {
+  color: var(--clr-black);
+  cursor: pointer;
+}
+
+.register-login-modal-register-text,
+.register-login-modal-login-text {
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+  letter-spacing: 0.5px;
+  color: var(--clr-gray-semi);
+  margin-top: 1.5rem;
+}
+
+.register-login-modal-form {
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 1.5rem;
+}
+
+.register-login-modal-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.register-login-modal-form-group-input {
+  display: block;
+  border: 2px solid #e0e0e0;
+  border-radius: 7px;
+  width: 100%;
+  height: 4.5rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--clr-black);
+  padding: 0 15px;
+}
+
+.register-login-modal-form-group-input::placeholder {
+  color: var(--clr-gray-light);
+}
+
+.register-login-modal-form-btn {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  background: var(--clr-pink);
+  border-radius: 5px;
+  border: 0;
+  font-family: 'Quicksand';
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr-white);
+  box-shadow: 0 5px 0 #c41b6c;
+  cursor: pointer;
+}
+
+.register-login-modal-form-btn:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+.register-login-modal-form.not-show {
+  display: none;
+}
+
+.register-login-modal-form.hide {
+  display: none;
+}
+
+.register-login-modal-register-text.hide {
+  display: none;
+}
+
+.register-login-modal-socials-btn.not-show {
+  display: none;
+}
+
+.register-login-modal-login-text.hide {
+  display: none;
+}
+
+/* Media Queries */
+
+@media (max-width: 600px) {
+  .register-login-modal-close {
+    right: 0;
+  }
+}
