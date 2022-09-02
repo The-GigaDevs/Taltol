@@ -64,8 +64,8 @@ svg {
 }
 
 .container {
-  max-width: 120rem;
-  width: (100% - 3rem);
+  max-width: 140rem;
+  width: min(100% - 3rem);
   margin: 0 auto;
 }
 
@@ -269,7 +269,317 @@ svg {
   display: none;
 }
 
+/* -----------Navbar----------- */
+.navbar {
+  background: var(--clr-white);
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.25);
+  padding: 10px 0;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 4.5rem;
+}
+
+.navbar-search {
+  width: 55rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  height: 6.8rem;
+}
+
+.navbar-search-group {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  flex: 1;
+}
+
+.navbar-search-group > svg {
+  width: 1.8rem;
+}
+
+.navbar-search-field {
+  flex: 1;
+  height: 3.5rem;
+  display: block;
+  width: 100%;
+  border: 0;
+  outline: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--clr-gray-dark);
+  border-right: 1px solid #e0e0e0;
+  padding: 25px 0;
+  padding-right: 20px;
+}
+
+.navbar-search-field::placeholder {
+  color: var(--clr-gray-light);
+}
+
+.navbar-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.5rem;
+  position: relative;
+  width: 12.5rem;
+  padding-left: 15px;
+  padding-right: 15px;
+  cursor: pointer;
+}
+
+.navbar-filters > svg {
+  width: 1.8rem;
+}
+
+.navbar-filters-text {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  text-align: center;
+  color: var(--clr-gray-dark);
+}
+
+.navbar-filters-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 12px;
+  border-radius: 50%;
+  background-color: var(--clr-pink);
+  color: var(--clr-white);
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  position: absolute;
+  top: -15px;
+  right: -0.95px;
+  text-align: center;
+}
+
+.navbar-profile {
+  display: flex;
+  align-items: center;
+  column-gap: 1.2rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.navbar-profile > svg {
+  width: 1.2rem;
+}
+
+.navbar-profile-avatar > svg {
+  width: 2.4rem;
+}
+
+.navbar-profile-dropdown {
+  padding: 15px 0 7px;
+  position: absolute;
+  top: 4rem;
+  right: 0;
+  z-index: 2;
+  background-color: var(--clr-white);
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  display: none;
+}
+
+.navbar-profile-dropdown.active {
+  display: block;
+}
+
+.navbar-profile-dropdown-link {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  padding: 8px 15px;
+  font-weight: 500;
+  color: var(--clr-gray-semi);
+}
+
+.navbar-profile-dropdown-link:hover {
+  color: var(--clr-white);
+  background-color: var(--clr-pink);
+  border-radius: 5px;
+}
+
+.navbar-profile-dropdown-link:hover svg {
+  color: var(--clr-white);
+  fill: var(--clr-white);
+}
+
+.navbar-profile-dropdown-link > svg {
+  width: 2.4rem;
+}
+
+.navbar-profile-dropdown-name {
+  font-size: 2.4rem;
+  font-weight: 700;
+  padding: 0 15px;
+}
+
+.navbar-profile-dropdown-mail {
+  margin: 0.85rem 0 1.5rem 0;
+  color: var(--clr-gray-semi);
+  font-weight: 500;
+  padding: 0 15px;
+}
+
+/* ----------Mood-Emoji---------- */
+.mood-emoji {
+  padding-top: 6rem;
+}
+
+.mood-emoji-title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 4rem;
+}
+
+.mood-emoji-content {
+  margin-top: 3.7rem;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 7px;
+}
+
+.mood-emoji-visual {
+  border-right: 1px solid #e0e0e0;
+  background-color: var(--bg-secondary);
+  height: 5rem;
+  padding: 0 8px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.swiper-slide:nth-child(27) .mood-emoji-visual {
+  border-right: 0;
+}
+
+.mood-emoji-visual:hover {
+  background-color: var(--clr-pink);
+}
+
+.mood-emoji-visual > svg {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.mood-emoji-visual:hover > svg path {
+  fill: var(--clr-white);
+}
+
+.tippy-content {
+  background-color: var(--clr-pink);
+  color: var(--clr-white);
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  padding: 0 8px;
+}
+
+.tippy-box {
+  background-color: var(--clr-pink) !important;
+}
+
+.tippy-box[data-placement^='top'] > .tippy-arrow:before {
+  border-top-color: var(--clr-pink) !important;
+}
+
+/* ----------Picked-Select--------- */
+.picked-select {
+  width: 35rem;
+  margin-top: 10rem;
+}
+
+.picked-select-btn {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-gray-light);
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.picked-select-arrow.expanded {
+  transform: rotate(180deg);
+}
+
+.picked-select-options {
+  background-color: var(--clr-white);
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  margin-top: 0.75rem;
+  display: none;
+}
+
+.picked-select-options.show {
+  display: block;
+}
+
+.picked-select-options-item {
+  padding: 12px 10px;
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-gray-medium);
+}
+
+.picked-select-options-item:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.picked-select-options-item:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.picked-select-options-item:active,
+.picked-select-options-item:focus,
+.picked-select-options-item:hover,
+.picked-select-options-item[aria-selected='true'] {
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+}
+
 /* Media Queries */
+
+@media (min-height: 800px) {
+  .register-login-modal-wrapper {
+    padding-top: 150px;
+  }
+}
 
 @media (max-width: 600px) {
   .register-login-modal-close {

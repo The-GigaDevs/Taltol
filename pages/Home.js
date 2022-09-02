@@ -1,4 +1,7 @@
 import Head from 'next/head';
+import MoodEmoji from '../components/MoodEmoji';
+import Navbar from '../components/Navbar';
+import PickedSelect from '../components/PickedSelect';
 
 const Home = () => {
   return (
@@ -14,6 +17,9 @@ user experience for quotes."
         <meta name="author" content="Abdul Hameid" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
+      <Navbar />
+      <MoodEmoji />
+      <PickedSelect />
     </>
   );
 };
