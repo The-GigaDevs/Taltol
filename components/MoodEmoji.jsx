@@ -474,7 +474,7 @@ const MoodEmoji = () => {
         <h2 className="mood-emoji-title">How is your mood today?</h2>
         <div className="mood-emoji-content">
           <Swiper
-            slidesPerView={10}
+            slidesPerView={9.5}
             spaceBetween={0}
             breakpoints={{
               850: {
