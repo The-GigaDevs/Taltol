@@ -1,7 +1,7 @@
 import httpService from "./http.sevice";
 
 const login = (email, password) => httpService
-    .post('/users/login', { email, password })
+    .post('/users/login/', { email, password })
     .then(({data}) => Promise.resolve(data))
     .catch(({error})=> Promise.reject(error))
 
@@ -15,8 +15,15 @@ const me = () => httpService
     .then(({data}) => Promise.resolve(data))
     .catch(({error})=> Promise.reject(error))
 
+const getQuotes = (page, pageSize) => httpService
+    .get(`/quotes?page=${page}&page_size=${pageSize}`)
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error})=> Promise.reject(error))
+
+
 const authService = {
     login,
-    register
+    register,
+    getQuotes
 }
 export default authService;
