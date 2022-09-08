@@ -20,6 +20,12 @@ const getQuotes = (page, pageSize) => httpService
     .then(({data}) => Promise.resolve(data))
     .catch(({error})=> Promise.reject(error))
 
+const getQuote = (id) => httpService
+
+    .get(`/quotes/${id}`)
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error})=> Promise.reject(error))
+        
 
 const authService = {
     login,
