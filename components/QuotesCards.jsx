@@ -1,12 +1,12 @@
 import randomAuthor from "../public/static/quotes-card-author.jpg";
 import authService from "../services/auth.service";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useState, useEffect } from "react";
 const QuotesCards = () => {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchQuotes = async () => {
@@ -27,8 +27,8 @@ const QuotesCards = () => {
 
   return (
     <div className="quotes-cards">
-      {quotes.map((quote) => (
-        <div className="quotes-card">
+      {quotes.map((quote, index) => (
+        <div className="quotes-card" key={index}>
           <div className="quotes-card-likes">
             <span className="quotes-card-likes-icon">
               <svg
@@ -57,6 +57,7 @@ const QuotesCards = () => {
           </div>
         </div>
       ))}
+
     </div>
   );
 };

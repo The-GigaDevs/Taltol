@@ -1,7 +1,6 @@
 import Head from 'next/head';
 
-import RegisterLoginModal from '../components/RegisterLoginModal';
-import  QuotesCards from '../components/QuotesCards';
+import Home from './home';
 const index = () => {
   return (
     <>
@@ -16,7 +15,7 @@ user experience for quotes."
         <meta name="author" content="Abdul Hameid" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <QuotesCards />
+      <Home />
     </>
   );
 };
