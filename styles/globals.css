@@ -583,7 +583,7 @@ svg {
   cursor: pointer;
 }
 
-/* -----------Quotes-Card----------- */
+/* -----------Quote-Card----------- */
 
 .quote-cards {
   margin-top: 2.5rem;
@@ -695,7 +695,7 @@ svg {
   margin-bottom: 0;
 }
 
-/* Home-Main */
+/* -***********Home-Main***********- */
 .home-main-content {
   padding-top: 8rem;
   display: flex;
@@ -1003,7 +1003,7 @@ svg {
   cursor: pointer;
 }
 
-/* ----------Quote-Page---------- */
+/* -***********Quote-Page***********- */
 .quote-header {
   padding: 25px;
   background-color: #121212;
@@ -1154,6 +1154,108 @@ svg {
   font-weight: 700;
   line-height: 2.3rem;
   color: var(--clr-gray-light);
+}
+
+/* -***********Category-Main***********- */
+.category-main {
+  padding-top: 6rem;
+}
+
+.category-header-share-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1.5rem;
+  width: 18rem;
+  height: 5rem;
+  background-color: var(--clr-white);
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  color: var(--clr-gray-semi);
+  cursor: pointer;
+}
+
+.category-header-share-btn:hover {
+  color: var(--clr-pink);
+  border: 1px solid var(--clr-pink);
+}
+
+.category-header-share-btn:hover svg > path {
+  fill: var(--clr-pink);
+}
+
+.category-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3.5rem 5rem;
+  flex-wrap: wrap;
+  margin-top: 3.5rem;
+}
+
+.category-header-bg {
+  width: 40rem;
+  position: relative;
+}
+
+.category-header-desc {
+  flex: 1;
+}
+
+.category-header-bg-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.category-header-bg-title {
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 4.6rem;
+  text-transform: capitalize;
+  color: var(--clr-white);
+}
+
+.category-header-bg-text {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 4rem;
+  text-transform: capitalize;
+  color: var(--clr-white);
+}
+
+.category-header-desc-title {
+  font-size: 4.8rem;
+  font-weight: 700;
+  line-height: 6.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-header-desc-text {
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 3.4rem;
+  color: var(--clr-gray-semi);
+}
+
+.category-header-desc-list {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.8rem;
+}
+
+.category-header-desc-list-tag {
+  color: #2f80ed;
 }
 
 /* Media Queries */

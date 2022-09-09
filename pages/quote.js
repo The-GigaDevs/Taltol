@@ -1,5 +1,5 @@
 import QuoteCard from '../components/QuoteCard';
-import randomAuthor from '../public/static/quotes-card-author.jpg';
+import randomAuthor from '../public/static/quote-card-author.jpg';
 
 const quote = () => {
   return (
@@ -42,10 +42,10 @@ const quote = () => {
             <div className="quote-body-author-profile">
               <span className="quote-body-author-name">John Doe</span>
               <div className="quote-body-author-tags">
-                Main tags:{' '}
-                <span className="quote-body-author-tag">tomorrow</span>,{' '}
-                <span className="quote-body-author-tag current">matter</span>,{' '}
-                <span className="quote-body-author-tag ">today</span>
+                Main tags:&nbsp;
+                <span className="quote-body-author-tag">tomorrow</span>,&nbsp;
+                <span className="quote-body-author-tag current">matter</span>
+                ,&nbsp; <span className="quote-body-author-tag ">today</span>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ const quote = () => {
 
         <section className="quote-body-similar-quotes">
           <h3 className="quote-body-similar-quotes-title">
-            Other similar quotes for{' '}
+            Other similar quotes for&nbsp;
             <span className="quote-body-author-tag current">matter</span>
           </h3>
           <div className="quote-body-similar-quotes-cards">

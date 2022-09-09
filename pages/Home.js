@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Footer from '../components/Footer';
 import MoodEmoji from '../components/MoodEmoji';
 import Navbar from '../components/Navbar';
