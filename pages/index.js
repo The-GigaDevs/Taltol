@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import RegisterLoginModal from '../components/RegisterLoginModal';
 
 import Home from './home';
 const index = () => {
@@ -15,7 +16,7 @@ user experience for quotes."
         <meta name="author" content="Abdul Hameid" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <Home />
+      <RegisterLoginModal />
     </>
   );
 };

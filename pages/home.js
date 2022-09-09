@@ -33,7 +33,6 @@ user experience for quotes."
               <TopicBrowse />
             </section>
           </div>
-          <p className="home-main-loading-text">Loading more...</p>
         </div>
       </main>
 
