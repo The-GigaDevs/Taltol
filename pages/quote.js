@@ -1,4 +1,4 @@
-import QuotesCard from '../components/QuotesCard';
+import QuoteCard from '../components/QuoteCard';
 import randomAuthor from '../public/static/quotes-card-author.jpg';
 
 const quote = () => {
@@ -107,9 +107,9 @@ const quote = () => {
             Other quotes for Frank Zappo
           </h3>
           <div className="quote-body-other-quotes-cards">
-            <QuotesCard />
-            <QuotesCard />
-            <QuotesCard />
+            <QuoteCard />
+            <QuoteCard />
+            <QuoteCard />
           </div>
         </section>
 
@@ -119,10 +119,10 @@ const quote = () => {
             <span className="quote-body-author-tag current">matter</span>
           </h3>
           <div className="quote-body-similar-quotes-cards">
-            <QuotesCard />
-            <QuotesCard />
-            <QuotesCard />
-            <QuotesCard />
+            <QuoteCard />
+            <QuoteCard />
+            <QuoteCard />
+            <QuoteCard />
           </div>
         </section>
       </div>

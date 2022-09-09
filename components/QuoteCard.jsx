@@ -1,10 +1,10 @@
-import randomAuthor from '../public/static/quotes-card-author.jpg';
+import randomAuthor from '../public/static/quote-card-author.jpg';
 
-const QuotesCard = () => {
+const QuoteCard = () => {
   return (
-    <div className="quotes-card">
-      <div className="quotes-card-likes">
-        <span className="quotes-card-likes-icon">
+    <div className="quote-card">
+      <div className="quote-card-likes">
+        <span className="quote-card-likes-icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -18,22 +18,22 @@ const QuotesCard = () => {
             />
           </svg>
         </span>
-        <span className="quotes-card-likes-count">1.4k</span>
+        <span className="quote-card-likes-count">1.4k</span>
       </div>
-      <h4 className="quotes-card-text">
+      <h4 className="quote-card-text">
         A beautiful person is someone who stays true to themselves and their
         spirit; someone who is self-confident and can make you smile.
       </h4>
-      <div className="quotes-card-author">
+      <div className="quote-card-author">
         <img
           src={randomAuthor.src}
           alt="Author Avatar"
-          className="quotes-card-author-avatar"
+          className="quote-card-author-avatar"
         />
-        <p className="quotes-card-author-name">Frank Zappa</p>
+        <p className="quote-card-author-name">Frank Zappa</p>
       </div>
     </div>
   );
 };
 
-export default QuotesCard;
+export default QuoteCard;

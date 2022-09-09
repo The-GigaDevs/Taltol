@@ -18,9 +18,9 @@ const Footer = () => {
             </p>
           </div>
           <p className="footer-cpr-text">
-            &copy; Taltol, inc {footerYear}. All rights reserved
+            &copy; taltol, inc {footerYear}. All rights reserved
           </p>
-          <span></span>
+          <span className="footer-empty"></span>
         </div>
       </div>
     </footer>
