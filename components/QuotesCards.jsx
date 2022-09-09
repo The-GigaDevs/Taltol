@@ -1,5 +1,3 @@
-import randomAuthor from '../public/static/quotes-card-author.jpg';
-
 const QuotesCards = () => {
   return (
     <div className="quotes-cards">
