@@ -1,5 +1,6 @@
 import randomAuthor from '../public/static/quote-card-author.jpg';
 import { useEffect } from 'react';
+import QuoteCards from './QuoteCards';
 
 const QuoteCard = (quote) => {
 
@@ -25,7 +26,7 @@ const QuoteCard = (quote) => {
             />
           </svg>
         </span>
-        <span className="quote-card-likes-count">1.4k</span>
+        <span className="quote-card-likes-count">{quote.quote.quote_liked}</span>
       </div>
       <h4 className="quote-card-text">{quote.quote.text}</h4>
       <div className="quote-card-author">

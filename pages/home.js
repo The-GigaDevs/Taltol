@@ -2,9 +2,8 @@ import Head from 'next/head';
 import Footer from '../components/Footer';
 import MoodEmoji from '../components/MoodEmoji';
 import Navbar from '../components/Navbar';
-import PickedSelect from '../components/PickedSelect';
-import QuoteCards from '../components/QuoteCards';
-import TopicBrowse from '../components/TopicBrowse';
+import QuotesProvider from './context/quotesProvider';
+import Content from './content';
 
 const home = () => {
   return (
@@ -23,17 +22,9 @@ user experience for quotes."
       <Navbar />
       <main className="home-main">
         <MoodEmoji />
-        <div className="container">
-          <div className="home-main-content">
-            <section className="home-main-left-content">
-              <PickedSelect />
-              <QuoteCards />
-            </section>
-            <section className="home-main-right-content">
-              <TopicBrowse />
-            </section>
-          </div>
-        </div>
+        <QuotesProvider>
+          <Content />
+        </QuotesProvider>
       </main>
 
       <Footer />
