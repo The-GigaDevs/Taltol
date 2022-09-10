@@ -1,5 +1,5 @@
 import categoryHeaderBG from '../public/static/category-header-bg.png';
-
+import Image from 'next/image';
 const CategoryHeader = () => {
   return (
     <header className="category-header">
@@ -47,7 +47,7 @@ const CategoryHeader = () => {
           </div>
         </div>
         <div className="category-header-bg">
-          <img src={categoryHeaderBG.src} alt="Background" />
+          <Image src={categoryHeaderBG.src} alt="Background" />
           <div className="category-header-bg-content">
             <h3 className="category-header-bg-title">Inspirational Quotes</h3>
             <span className="category-header-bg-text">74,883 quotes</span>

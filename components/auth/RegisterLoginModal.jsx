@@ -7,7 +7,7 @@ import {  signIn } from "next-auth/react"
 const RegisterLoginModal = ({ providers }) => {
   const [emailBtnActive, setEmailBtnActive] = useState(false);
   const [registerBtnActive, setRegisterBtnActive] = useState(false);
-  const [modal, setModal] = useState(true);
+  // const [modal, setModal] = useState(true);
 
   const handleEmailBtnClick = (e) => {
 
