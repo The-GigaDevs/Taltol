@@ -1,14 +1,27 @@
 import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
 import { useState } from 'react';
+import authService from '../../services/auth.service';
+import {  signIn } from "next-auth/react"
 
-const RegisterLoginModal = () => {
+const RegisterLoginModal = ({ providers }) => {
   const [emailBtnActive, setEmailBtnActive] = useState(false);
   const [registerBtnActive, setRegisterBtnActive] = useState(false);
+  const [modal, setModal] = useState(true);
 
+  const handleEmailBtnClick = (e) => {
+
+    e.preventDefault();
+
+    authService.login('faysaljafry@gmail.com', '12345678').then((res) => {
+      console.log(res);
+    });
+  }
   return (
     <div className="register-login-modal">
-      <span className="register-login-modal-close">
+      <div className="register-login-modal-content">
+
+`      <span className="register-login-modal-close" >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -22,6 +35,8 @@ const RegisterLoginModal = () => {
           />
         </svg>
       </span>
+      </div>
+      
       <div className="register-login-modal-wrapper">
         <h1 className="register-login-modal-title">Login or Register</h1>
         <div className="register-login-modal-socials">
@@ -42,7 +57,7 @@ const RegisterLoginModal = () => {
               Continue with LinkedIn
             </span>
           </div>
-          <div className="register-login-modal-socials-btn">
+          <div className="register-login-modal-socials-btn" onClick={()=> signIn(providers.google.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -88,7 +103,7 @@ const RegisterLoginModal = () => {
               Continue with Twitter
             </span>
           </div>
-          <div className="register-login-modal-socials-btn">
+          <div className="register-login-modal-socials-btn" onClick={()=> signIn(providers.facebook.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -146,7 +161,7 @@ const RegisterLoginModal = () => {
               placeholder="Enter your password"
             />
           </div>
-          <button type="submit" className="register-login-modal-form-btn">
+          <button type="submit" className="register-login-modal-form-btn" onClick={handleEmailBtnClick}>
             Login
           </button>
         </form>
@@ -251,3 +266,4 @@ const RegisterLoginModal = () => {
 };
 
 export default RegisterLoginModal;
+

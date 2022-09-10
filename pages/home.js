@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Footer from '../components/Footer';
 import MoodEmoji from '../components/MoodEmoji';
 import Navbar from '../components/Navbar';
@@ -32,7 +33,6 @@ user experience for quotes."
               <TopicBrowse />
             </section>
           </div>
-          <p className="home-main-loading-text">Loading more...</p>
         </div>
       </main>
 
