@@ -1,7 +1,14 @@
 import Image from 'next/image';
 import randomAuthor from '../public/static/quote-card-author.jpg';
+import { useEffect } from 'react';
 
-const QuoteCard = () => {
+const QuoteCard = (quote) => {
+
+
+  useEffect(() => {
+    console.log(quote);
+  }, []);
+
   return (
     <div className="quote-card">
       <div className="quote-card-likes">
@@ -21,17 +28,16 @@ const QuoteCard = () => {
         </span>
         <span className="quote-card-likes-count">1.4k</span>
       </div>
-      <h4 className="quote-card-text">
-        A beautiful person is someone who stays true to themselves and their
-        spirit; someone who is self-confident and can make you smile.
-      </h4>
+      <h4 className="quote-card-text">{quote.quote.text}</h4>
       <div className="quote-card-author">
         <Image
+          width="50"
+          height="50"
           src={randomAuthor.src}
           alt="Author Avatar"
           className="quote-card-author-avatar"
         />
-        <p className="quote-card-author-name">Frank Zappa</p>
+        <p className="quote-card-author-name">{quote.quote.author.name}</p>
       </div>
     </div>
   );
