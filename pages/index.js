@@ -2,7 +2,6 @@ import { getProviders } from 'next-auth/react';
 import Head from 'next/head';
 import RegisterLoginModal from '../components/auth/RegisterLoginModal';
 
-import Home from './home';
 const index = ({providers}) => {
   return (
     <>
