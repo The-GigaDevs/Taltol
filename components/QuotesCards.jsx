@@ -1,6 +1,5 @@
 import randomAuthor from "../public/static/quotes-card-author.jpg";
 import authService from "../services/auth.service";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useState, useEffect } from "react";
 const QuotesCards = () => {
   const [quotes, setQuotes] = useState([]);

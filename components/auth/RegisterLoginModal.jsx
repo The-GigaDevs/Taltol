@@ -1,16 +1,13 @@
 import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
 import { useState } from 'react';
-import authService from '../services/auth.service';
+import authService from '../../services/auth.service';
+import {  signIn } from "next-auth/react"
 
-
-const RegisterLoginModal = () => {
+const RegisterLoginModal = ({ providers }) => {
   const [emailBtnActive, setEmailBtnActive] = useState(false);
   const [registerBtnActive, setRegisterBtnActive] = useState(false);
   const [modal, setModal] = useState(true);
-
-
-
 
   const handleEmailBtnClick = (e) => {
 
@@ -19,8 +16,7 @@ const RegisterLoginModal = () => {
     authService.login('faysaljafry@gmail.com', '12345678').then((res) => {
       console.log(res);
     });
-
-}
+  }
   return (
     <div className="register-login-modal">
       <div className="register-login-modal-content">
@@ -61,7 +57,7 @@ const RegisterLoginModal = () => {
               Continue with LinkedIn
             </span>
           </div>
-          <div className="register-login-modal-socials-btn">
+          <div className="register-login-modal-socials-btn" onClick={()=> signIn(providers.google.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -107,7 +103,7 @@ const RegisterLoginModal = () => {
               Continue with Twitter
             </span>
           </div>
-          <div className="register-login-modal-socials-btn">
+          <div className="register-login-modal-socials-btn" onClick={()=> signIn(providers.facebook.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -270,3 +266,4 @@ const RegisterLoginModal = () => {
 };
 
 export default RegisterLoginModal;
+
