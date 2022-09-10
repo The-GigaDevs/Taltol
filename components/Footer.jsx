@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer-content">
           <div className="footer-brand">
-            <h1 className="footer-brand-title">Taltol</h1>
+            <h1 className="footer-brand-title">taltol</h1>
             <p className="footer-brand-text">
               We love quotes and we want to provide the best user experience for
               quotes.{' '}
@@ -18,9 +18,9 @@ const Footer = () => {
             </p>
           </div>
           <p className="footer-cpr-text">
-            &copy; Taltol, inc {footerYear}. All rights reserved
+            &copy; taltol, inc {footerYear}. All rights reserved
           </p>
-          <span></span>
+          <span className="footer-empty"></span>
         </div>
       </div>
     </footer>

@@ -1,12 +1,11 @@
-import Head from 'next/head';
 import Footer from '../components/Footer';
 import MoodEmoji from '../components/MoodEmoji';
 import Navbar from '../components/Navbar';
 import PickedSelect from '../components/PickedSelect';
-import QuotesCards from '../components/QuotesCards';
+import QuoteCards from '../components/QuoteCards';
 import TopicBrowse from '../components/TopicBrowse';
 
-const Home = () => {
+const home = () => {
   return (
     <>
       <Head>
@@ -27,7 +26,7 @@ user experience for quotes."
           <div className="home-main-content">
             <section className="home-main-left-content">
               <PickedSelect />
-              <QuotesCards />
+              <QuoteCards />
             </section>
             <section className="home-main-right-content">
               <TopicBrowse />
@@ -42,4 +41,4 @@ user experience for quotes."
   );
 };
 
-export default Home;
+export default home;
