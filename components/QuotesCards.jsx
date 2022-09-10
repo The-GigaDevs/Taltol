@@ -17,7 +17,6 @@ const QuotesCards = () => {
           setLoading(false);
         },
         (error) => {
-          setError(error);
           setLoading(false);
         }
       );
