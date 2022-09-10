@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import randomAuthor from '../public/static/quote-card-author.jpg';
 import { useEffect } from 'react';
 
@@ -30,9 +29,7 @@ const QuoteCard = (quote) => {
       </div>
       <h4 className="quote-card-text">{quote.quote.text}</h4>
       <div className="quote-card-author">
-        <Image
-          width="50"
-          height="50"
+        <img
           src={randomAuthor.src}
           alt="Author Avatar"
           className="quote-card-author-avatar"
