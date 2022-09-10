@@ -16,8 +16,7 @@ const TopicBrowse = () => {
           setCategories(response.results);
           setLoading(false);
         },
-        (error) => {
-          setError(error);
+        () => {
           setLoading(false);
         }
       );
@@ -27,7 +26,6 @@ const TopicBrowse = () => {
 
   function getCategoryQuotes () {
 
-    debugger
     authService.getQuotesByCategory(this.id, 1, 10).then(
       (response) => {
         console.log(response);
@@ -35,87 +33,8 @@ const TopicBrowse = () => {
     );
   }
 
-
-  
-    const Topics = [
-    {
-      topicName: 'Humor Quotes ',
-    },
-    {
-      topicName: 'Life Lessons Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-    {
-      topicName: 'Humor Quotes ',
-    },
-    {
-      topicName: 'Life Lessons Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-    {
-      topicName: 'Humor Quotes ',
-    },
-    {
-      topicName: 'Life Lessons Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-    {
-      topicName: 'Humor Quotes ',
-    },
-    {
-      topicName: 'Life Lessons Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-    {
-      topicName: 'Humor Quotes ',
-    },
-    {
-      topicName: 'Life Lessons Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-    {
-      topicName: 'Humor Quotes ',
-    },
-    {
-      topicName: 'Life Lessons Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-    {
-      topicName: 'Humor Quotes ',
-    },
-    {
-      topicName: 'Life Lessons Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-    {
-      topicName: 'Humor Quotes ',
-    },
-    {
-      topicName: 'Life Lessons Quotes  ',
-    },
-    {
-      topicName: 'Motivational Quotes  ',
-    },
-  ];
-
   return (
+    loading ? 'Loading ...' :
     <div className="topic-browse">
       <h3 className="topic-browse-title">Browse by topic</h3>
       <ul className="topic-browse-list" >
