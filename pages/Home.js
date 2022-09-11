@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import PickedSelect from '../components/PickedSelect';
 import QuoteCards from '../components/QuoteCards';
 import TopicBrowse from '../components/TopicBrowse';
+import Head from 'next/head';
 
 const home = () => {
   return (
