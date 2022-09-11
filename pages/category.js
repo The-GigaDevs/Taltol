@@ -1,6 +1,9 @@
 import Head from 'next/head';
 import CategoryHeader from '../components/CategoryHeader';
+import CategoryResults from '../components/CategoryResults';
 import Navbar from '../components/Navbar';
+import ProFooter from '../components/ProFooter';
+import TopicBrowse from '../components/TopicBrowse';
 
 const category = () => {
   return (
@@ -18,12 +21,21 @@ user experience for quotes."
       </Head>
 
       <Navbar />
+      <CategoryHeader />
 
       <main className="category-main">
         <div className="container">
-          <CategoryHeader />
+          <div className="category-main-content">
+            <section className="category-main-left-content">
+              <CategoryResults />
+            </section>
+            <section className="category-main-right-content">
+              <TopicBrowse />
+            </section>
+          </div>
         </div>
       </main>
+      <ProFooter />
     </>
   );
 };
