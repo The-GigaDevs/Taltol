@@ -1,6 +1,5 @@
 import randomAuthor from '../public/static/quote-card-author.jpg';
 import { useEffect } from 'react';
-import QuoteCards from './QuoteCards';
 
 const QuoteCard = (quote) => {
 
