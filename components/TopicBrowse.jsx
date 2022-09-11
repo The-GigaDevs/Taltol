@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import authService from "../services/auth.service";
+import  quotesContext  from "../pages/context/quotes.context";
+
 
 const TopicBrowse = () => {
 
   const [ loading, setLoading ] = useState(true);
   const [caterories, setCategories] = useState([]);
-
+  const { quotes, setQuotes } = useContext(quotesContext);
 
 
   useEffect(() => {
@@ -29,6 +31,7 @@ const TopicBrowse = () => {
     authService.getQuotesByCategory(this.id, 1, 10).then(
       (response) => {
         console.log(response);
+        setQuotes([...quotes, ...response.results]);
       }
     );
   }
@@ -39,7 +42,7 @@ const TopicBrowse = () => {
       <h3 className="topic-browse-title">Browse by topic</h3>
       <ul className="topic-browse-list" >
         {caterories.map((category, index) => (
-          <li key={index} onClick={getCategoryQuotes.bind(category)} className="topic-browse-list-item">
+          <li key={index} className="topic-browse-list-item">
             {category.name}
           </li>
         ))}

@@ -1,25 +1,26 @@
-import { useEffect, useState } from 'react';
-import Modal from 'react-modal';
+import { useEffect, useState } from "react";
+import Modal from "react-modal";
+import authService from "../services/auth.service";
 
-Modal.setAppElement('#__next');
+Modal.setAppElement("#__next");
 const filterModalStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    padding: '0',
-    border: 'none',
-    borderRadius: '7px',
-    width: '95%',
-    maxWidth: '80rem',
-    boxShadow: '0px 0px 7px rgba(0, 0, 0, 0.25)',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    padding: "0",
+    border: "none",
+    borderRadius: "7px",
+    width: "95%",
+    maxWidth: "80rem",
+    boxShadow: "0px 0px 7px rgba(0, 0, 0, 0.25)",
   },
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    zIndex: '3',
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    zIndex: "3",
   },
 };
 
@@ -27,6 +28,7 @@ const FilterModal = ({ show, setShow }) => {
   const [inputShowAuthors, setInputShowAuthors] = useState(false);
   const [inputShowTags, setInputShowTags] = useState(false);
   const [inputShowTopics, setInputShowTopics] = useState(false);
+  const [authors, setAuthors] = useState([]);
 
   function closeModal() {
     setShow(false);
@@ -36,10 +38,14 @@ const FilterModal = ({ show, setShow }) => {
   }
 
   useEffect(() => {
+    authService.getAuthors().then((res) => {
+      setAuthors(res.results);
+    });
+
     if (show) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [show]);
 
@@ -76,8 +82,8 @@ const FilterModal = ({ show, setShow }) => {
                 <div
                   className={
                     inputShowAuthors
-                      ? 'filter-modal-filters-search active'
-                      : 'filter-modal-filters-search'
+                      ? "filter-modal-filters-search active"
+                      : "filter-modal-filters-search"
                   }
                 >
                   <span
@@ -99,54 +105,23 @@ const FilterModal = ({ show, setShow }) => {
               </div>
               <div className="filter-modal-filters-categories">
                 <div className="filter-modal-filters-checks">
-                  <label className="filter-modal-filters-check">
-                    Frank Zappo
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Yara Tmash
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Kahldoun Bassam
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Edward Hani
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Francisko Bulla
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Bandar Tamam
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Frank Zappo
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Yara Tmash
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Kahldoun Bassam
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
+                  {!inputShowAuthors ? authors.slice(0, 10).map((author) => (
+                    <label className="filter-modal-filters-check">
+                      {author.name}
+                      <input type="checkbox" />
+                      <span className="filter-modal-filters-check-checkmark"></span>
+                    </label>
+                  )) : authors.map((author) => (
+                    <label className="filter-modal-filters-check">
+                      {author.name}
+                      <input type="checkbox" />
+                      <span className="filter-modal-filters-check-checkmark"></span>
+                    </label>
+                  ))}
                 </div>
-                <div className="filter-modal-filters-showall">
-                  <span className="filter-modal-filters-showall-text">
+                {!inputShowAuthors && (
+                <div className="filter-modal-filters-showall" onClick={() => setInputShowAuthors(true)}>
+                  <span className="filter-modal-filters-showall-text" >
                     Show All
                   </span>
                   <span className="filter-modal-filters-showall-icon">
@@ -164,6 +139,30 @@ const FilterModal = ({ show, setShow }) => {
                     </svg>
                   </span>
                 </div>
+                )}
+                {inputShowAuthors && (
+                  <div className="filter-modal-filters-showall" onClick={() => setInputShowAuthors(false)}>
+                    <span className="filter-modal-filters-showall-text" >
+                      Show Less
+                    </span>
+                    <span className="filter-modal-filters-showall-icon">
+                      <svg
+
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="8"
+                        viewBox="0 0 12 8"
+                        fill="none"
+                      >
+                        <path
+                          d="M1.41 8L6 3.42L10.59 8L12 6.59L6 0.59L0 6.59L1.41 8Z"
+                          fill="#333333"
+                        ></path>
+                      </svg>
+                    </span>
+                  </div>
+                )}
+
               </div>
             </div>
             <div className="filter-modal-filters">
@@ -172,8 +171,8 @@ const FilterModal = ({ show, setShow }) => {
                 <div
                   className={
                     inputShowTags
-                      ? 'filter-modal-filters-search active'
-                      : 'filter-modal-filters-search'
+                      ? "filter-modal-filters-search active"
+                      : "filter-modal-filters-search"
                   }
                 >
                   <span
@@ -268,8 +267,8 @@ const FilterModal = ({ show, setShow }) => {
                 <div
                   className={
                     inputShowTopics
-                      ? 'filter-modal-filters-search active'
-                      : 'filter-modal-filters-search'
+                      ? "filter-modal-filters-search active"
+                      : "filter-modal-filters-search"
                   }
                 >
                   <span

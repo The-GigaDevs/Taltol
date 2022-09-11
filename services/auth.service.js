@@ -2,23 +2,23 @@ import httpService from "./http.sevice";
 
 const login = (email, password) => httpService
     .post('/users/login/', { email, password })
-    .then(({data}) => data)
-    .catch(({error})=> Promise.reject(error.response))
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error})=> Promise.reject(error))
 
 const register = (data) => httpService
     .post('/register' ,data)
-    .then(({data}) => data)
-    .catch(({error})=> Promise.reject(error.response))
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error})=> Promise.reject(error))
 
 const me = () => httpService
     .get('/users/me')
-    .then(({data}) => data)
-    .catch(({error})=> Promise.reject(error.response))
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error})=> Promise.reject(error))
 
 const getQuotes = (page, pageSize) => httpService
     .get(`/quotes?page=${page}&page_size=${pageSize}`)
-    .then(({data}) => data)
-    .catch(({error})=> Promise.reject(error.response))
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error})=> Promise.reject(error))
 
 const getQuote = (id) => httpService
     .get(`/quotes/${id}`)
@@ -33,9 +33,9 @@ const updateQuote = (id, data) => httpService
 
 //write a get request to get authors
 const getAuthors = () => httpService
-    .get(`/quotes/authors/?page=${1}&page_size=${10}`)
-    .then(({data}) => data)
-    .catch(({error})=> Promise.reject(error.response))
+    .get(`/quotes/authors/`)
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error})=> Promise.reject(error))
 
 //write a get request to get quotes in a catgory
 const getQuotesByCategory = (category, page, pageSize) => httpService
