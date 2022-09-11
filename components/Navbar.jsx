@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import FilterModal from './FilterModal';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
-
+  const route = useRouter();
   return (
     <>
       <nav className="navbar">
@@ -132,7 +134,10 @@ const Navbar = () => {
                     Collections
                   </a>
                 </Link>
-                <span className="navbar-profile-dropdown-link">
+                <span className="navbar-profile-dropdown-link" onClick={async () => {
+                  route.push('/')
+                  await signOut();
+                }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

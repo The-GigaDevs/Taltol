@@ -1,12 +1,21 @@
 import '../styles/globals.css';
 import Head from 'next/head';
-function MyApp({ Component, pageProps }) {
+import store from '../store'
+import { Provider } from 'react-redux';
+import { SessionProvider } from 'next-auth/react'
+
+function MyApp({ Component,
+  pageProps: { session, ...pageProps }, }) {
   return (
     <>
-      <Head>
-        <link rel="shortcut icon" href="/logo.png" />
-      </Head>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Head>
+          <link rel="shortcut icon" href="/logo.png" />
+        </Head>
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </Provider>
     </>
   );
 }
