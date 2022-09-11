@@ -33,7 +33,7 @@ const updateQuote = (id, data) => httpService
 
 //write a get request to get authors
 const getAuthors = () => httpService
-    .get(`/quotes/authors/?page=${1}&page_size=${10}`)
+    .get(`/quotes/authors/`)
     .then(({data}) => Promise.resolve(data))
     .catch(({error})=> Promise.reject(error))
 

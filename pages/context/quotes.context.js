@@ -3,7 +3,9 @@ import { createContext } from "react";
 const QuotesContext = createContext(
     {
         quotes: [],
-        setQuotes: () => {}
+        topics: [],
+        setQuotes: () => {},
+        setTopics: () => {}
     }
 );
 
