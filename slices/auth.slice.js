@@ -12,7 +12,7 @@ export const loginUser = createAsyncThunk(
     'auth/login',
     async (email, password) => {
         const result = await login(email, password)
-        console.log(result);
+        return result;
     }
 )
 export const authSlice = createSlice({
