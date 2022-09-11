@@ -4,8 +4,17 @@ import MoodEmoji from '../components/MoodEmoji';
 import Navbar from '../components/Navbar';
 import QuotesProvider from './context/quotesProvider';
 import Content from './content';
+import { useSession } from 'next-auth/react';
+import AccessDenied from '../components/AccessDenied';
 
-const home = () => {
+export default function home() {
+  const session = useSession();
+  console.log(session, 'session')
+  if (session?.status === 'unauthenticated') {
+    return (
+        <AccessDenied />
+    )
+  }
   return (
     <>
       <Head>
@@ -29,7 +38,5 @@ user experience for quotes."
 
       <Footer />
     </>
-  );
-};
-
-export default home;
+  )
+}

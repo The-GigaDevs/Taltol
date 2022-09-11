@@ -2,8 +2,8 @@ import httpService from "./http.sevice";
 
 const login = (email, password) => httpService
     .post('/users/login/', { email, password })
-    .then(({data}) => Promise.resolve(data))
-    .catch(({error})=> Promise.reject(error))
+    .then(({data}) => data)
+    .catch((response)=> Promise.reject(response))
 
 const register = (data) => httpService
     .post('/register' ,data)

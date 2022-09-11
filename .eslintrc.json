@@ -2,6 +2,7 @@
   "extends": ["next/core-web-vitals", "eslint:recommended"],
   "rules": {
     // Other rules
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "no-unused-vars": "off"
   }
 }
