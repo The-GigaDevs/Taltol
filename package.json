@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
     "@tippyjs/react": "^4.2.6",
     "axios": "^0.27.2",
     "dotenv": "^16.0.2",
@@ -20,6 +21,7 @@
     "react-hash-string": "^1.0.0",
     "react-icons": "^4.4.0",
     "react-modal": "^3.15.1",
+    "react-redux": "^8.0.2",
     "swiper": "^8.3.2"
   },
   "devDependencies": {

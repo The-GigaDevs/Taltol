@@ -22,14 +22,14 @@ const getQuotes = (page, pageSize) => httpService
 
 const getQuote = (id) => httpService
     .get(`/quotes/${id}`)
-    .then(({data}) => Promise.resolve(data))
-    .catch(({error})=> Promise.reject(error))
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
 
 //write a put request to update the quote
 const updateQuote = (id, data) => httpService
     .put(`/quotes/${id}`, data)
-    .then(({data}) => Promise.resolve(data))
-    .catch(({error})=> Promise.reject(error))
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
 
 //write a get request to get authors
 const getAuthors = () => httpService
@@ -40,18 +40,19 @@ const getAuthors = () => httpService
 //write a get request to get quotes in a catgory
 const getQuotesByCategory = (category, page, pageSize) => httpService
     .get(`/quotes/categories/${category}/?page=${page}&page_size=${pageSize}`)
-    .then(({data}) => Promise.resolve(data))
-    .catch(({error})=> Promise.reject(error))
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
 
 //write a get reqeust to get categories
 const getCategories = () => httpService
     .get(`/quotes/categories/`)
-    .then(({data}) => Promise.resolve(data))
-    .catch(({error})=> Promise.reject(error))
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
 
 
 const authService = {
     login,
+    me,
     register,
     getQuotes,
     getQuote,

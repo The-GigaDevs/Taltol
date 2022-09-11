@@ -1,21 +1,22 @@
 import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
 import { useState } from 'react';
-import authService from '../../services/auth.service';
+// import authService from '../../services/auth.service';
 import {  signIn } from "next-auth/react"
 
 const RegisterLoginModal = ({ providers }) => {
   const [emailBtnActive, setEmailBtnActive] = useState(false);
   const [registerBtnActive, setRegisterBtnActive] = useState(false);
+  const [loginUser, setLoginUser] = useState({ email: '', password: ''})
   // const [modal, setModal] = useState(true);
-
+  console.log(providers);
   const handleEmailBtnClick = (e) => {
-
     e.preventDefault();
-
-    authService.login('faysaljafry@gmail.com', '12345678').then((res) => {
-      console.log(res);
-    });
+    
+    signIn('credentials', { username: loginUser.email, password: loginUser.password })
+    // authService.login('faysaljafry@gmail.com', '12345678').then((res) => {
+    //   console.log(res);
+    // });
   }
   return (
     <div className="register-login-modal">
@@ -40,7 +41,7 @@ const RegisterLoginModal = ({ providers }) => {
       <div className="register-login-modal-wrapper">
         <h1 className="register-login-modal-title">Login or Register</h1>
         <div className="register-login-modal-socials">
-          <div className="register-login-modal-socials-btn">
+          <div className="register-login-modal-socials-btn" onClick={()=> signIn(providers.linkedin.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -86,7 +87,7 @@ const RegisterLoginModal = ({ providers }) => {
               Continue with Google
             </span>
           </div>
-          <div className="register-login-modal-socials-btn">
+          <div className="register-login-modal-socials-btn" onClick={() => signIn(providers.twitter.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -152,6 +153,8 @@ const RegisterLoginModal = ({ providers }) => {
               className="register-login-modal-form-group-input"
               type="email"
               placeholder="Enter email address"
+              value={loginUser.email}
+              onChange={({ target }) => setLoginUser({ ...loginUser, email: target.value })}
             />
           </div>
           <div className="register-login-modal-form-group">
@@ -159,6 +162,8 @@ const RegisterLoginModal = ({ providers }) => {
               className="register-login-modal-form-group-input"
               type="password"
               placeholder="Enter your password"
+              value={loginUser.password}
+              onChange={({ target }) => setLoginUser({ ...loginUser, password: target.value })}
             />
           </div>
           <button type="submit" className="register-login-modal-form-btn" onClick={handleEmailBtnClick}>
