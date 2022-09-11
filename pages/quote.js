@@ -1,6 +1,5 @@
 import QuoteCard from '../components/QuoteCard';
 import randomAuthor from '../public/static/quote-card-author.jpg';
-import Image from 'next/image';
 const quote = () => {
   return (
     <div className="quote">
@@ -33,7 +32,7 @@ const quote = () => {
         </div>
         <div className="quote-body-content">
           <div className="quote-body-author">
-            <Image
+            <img
               src={randomAuthor.src}
               alt="Author Avatar"
               className="quote-body-author-avatar"
