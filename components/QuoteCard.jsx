@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import randomAuthor from '../public/static/quote-card-author.jpg';
 
 const QuoteCard = () => {
@@ -25,7 +26,7 @@ const QuoteCard = () => {
         spirit; someone who is self-confident and can make you smile.
       </h4>
       <div className="quote-card-author">
-        <img
+        <Image
           src={randomAuthor.src}
           alt="Author Avatar"
           className="quote-card-author-avatar"
