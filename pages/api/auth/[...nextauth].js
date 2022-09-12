@@ -50,21 +50,29 @@ export const authOptions = {
     },
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
+            console.log( credentials, 'account');
+            if (credentials) {
+                return {
+                    email: credentials?.username,
+                };
+            }
             if (user) {
-                return user;
+                return '/home';
             } else {
                 return '/';
             }
         },
-        async jwt(token, user) {
-            if (user) {
-                token = { accessToken: user.accessToken }
+        async jwt({token, account}) {
+            console.log(token, account, 'JWT FUNCTION')
+            if (account) {
+                token = { accessToken: account.access_token }
             }
             return token;
         },
         async session({ session, token, user }) {
+            console.log(session, token, user, 'SESSION FUNCTION')
             session.accessToken = token.accessToken;
-            // session.user = user;
+            session.user = user;
             return session;
         }
     }

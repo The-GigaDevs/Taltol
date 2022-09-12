@@ -15,6 +15,16 @@ const RegisterLoginModal = ({ providers }) => {
   const handleEmailBtnClick = async (e) => {
     e.preventDefault();
     const result = await signIn('credentials', { username: loginUser.email, password: loginUser.password , redirect: false})
+    console.log(result, 'result of signIn');
+    if(result?.status === 200) {
+      route.push(`${result?.url}/home`);
+    } else {
+      console.log(result?.error)
+    }
+  }
+  const signInThroughProvider = async (id) => {
+    const result = await signIn(id)
+    console.log(result, 'result of signIn');
     if(result?.status === 200) {
       route.push(`${result?.url}/home`);
     } else {
@@ -44,7 +54,7 @@ const RegisterLoginModal = ({ providers }) => {
       <div className="register-login-modal-wrapper">
         <h1 className="register-login-modal-title">Login or Register</h1>
         <div className="register-login-modal-socials">
-          <div className="register-login-modal-socials-btn" onClick={()=> signIn(providers.linkedin.id)}>
+          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider(providers.linkedin.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -61,7 +71,7 @@ const RegisterLoginModal = ({ providers }) => {
               Continue with LinkedIn
             </span>
           </div>
-          <div className="register-login-modal-socials-btn" onClick={()=> signIn(providers.google.id)}>
+          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider(providers.google.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -90,7 +100,7 @@ const RegisterLoginModal = ({ providers }) => {
               Continue with Google
             </span>
           </div>
-          <div className="register-login-modal-socials-btn" onClick={() => signIn(providers.twitter.id)}>
+          <div className="register-login-modal-socials-btn" onClick={() => signInThroughProvider(providers.twitter.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -107,7 +117,7 @@ const RegisterLoginModal = ({ providers }) => {
               Continue with Twitter
             </span>
           </div>
-          <div className="register-login-modal-socials-btn" onClick={()=> signIn(providers.facebook.id)}>
+          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider(providers.facebook.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"

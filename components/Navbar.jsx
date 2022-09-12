@@ -112,9 +112,9 @@ const Navbar = () => {
                     : 'navbar-profile-dropdown'
                 }
               >
-                <h2 className="navbar-profile-dropdown-name">Abdul Hameid</h2>
+                <h2 className="navbar-profile-dropdown-name">Atabic Umer</h2>
                 <p className="navbar-profile-dropdown-mail">
-                  abdulhameid@gmail.com
+                  atabic14@gmail.com
                 </p>
                 <Link href="#">
                   <a className="navbar-profile-dropdown-link">
@@ -134,25 +134,30 @@ const Navbar = () => {
                     Collections
                   </a>
                 </Link>
-                <span className="navbar-profile-dropdown-link" onClick={async () => {
-                  route.push('/')
-                  await signOut();
-                }}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    ></path>
-                  </svg>
-                  Log Out
-                </span>
+                <Link 
+                  href={'/'}
+                  passHref
+                  onClick={async () => {
+                    await signOut();
+                    route.push('/')
+                  }}>
+                  <span className="navbar-profile-dropdown-link">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                      ></path>
+                    </svg>
+                    Log Out
+                  </span>
+                </Link>
               </div>
             </div>
           </div>

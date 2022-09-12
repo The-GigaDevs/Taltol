@@ -7,14 +7,14 @@ import Content from './content';
 import { useSession } from 'next-auth/react';
 import AccessDenied from '../components/AccessDenied';
 
-export default function home() {
+export default function Home() {
   const session = useSession();
   console.log(session, 'session')
-  if (session?.status === 'unauthenticated') {
-    return (
-        <AccessDenied />
-    )
-  }
+  // if (session?.status === 'unauthenticated') {
+  //   return (
+  //       <AccessDenied />
+  //   )
+  // }
   return (
     <>
       <Head>
