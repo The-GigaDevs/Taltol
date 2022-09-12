@@ -1,4 +1,4 @@
-import QuoteCard from '../components/QuoteCard';
+import QuoteCard from '../components/QuoteStatic';
 import randomAuthor from '../public/static/quote-card-author.jpg';
 const quote = () => {
   return (
