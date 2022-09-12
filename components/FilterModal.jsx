@@ -29,6 +29,23 @@ const FilterModal = ({ show, setShow }) => {
   const [inputShowTags, setInputShowTags] = useState(false);
   const [inputShowTopics, setInputShowTopics] = useState(false);
   const [authors, setAuthors] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  // const dispatch = useDispatch();
+  // const authors1 = useSelector((state) => state.authors?.authors);
+
+  // useEffect(() => {
+  //   // setAuthors(authors1);
+  //   console.log("authors1", authors);
+  //   if(show){
+  //     document.body.style.overflow = "hidden";
+  //   }
+  //   else{
+  //     document.body.style.overflow = "unset";
+
+  //   }
+  // }, [authors, show]);
+
 
   function closeModal() {
     setShow(false);
@@ -40,6 +57,10 @@ const FilterModal = ({ show, setShow }) => {
   useEffect(() => {
     authService.getAuthors().then((res) => {
       setAuthors(res.results);
+    });
+    authService.getCategories().then((res) => {
+      setCategories(res.results);
+      console.log(res.results);
     });
 
     if (show) {
@@ -105,14 +126,14 @@ const FilterModal = ({ show, setShow }) => {
               </div>
               <div className="filter-modal-filters-categories">
                 <div className="filter-modal-filters-checks">
-                  {!inputShowAuthors ? authors.slice(0, 10).map((author) => (
-                    <label className="filter-modal-filters-check">
+                  {!inputShowAuthors ? authors?.slice(0, 10).map((author, index) => (
+                    <label className="filter-modal-filters-check" key={index}>
                       {author.name}
                       <input type="checkbox" />
                       <span className="filter-modal-filters-check-checkmark"></span>
                     </label>
-                  )) : authors.map((author) => (
-                    <label className="filter-modal-filters-check">
+                  )) : authors?.map((author, index) => (
+                    <label className="filter-modal-filters-check" key={index}>
                       {author.name}
                       <input type="checkbox" />
                       <span className="filter-modal-filters-check-checkmark"></span>
@@ -289,47 +310,9 @@ const FilterModal = ({ show, setShow }) => {
                 </div>
               </div>
               <div className="filter-modal-filters-categories">
+
                 <div className="filter-modal-filters-checks">
-                  <label className="filter-modal-filters-check">
-                    Islamic
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Romance
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Inspirational
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Entrepreneur
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Favorite
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Emotional
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Inspirational
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Romance
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
+                  {}
                   <label className="filter-modal-filters-check">
                     Islamic
                     <input type="checkbox" />

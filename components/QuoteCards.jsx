@@ -1,34 +1,39 @@
 import QuoteCard from "./QuoteCard";
 import authService from "../services/auth.service";
 import { useEffect, useState, useContext } from "react";
-import QuotesContext from "../pages/context/quotes.context";
-
+import { useDispatch, useSelector } from "react-redux";
+import { addMoreQuotes, fetchQuotes } from "../slices/quotes.slice";
 const QuoteCards = () => {
   // const [quotes, setQuotes] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPagesize] = useState(20);
-  const { quotes, setQuotes } = useContext(QuotesContext);
+  const [quotes, setQuotes] = useState([]);
 
-  const getQuotes = () => {
-    authService.getQuotes(page, pageSize).then((res) => {
-      setQuotes([...quotes, ...res.results]);
-    });
-  };
+  const dispatch = useDispatch();
+  const quotes1 = useSelector(state => state.quotes.quotes);
+
+  useEffect(() => {
+    setQuotes(quotes1.results);
+    console.log("quotes1", quotes);
+  }, [quotes1, quotes]);
+
+  // const getQuotes = () => {
+  //   authService.getQuotes(page, pageSize).then((res) => {
+  //     setQuotes([...quotes, ...res.results]);
+  //   });
+  // };
 
   function fetchNext() {
     setPage(page + 1);
-    getQuotes();
+    console.log("Next page", page);
+    dispatch(addMoreQuotes({page: page + 1, pageSize: pageSize}));
+    
   }
-
-  useEffect(() => {
-    getQuotes();
-  }, []);
-
   return (
     <>
       <div className="quote-cards">
-        {quotes.map((quote) => (
-          <QuoteCard key={quote._id} quote={quote} />
+        { quotes?.map((quote) => (
+          <QuoteCard key={quote.id} quote={quote} />
         ))}
       </div>
       <div>

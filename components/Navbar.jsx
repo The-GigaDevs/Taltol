@@ -1,7 +1,8 @@
-import Link from 'next/link';
-import { useState } from 'react';
-import FilterModal from './FilterModal';
-import { signOut } from 'next-auth/react';
+import Link from "next/link";
+import { useState } from "react";
+import FilterModal from "./FilterModal";
+import { signOut } from "next-auth/react";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -107,8 +108,8 @@ const Navbar = () => {
               <div
                 className={
                   isOpen
-                    ? 'navbar-profile-dropdown active'
-                    : 'navbar-profile-dropdown'
+                    ? "navbar-profile-dropdown active"
+                    : "navbar-profile-dropdown"
                 }
               >
                 <h2 className="navbar-profile-dropdown-name">Abdul Hameid</h2>
@@ -133,7 +134,10 @@ const Navbar = () => {
                     Collections
                   </a>
                 </Link>
-                <span className="navbar-profile-dropdown-link" onClick={() => signOut()}>
+                <span
+                  className="navbar-profile-dropdown-link"
+                  onClick={() => signOut()}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -155,7 +159,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <FilterModal show={show} setShow={setShow} />
+        <FilterModal show={show} setShow={setShow} />
     </>
   );
 };

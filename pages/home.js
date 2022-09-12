@@ -2,10 +2,13 @@ import Head from 'next/head';
 import Footer from '../components/Footer';
 import MoodEmoji from '../components/MoodEmoji';
 import Navbar from '../components/Navbar';
-import QuotesProvider from './context/quotesProvider';
 import Content from './content';
+import { Provider } from "react-redux";
+import store from '../store';
 
 const home = () => {
+
+
   return (
     <>
       <Head>
@@ -22,9 +25,9 @@ user experience for quotes."
       <Navbar />
       <main className="home-main">
         <MoodEmoji />
-        <QuotesProvider>
+        <Provider store={store}>
           <Content />
-        </QuotesProvider>
+        </Provider>
       </main>
 
       <Footer />

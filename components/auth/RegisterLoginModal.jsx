@@ -8,15 +8,21 @@ const RegisterLoginModal = ({ providers }) => {
   const [emailBtnActive, setEmailBtnActive] = useState(false);
   const [registerBtnActive, setRegisterBtnActive] = useState(false);
   const [loginUser, setLoginUser] = useState({ email: '', password: ''})
-  // const [modal, setModal] = useState(true);
-  console.log(providers);
-  const handleEmailBtnClick = (e) => {
+
+  const handleEmailBtnClick = async (e) => {
     e.preventDefault();
     
-    signIn('credentials', { username: loginUser.email, password: loginUser.password })
-    // authService.login('faysaljafry@gmail.com', '12345678').then((res) => {
-    //   console.log(res);
-    // });
+    const result = await signIn('credentials', { username: loginUser.email, password: loginUser.password, redirect: false })
+
+    if (result.status === 200) {
+      console.log(result)
+      window.location.href = `${result.url}/home`;
+
+      // console.log(result)
+    }else{
+      //otherwise set errors
+      console.log(result)
+    }
   }
   return (
     <div className="register-login-modal">
