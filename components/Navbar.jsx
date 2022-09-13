@@ -4,6 +4,7 @@ import FilterModal from "./FilterModal";
 import { signOut } from "next-auth/react";
 import { Provider } from "react-redux";
 import  store  from "../store";
+import { useRouter } from "next/router";
 
 
 const Navbar = () => {
