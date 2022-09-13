@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
 import { useState } from 'react';
 // import authService from '../../services/auth.service';
-import {  signIn } from "next-auth/react"
+import {  signIn, useSession } from "next-auth/react"
 import { useRouter } from 'next/router';
 
 const RegisterLoginModal = ({ providers }) => {
@@ -10,8 +10,10 @@ const RegisterLoginModal = ({ providers }) => {
   const [registerBtnActive, setRegisterBtnActive] = useState(false);
   const [loginUser, setLoginUser] = useState({ email: '', password: ''})
   const route = useRouter();
-  // const [modal, setModal] = useState(true);
-  console.log(providers);
+  // console.log(providers);
+  const { data: session, status } = useSession();
+
+  console.log(session);
   const handleEmailBtnClick = async (e) => {
     e.preventDefault();
     const result = await signIn('credentials', { username: loginUser.email, password: loginUser.password , redirect: false})
