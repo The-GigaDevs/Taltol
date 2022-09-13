@@ -22,7 +22,7 @@ const QuoteCards = () => {
   useEffect(() => {
     // dispatch(fetchQuotes());
     setQuotes(quotes1.results);
-    console.log("quotes1", quotes);
+    // console.log("quotes1", quotes);
   }, [quotes1, quotes]);
 
   // const getQuotes = () => {
@@ -33,7 +33,7 @@ const QuoteCards = () => {
 
   function fetchNext() {
     setPage(page + 1);
-    console.log("Next page", page);
+    // console.log("Next page", page);
     dispatch(addMoreQuotes({page: page + 1, pageSize: pageSize}));
     
   }

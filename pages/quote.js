@@ -33,7 +33,7 @@ const quote = () => {
         </div>
         <div className="quote-body-content">
           <div className="quote-body-author">
-            <Image
+            <img
               src={randomAuthor.src}
               alt="Author Avatar"
               className="quote-body-author-avatar"
@@ -106,11 +106,11 @@ const quote = () => {
           <h3 className="quote-body-other-quotes-title">
             Other quotes for Frank Zappo
           </h3>
-          <div className="quote-body-other-quotes-cards">
+          {/* <div className="quote-body-other-quotes-cards">
             <QuoteCard />
             <QuoteCard />
             <QuoteCard />
-          </div>
+          </div> */}
         </section>
 
         <section className="quote-body-similar-quotes">
@@ -118,12 +118,12 @@ const quote = () => {
             Other similar quotes for&nbsp;
             <span className="quote-body-author-tag current">matter</span>
           </h3>
-          <div className="quote-body-similar-quotes-cards">
+          {/* <div className="quote-body-similar-quotes-cards">
             <QuoteCard />
             <QuoteCard />
             <QuoteCard />
             <QuoteCard />
-          </div>
+          </div> */}
         </section>
       </div>
     </div>

@@ -5,7 +5,7 @@ const QuoteCard = (quote) => {
 
 
   useEffect(() => {
-    console.log(quote);
+    // console.log(quote);
   }, []);
 
   return (

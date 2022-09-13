@@ -1,5 +1,6 @@
-import { createAsyncThunk , createSlice} from "@reduxjs/toolkit";    
-import { getAuthors} from "../services/auth.service";
+import { createAsyncThunk , createSlice, current} from "@reduxjs/toolkit";    
+import authService from "../services/auth.service";
+const { getAuthors } = authService;
 //initialize authors state
 const initialState = {
     authors: [],
@@ -8,7 +9,7 @@ const initialState = {
 export const fetchAuthors = createAsyncThunk(
     "authors/fetchAuthors",
     async () => {
-        const result = await getAuthors(1, 10);
+        const result = await getAuthors(1, 100);
         return result;
     }
 );
@@ -33,8 +34,11 @@ export const authorsSlice = createSlice({
     extraReducers: {
         [fetchAuthors.fulfilled]: (state, action) => {
             state.authors = action.payload;
+            console.log("State of the quotes" , current(state));
         },
         [fetchAuthors.rejected]: (state, action) => {
+            console.log("State of the quotes" , current(state));
+            console.log("Error in fetching authors",action.error);
             state.authors = [];
         },
         [fetchAuthors.pending]: (state, action) => {

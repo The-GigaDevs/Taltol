@@ -35,6 +35,7 @@ const FilterModal = ({ show, setShow }) => {
 
   const dispatch = useDispatch();
   const authors1 = useSelector((state) => state.authors?.authors);
+  const categories1 = useSelector((state) => state.categories?.categories);
 
   useEffect(() => {
     console.log("running useEffect");
@@ -44,6 +45,7 @@ const FilterModal = ({ show, setShow }) => {
   useEffect(() => {
     
     setAuthors(authors1.results);
+    setCategories(categories1.results);
     // debugger
     if(show){
       document.body.style.overflow = "hidden";
@@ -304,15 +306,16 @@ const FilterModal = ({ show, setShow }) => {
               <div className="filter-modal-filters-categories">
 
                 <div className="filter-modal-filters-checks">
-                  {}
-                  <label className="filter-modal-filters-check">
-                    Islamic
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
+                  {categories?.slice(0, !inputShowTopics ? 10 : undefined).map((category) => (
+                    <label className="filter-modal-filters-check">
+                      {category.name}
+                      <input type="checkbox" />
+                      <span className="filter-modal-filters-check-checkmark"></span>
+                    </label>
+                  ))}
                 </div>
-                <div className="filter-modal-filters-showall">
-                  <span className="filter-modal-filters-showall-text">
+                { !inputShowTopics && <div className="filter-modal-filters-showall">
+                  <span className="filter-modal-filters-showall-text" onClick={() => setInputShowTopics(true)}>
                     Show All
                   </span>
                   <span className="filter-modal-filters-showall-icon">
@@ -330,6 +333,28 @@ const FilterModal = ({ show, setShow }) => {
                     </svg>
                   </span>
                 </div>
+                }
+                { inputShowTopics && <div className="filter-modal-filters-showall"onClick={() => {setInputShowTopics(false)}}>
+                  <span className="filter-modal-filters-showall-text">
+                    Show Less
+                    </span>
+                    <span className="filter-modal-filters-showall-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="8"
+                        viewBox="0 0 12 8"
+                        fill="none"
+                      >
+                        <path
+                          d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z"
+                          fill="#333333"
+                        ></path>
+                        </svg>
+                        </span>
+                        </div>
+                        }
+
               </div>
             </div>
           </div>
