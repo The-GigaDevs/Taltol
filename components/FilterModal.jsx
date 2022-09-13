@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import authService from "../services/auth.service";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAuthors } from "../slices/authors.slice";
 
 Modal.setAppElement("#__next");
 const filterModalStyles = {
@@ -31,20 +33,26 @@ const FilterModal = ({ show, setShow }) => {
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  // const dispatch = useDispatch();
-  // const authors1 = useSelector((state) => state.authors?.authors);
+  const dispatch = useDispatch();
+  const authors1 = useSelector((state) => state.authors?.authors);
 
-  // useEffect(() => {
-  //   // setAuthors(authors1);
-  //   console.log("authors1", authors);
-  //   if(show){
-  //     document.body.style.overflow = "hidden";
-  //   }
-  //   else{
-  //     document.body.style.overflow = "unset";
+  useEffect(() => {
+    console.log("running useEffect");
+    dispatch(fetchAuthors());
+  }, []);
 
-  //   }
-  // }, [authors, show]);
+  useEffect(() => {
+    
+    setAuthors(authors1.results);
+    // debugger
+    if(show){
+      document.body.style.overflow = "hidden";
+    }
+    else{
+      document.body.style.overflow = "unset";
+
+    }
+  }, [authors, authors1, show]);
 
 
   function closeModal() {
@@ -53,22 +61,6 @@ const FilterModal = ({ show, setShow }) => {
     setInputShowTags(false);
     setInputShowTopics(false);
   }
-
-  useEffect(() => {
-    authService.getAuthors().then((res) => {
-      setAuthors(res.results);
-    });
-    authService.getCategories().then((res) => {
-      setCategories(res.results);
-      console.log(res.results);
-    });
-
-    if (show) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [show]);
 
   return (
     <>

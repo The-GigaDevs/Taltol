@@ -1,8 +1,10 @@
-import Link from 'next/link';
-import { useState } from 'react';
-import FilterModal from './FilterModal';
-import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import Link from "next/link";
+import { useState } from "react";
+import FilterModal from "./FilterModal";
+import { signOut } from "next-auth/react";
+import { Provider } from "react-redux";
+import  store  from "../store";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -164,7 +166,10 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <FilterModal show={show} setShow={setShow} />
+    <Provider store={store}>
+
+        <FilterModal show={show} setShow={setShow} />
+        </Provider>
     </>
   );
 };
