@@ -6,9 +6,7 @@ import Content from './content';
 import { Provider } from "react-redux";
 import store from '../store';
 
-const home = () => {
-
-
+const Home = () => {
   return (
     <>
       <Head>
@@ -34,3 +32,5 @@ user experience for quotes."
     </>
   )
 }
+
+export default Home;
