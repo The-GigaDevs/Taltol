@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useState } from "react";
 import FilterModal from "./FilterModal";
 import { signOut } from "next-auth/react";
+import { Provider } from "react-redux";
+import  store  from "../store";
 
 
 const Navbar = () => {
@@ -159,7 +161,10 @@ const Navbar = () => {
         </div>
       </nav>
 
+    <Provider store={store}>
+
         <FilterModal show={show} setShow={setShow} />
+        </Provider>
     </>
   );
 };

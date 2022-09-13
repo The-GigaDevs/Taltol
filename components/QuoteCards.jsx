@@ -10,9 +10,17 @@ const QuoteCards = () => {
   const [quotes, setQuotes] = useState([]);
 
   const dispatch = useDispatch();
-  const quotes1 = useSelector(state => state.quotes.quotes);
+  const quotes1 = useSelector(state => state.quotes?.quotes);
+
+  //useffect to call fecQuotes
+  
+  useEffect(() => {
+    dispatch(fetchQuotes());
+  }, []);
+
 
   useEffect(() => {
+    // dispatch(fetchQuotes());
     setQuotes(quotes1.results);
     console.log("quotes1", quotes);
   }, [quotes1, quotes]);
