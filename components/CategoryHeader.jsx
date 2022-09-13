@@ -2,6 +2,7 @@ import categoryHeaderBG from '../public/static/category-header-bg.png';
 const CategoryHeader = () => {
   return (
     <header className="category-header">
+      <div className="container">
       <button className="category-header-share-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -52,6 +53,7 @@ const CategoryHeader = () => {
             <span className="category-header-bg-text">74,883 quotes</span>
           </div>
         </div>
+      </div>
       </div>
     </header>
   );
