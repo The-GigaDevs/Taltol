@@ -108,8 +108,8 @@ const Navbar = () => {
               <div
                 className={
                   isOpen
-                    ? 'navbar-profile-dropdown active'
-                    : 'navbar-profile-dropdown'
+                    ? "navbar-profile-dropdown active"
+                    : "navbar-profile-dropdown"
                 }
               >
                 <h2 className="navbar-profile-dropdown-name">Atabic Umer</h2>
@@ -134,7 +134,7 @@ const Navbar = () => {
                     Collections
                   </a>
                 </Link>
-                <Link 
+                <Link
                   href={'/'}
                   passHref
                   onClick={async () => {

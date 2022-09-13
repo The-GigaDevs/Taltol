@@ -2,19 +2,13 @@ import Head from 'next/head';
 import Footer from '../components/Footer';
 import MoodEmoji from '../components/MoodEmoji';
 import Navbar from '../components/Navbar';
-import QuotesProvider from './context/quotesProvider';
 import Content from './content';
-import { useSession } from 'next-auth/react';
-import AccessDenied from '../components/AccessDenied';
+import { Provider } from "react-redux";
+import store from '../store';
 
-export default function Home() {
-  const session = useSession();
-  console.log(session, 'session')
-  // if (session?.status === 'unauthenticated') {
-  //   return (
-  //       <AccessDenied />
-  //   )
-  // }
+const home = () => {
+
+
   return (
     <>
       <Head>
@@ -31,9 +25,9 @@ user experience for quotes."
       <Navbar />
       <main className="home-main">
         <MoodEmoji />
-        <QuotesProvider>
+        <Provider store={store}>
           <Content />
-        </QuotesProvider>
+        </Provider>
       </main>
 
       <Footer />

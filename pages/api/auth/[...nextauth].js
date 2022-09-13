@@ -27,8 +27,8 @@ export const authOptions = {
             version: "2.0"
         }),
         CredentialProvider({
-            name: 'Credientials',
-
+            name: 'Credentials',
+            id: 'credentials',
             async authorize(credentials, { body }) {
                 // Add logic here to look up the user from the credentials supplied
                 const { username, password } = body;
@@ -38,6 +38,7 @@ export const authOptions = {
                     const user = { refreshToken: result.refresh, accessToken: result.access }
                     return user;
                 } else {
+                    debugger
                     // If you return null then an error will be displayed advising the user to check their details.
                     return null
                     // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
