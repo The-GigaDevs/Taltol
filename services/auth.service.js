@@ -49,6 +49,10 @@ const getCategories = () => httpService
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 
+const getAuthorQuotes = (id) => httpService
+    .get(`/quotes?author=${id}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
 
 const authService = {
     login,
@@ -59,6 +63,7 @@ const authService = {
     updateQuote,
     getAuthors,
     getQuotesByCategory,
-    getCategories
+    getCategories,
+    getAuthorQuotes,
 }
 export default authService;

@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState} from "react";
 import FilterModal from "./FilterModal";
 import { signOut } from "next-auth/react";
 import { Provider } from "react-redux";
 import  store  from "../store";
 import { useRouter } from "next/router";
-
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -6,29 +6,28 @@ import TwitterProvider from "next-auth/providers/twitter";
 import CredentialProvider from "next-auth/providers/credentials";
 import authService from "../../../services/auth.service";
 
-export const authOptions = {
+export default NextAuth({
     // Configure one or more authentication providers
     providers: [
-        FacebookProvider({
-            clientId: process.env.FACBOOK_CLIENT_ID,
-            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        }),
+        FacebookProvider({
+            clientId: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
         }),
         LinkedinProvider({
             clientId: process.env.LINKEDIN_CLIENT_ID,
-            clientSecret: process.env.LINKEDIN_CLIENT_SECRET
+            clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
         }),
         TwitterProvider({
-            clientId: process.env.TWITTER_CLIENT_ID,
-            clientSecret: process.env.TWITTER_CLIENT_SECRET,
-            version: "2.0"
+            clientId: process.env.TWITTER_ID,
+            clientSecret: process.env.TWITTER_SECRET,
         }),
         CredentialProvider({
-            name: 'Credentials',
-            id: 'credentials',
+            name: "Credentials",
+            
             async authorize(credentials, { body }) {
                 // Add logic here to look up the user from the credentials supplied
                 const { username, password } = body;
@@ -38,45 +37,44 @@ export const authOptions = {
                     const user = { refreshToken: result.refresh, accessToken: result.access }
                     return user;
                 } else {
-                    debugger
                     // If you return null then an error will be displayed advising the user to check their details.
                     return null
                     // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
                 }
             }
-        })
+        }),
     ],
+    // The secret should be set to a reasonably long random string.
+    // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
+    // a seperate secret is defined explicitly for encrypting the JWT.
+    secret: process.env.SECRET,
+    
     pages: {
-        signIn: '/',
+        signIn: "/",
+        signOut: "/auth/signout",
+        error: "/auth/error", // Error code passed in query string as ?error=
+        verifyRequest: "/auth/verify-request", // (used for check email message)
+        newUser: "/auth/new-user", // If set, new users will be directed here on first sign in
     },
     callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
-            console.log( credentials, 'account');
-            if (credentials) {
-                return {
-                    email: credentials?.username,
-                };
-            }
-            if (user) {
-                return '/home';
-            } else {
-                return '/';
-            }
+        async signIn(user, account, profile) {
+            //check if user is verified
+            console.log(user, profile, account);
+            if (user) 
+            return '/home';
         },
-        async jwt({token, account}) {
-            console.log(token, account, 'JWT FUNCTION')
-            if (account) {
-                token = { accessToken: account.access_token }
-            }
-            return token;
+        async redirect(url, baseUrl) {
+            return baseUrl;
         },
-        async session({ session, token, user }) {
-            console.log(session, token, user, 'SESSION FUNCTION')
-            session.accessToken = token.accessToken;
+        async session(session, user) {
             session.user = user;
             return session;
-        }
-    }
-}
-
-export default NextAuth(authOptions)
+        },
+        async jwt(token, user, account, profile, isNewUser) {
+            return token;
+        }        
+    },
+    events: {},
+    theme: "auto",
+    debug: false,
+})

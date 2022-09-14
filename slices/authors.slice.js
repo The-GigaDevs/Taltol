@@ -1,9 +1,17 @@
 import { createAsyncThunk , createSlice} from "@reduxjs/toolkit";    
-import { getAuthors} from "../services/auth.service";
+import authService from "../services/auth.service";
+const { getAuthors, getAuthorQuotes } = authService;
 //initialize authors state
 const initialState = {
     authors: [],
 };
+export const fetchAuthorQuotes = createAsyncThunk(
+    "authors/fetchAuthorQuotes",
+    async (authorId) => {
+        const result = await getAuthorQuotes(authorId);
+        return result;
+    }
+)
 //create async thunk to fetch authors
 export const fetchAuthors = createAsyncThunk(
     "authors/fetchAuthors",

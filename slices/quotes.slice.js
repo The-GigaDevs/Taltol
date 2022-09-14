@@ -1,13 +1,20 @@
 //import asyncthunk and createSlice from redux toolkit
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import authService from "../services/auth.service";
-const { getQuotes } = authService;
+const { getQuotes, getQuote } = authService;
 
 //initialize quotes state
 const initialState = {
     quotes: [],
+    singleQuote: null,
 };
-
+export const fetchSingleQuote = createAsyncThunk(
+    "quote/singleQuote",
+    async (id) => {
+        const result = await getQuote(id);
+        return result;
+    }
+)
 //create async thunk to fetch quotes
 export const fetchQuotes = createAsyncThunk(
     "quotes/fetchQuotes",
@@ -33,9 +40,12 @@ export const quotesSlice = createSlice({
     initialState,
     reducers: {
         addQuotes: (state, action) => {
-            state.quotes = state.quotes;
+            state.quotes = action.payload;
             // console.log("State of the store",state.quotes);
         },
+        singleQuote: (state, action) => {
+            state.singleQuote = action.payload;
+        }
         // addMoreQuotes: (state, action) => {
         //     state.quotes = state.quotes.concat(action.payload);
         // }
@@ -49,8 +59,12 @@ export const quotesSlice = createSlice({
             console.log("State of the store" , current(state));
             //push the action payload results array to state results array
             state.quotes.results.push(...action.payload.results);
+        },
+        [fetchSingleQuote.fulfilled]: (state, action) => {
+            state.singleQuote = action.payload;
         }
     },
 });
 
+export const { addQuotes, singleQuote } = quotesSlice.actions;
 export default quotesSlice.reducer;
