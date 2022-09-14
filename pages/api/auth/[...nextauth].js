@@ -59,8 +59,9 @@ export default NextAuth({
     callbacks: {
         async signIn(user, account, profile) {
             //check if user is verified
+            console.log(user, profile, account);
             if (user) 
-            return true;
+            return '/home';
         },
         async redirect(url, baseUrl) {
             return baseUrl;
