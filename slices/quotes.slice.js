@@ -21,9 +21,6 @@ export const fetchQuotes = createAsyncThunk(
     "quotes/fetchQuotes",
     async () => {
         const result = await getQuotes(1, 10);
-        //log result of quotes
-        console.log("results in store:::",result);
-        // console.log("Initial state of the store",initialState.quotes);
         return result;
     }
 );
@@ -59,9 +56,6 @@ export const quotesSlice = createSlice({
             state.quotes = action.payload;
         },
         [addMoreQuotes.fulfilled]: (state, action) => {
-            //log the state
-            console.log("State of the store" , current(state));
-            //push the action payload results array to state results array
             state.quotes.results.push(...action.payload.results);
         },
         [fetchSingleQuote.fulfilled]: (state, action) => {

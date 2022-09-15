@@ -8,7 +8,7 @@ const QuoteCard = (quote) => {
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
-    console.log(quote);
+    // console.log(quote);
   }, []);
 
   return (

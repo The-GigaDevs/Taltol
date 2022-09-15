@@ -28,7 +28,7 @@ const QuoteCards = () => {
 
   function fetchNext() {
     setPage(page + 1);
-    console.log("Next page", page);
+    // console.log("Next page", page);
     dispatch(addMoreQuotes({page: page + 1, pageSize: pageSize}));
     
   }
