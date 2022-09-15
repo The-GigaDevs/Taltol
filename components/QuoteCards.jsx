@@ -10,26 +10,21 @@ const QuoteCards = () => {
   const [quotes, setQuotes] = useState([]);
 
   const dispatch = useDispatch();
-  const quotes1 = useSelector(state => state.quotes?.quotes);
+  const quotesReduxState = useSelector(state => state.quotes?.quotes);
 
   //useffect to call fecQuotes
   
   useEffect(() => {
-    dispatch(fetchQuotes());
-  }, []);
+    if(quotesReduxState?.length === 0 || quotesReduxState?.results?.length === 0) {
+      dispatch(fetchQuotes());
+    }
+  }, [dispatch, quotesReduxState]);
 
 
   useEffect(() => {
-    // dispatch(fetchQuotes());
-    setQuotes(quotes1.results);
-    console.log("quotes1", quotes);
-  }, [quotes1, quotes]);
+    setQuotes(quotesReduxState.results);
+  }, [quotesReduxState, quotes]);
 
-  // const getQuotes = () => {
-  //   authService.getQuotes(page, pageSize).then((res) => {
-  //     setQuotes([...quotes, ...res.results]);
-  //   });
-  // };
 
   function fetchNext() {
     setPage(page + 1);

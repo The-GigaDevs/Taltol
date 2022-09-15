@@ -7,6 +7,7 @@ const { getQuotes, getQuote } = authService;
 const initialState = {
     quotes: [],
     singleQuote: null,
+    isModal: false,
 };
 export const fetchSingleQuote = createAsyncThunk(
     "quote/singleQuote",
@@ -45,6 +46,9 @@ export const quotesSlice = createSlice({
         },
         singleQuote: (state, action) => {
             state.singleQuote = action.payload;
+        },
+        toggleModal: (state, action) => {
+            state.isModal = action.payload;
         }
         // addMoreQuotes: (state, action) => {
         //     state.quotes = state.quotes.concat(action.payload);
@@ -66,5 +70,5 @@ export const quotesSlice = createSlice({
     },
 });
 
-export const { addQuotes, singleQuote } = quotesSlice.actions;
+export const { addQuotes, singleQuote, toggleModal } = quotesSlice.actions;
 export default quotesSlice.reducer;
