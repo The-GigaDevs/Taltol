@@ -4,6 +4,7 @@ const { getAuthors, getAuthorQuotes } = authService;
 //initialize authors state
 const initialState = {
     authors: [],
+    authorQuotes: [],
 };
 //create async thunk to fetch authors
 export const fetchAuthors = createAsyncThunk(
@@ -22,6 +23,15 @@ export const addMoreAuthors = createAsyncThunk(
         return result;
     }
 );
+
+export const getAllQuotesOfAuthor = createAsyncThunk(
+    "authors/getAllQuotesOfAuthor",
+    async (authorId) => {
+        const result = await getAuthorQuotes(authorId);
+        console.log(result, 'getAllQuotesOfAuthor');
+        return result;
+    }
+)
 //create authors slice
 export const authorsSlice = createSlice({
     name: "authors",
@@ -29,7 +39,7 @@ export const authorsSlice = createSlice({
     reducers: {
         addAuthors: (state, action) => {
             state.authors = action.payload;
-        }
+        },
     },
     extraReducers: {
         [fetchAuthors.fulfilled]: (state, action) => {
@@ -43,6 +53,12 @@ export const authorsSlice = createSlice({
         },
         [fetchAuthors.pending]: (state, action) => {
             state.authors = [];
+        },
+        [getAllQuotesOfAuthor.fulfilled]: (state, action) => {
+            state.authorQuotes = action.payload
+        },
+        [getAllQuotesOfAuthor.rejected]: (state, action) => {
+            state.authorQuotes = action.payload
         }
     },
 });

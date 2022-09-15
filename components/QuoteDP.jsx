@@ -1,8 +1,8 @@
-import QuoteCard from "./QuoteStatic"
+import QuoteCard from "./QuoteCard"
 import randomAuthor from '../public/static/quote-card-author.jpg'
 import { useRouter } from "next/router"
 
-export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal }) {
+export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal, authorQuotes  }) {
     const router = useRouter();
     return (
         <div className="quote">
@@ -112,9 +112,8 @@ export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal })
                         Other quotes for {singleQuote?.author?.name}
                     </h3>
                     <div className="quote-body-other-quotes-cards">
-                        <QuoteCard />
-                        <QuoteCard />
-                        <QuoteCard />
+                     {authorQuotes?.results?.map(quote => <QuoteCard key={quote.id} quote={quote} />)}
+
                     </div>
                 </section>
 
@@ -124,10 +123,7 @@ export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal })
                         <span className="quote-body-author-tag current">matter</span>
                     </h3>
                     <div className="quote-body-similar-quotes-cards">
-                        <QuoteCard />
-                        <QuoteCard />
-                        <QuoteCard />
-                        <QuoteCard />
+                        {/* {authorQuotes?.results?.map(quote => <QuoteCard key={quote.id} quote={quote} />)} */}
                     </div>
                 </section>
             </div>

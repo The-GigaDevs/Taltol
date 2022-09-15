@@ -50,7 +50,7 @@ const getCategories = () => httpService
     .catch(({error})=> Promise.reject(error.response))
 
 const getAuthorQuotes = (id) => httpService
-    .get(`/quotes?author=${id}`)
+    .get(`/quotes?authors=${id}`)
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 
