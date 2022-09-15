@@ -24,7 +24,7 @@ const QuoteCard = (quote) => {
             />
           </svg>
         </span>
-        <span className="quote-card-likes-count">{quote?.quote?.quote_liked}</span>
+        <span className="quote-card-likes-count">{quote?.quote?.total_likes}</span>
       </div>
       <h4 className="quote-card-text"
         onClick={() => {
