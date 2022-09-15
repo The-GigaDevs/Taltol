@@ -28,7 +28,7 @@ export const authorsSlice = createSlice({
     initialState,
     reducers: {
         addAuthors: (state, action) => {
-            state.authors = state.authors;
+            state.authors = action.payload;
         }
     },
     extraReducers: {
