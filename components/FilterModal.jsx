@@ -26,21 +26,36 @@ const filterModalStyles = {
   },
 };
 
-const FilterModal = ({ show, setShow }) => {
+const FilterModal = ({ show, setShow , selectedArray, setSelectedCount}) => {
   const [inputShowAuthors, setInputShowAuthors] = useState(false);
   const [inputShowTags, setInputShowTags] = useState(false);
   const [inputShowTopics, setInputShowTopics] = useState(false);
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
-
+  const [count, setCount] = useState(0);
+  const [selected, setSelected] = useState([]);
   const dispatch = useDispatch();
   const authors1 = useSelector((state) => state.authors?.authors);
   const categories1 = useSelector((state) => state.categories?.categories);
 
   useEffect(() => {
-    console.log("running useEffect");
+    console.log(selectedArray)
+    setSelected(selectedArray)
     dispatch(fetchAuthors());
   }, []);
+
+  function setCountAndStuff(name) {
+    if(selected.includes(name)){
+      //delete the name from the array using reduc
+      setSelected(selected.filter((item) => item !== name));
+
+      // const index = selected.indexOf(name);
+     
+      // setSelected(selected.reduce(selected.indexOf(name)));
+    }else{
+      setSelected(prevState => [...prevState, name]);
+    }
+  }
 
   useEffect(() => {
     
@@ -62,6 +77,7 @@ const FilterModal = ({ show, setShow }) => {
     setInputShowAuthors(false);
     setInputShowTags(false);
     setInputShowTopics(false);
+    setSelectedCount(count, selected);
   }
 
   return (
@@ -123,7 +139,7 @@ const FilterModal = ({ show, setShow }) => {
                   {!inputShowAuthors ? authors?.slice(0, 10).map((author, index) => (
                     <label className="filter-modal-filters-check" key={index}>
                       {author.name}
-                      <input type="checkbox" />
+                      <input type="checkbox" checked={selected.includes(author.name)} onClick={() => setCountAndStuff(author.name)}/>
                       <span className="filter-modal-filters-check-checkmark"></span>
                     </label>
                   )) : authors?.map((author, index) => (

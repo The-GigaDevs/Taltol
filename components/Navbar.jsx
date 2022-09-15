@@ -9,6 +9,12 @@ import  store  from "../store";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState([]);
+
+  function setSelectedCount(number, selected) {
+    setSelected(selected);
+    console.log(selected);
+  }
 
   return (
     <>
@@ -77,7 +83,7 @@ const Navbar = () => {
                   ></path>
                 </svg>
                 <span className="navbar-filters-text">Filters</span>
-                <span className="navbar-filters-count">12</span>
+                <span className="navbar-filters-count">{selected.length}</span>
               </div>
             </div>
             <div onClick={() => setIsOpen(!isOpen)} className="navbar-profile">
@@ -163,7 +169,7 @@ const Navbar = () => {
 
     <Provider store={store}>
 
-        <FilterModal show={show} setShow={setShow} />
+        <FilterModal show={show} setShow={setShow} selectedArray={selected} setSelectedCount={setSelectedCount}/>
         </Provider>
     </>
   );
