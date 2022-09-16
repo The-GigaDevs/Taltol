@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { singleQuote, toggleModal } from '../slices/quotes.slice';
 import { useDispatch } from 'react-redux';
 
-const QuoteCard = (quote) => { 
+const QuoteCard = quote => {
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
@@ -28,13 +28,20 @@ const QuoteCard = (quote) => {
             />
           </svg>
         </span>
-        <span className="quote-card-likes-count">{quote.quote.quote_liked}</span>
+        <span className="quote-card-likes-count">
+          {quote.quote.quote_liked}
+        </span>
       </div>
-      <h4 className="quote-card-text"
+      <h4
+        className="quote-card-text"
         onClick={() => {
           dispatch(toggleModal(true));
           dispatch(singleQuote(quote.quote));
-          router.push(`/quote/${encodeURIComponent(quote.quote.id)}`, undefined, { shallow: true })
+          router.push(
+            `/quote/${encodeURIComponent(quote.quote.id)}`,
+            undefined,
+            { shallow: true }
+          );
         }}
       >
         {quote.quote.text}

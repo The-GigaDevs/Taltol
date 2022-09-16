@@ -1,12 +1,8 @@
 import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
-import 'swiper/css';
-import MoodEmojiMobile from './MoodEmojiMobile';
+import { useState } from 'react';
+import 'tippy.js/dist/tippy.css';
 
-const MoodEmoji = () => {
+const MoodEmojiMobile = () => {
   const emojiData = [
     {
       emoji: (
@@ -467,46 +463,49 @@ const MoodEmoji = () => {
       ),
       text: 'Private',
     },
+    {
+      emoji: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="35"
+          height="35"
+          viewBox="0 0 35 35"
+          fill="none"
+        >
+          <path
+            d="M17.4998 0.416656C8.08521 0.416656 0.416504 8.08536 0.416504 17.5C0.416504 26.9146 8.08521 34.5833 17.4998 34.5833C26.9145 34.5833 34.5832 26.9146 34.5832 17.5C34.5832 8.08536 26.9145 0.416656 17.4998 0.416656ZM17.4998 3.83332C25.068 3.83332 31.1665 9.93186 31.1665 17.5C31.1665 25.0681 25.068 31.1667 17.4998 31.1667C9.93171 31.1667 3.83317 25.0681 3.83317 17.5C3.83317 9.93186 9.93171 3.83332 17.4998 3.83332ZM11.5207 10.6667C10.8411 10.6667 10.1893 10.9366 9.70871 11.4172C9.22815 11.8978 8.95817 12.5495 8.95817 13.2292C8.95817 13.9088 9.22815 14.5606 9.70871 15.0411C10.1893 15.5217 10.8411 15.7917 11.5207 15.7917C12.2003 15.7917 12.8521 15.5217 13.3326 15.0411C13.8132 14.5606 14.0832 13.9088 14.0832 13.2292C14.0832 12.5495 13.8132 11.8978 13.3326 11.4172C12.8521 10.9366 12.2003 10.6667 11.5207 10.6667ZM23.479 10.6667C22.7994 10.6667 22.1476 10.9366 21.667 11.4172C21.1865 11.8978 20.9165 12.5495 20.9165 13.2292C20.9165 13.9088 21.1865 14.5606 21.667 15.0411C22.1476 15.5217 22.7994 15.7917 23.479 15.7917C24.1586 15.7917 24.8104 15.5217 25.291 15.0411C25.7715 14.5606 26.0415 13.9088 26.0415 13.2292C26.0415 12.5495 25.7715 11.8978 25.291 11.4172C24.8104 10.9366 24.1586 10.6667 23.479 10.6667ZM11.4306 17.6802L9.90243 20.7365L23.5691 27.5698L25.0972 24.5135L21.3202 22.625L25.0972 20.7365L23.5691 17.6802L17.4998 20.7131L11.4306 17.6802ZM11.7909 23.5692L9.90243 24.5135L11.4306 27.5698L15.6147 25.4778L11.7909 23.5692Z"
+            fill="#E0E0E0"
+          />
+        </svg>
+      ),
+      text: 'Vomited',
+    },
   ];
 
-  return (
-    <section className="mood-emoji">
-      <div className="container">
-        <h2 className="mood-emoji-title">How is your mood today?</h2>
-        <div className="mood-emoji-content">
-          <Swiper
-            slidesPerView={9.5}
-            spaceBetween={0}
-            breakpoints={{
-              750: {
-                slidesPerView: 12.5,
-              },
+  const [showEmoji, setShowEmoji] = useState(false);
 
-              850: {
-                slidesPerView: 15.5,
-              },
-              1050: {
-                slidesPerView: 20.5,
-              },
-              1250: {
-                slidesPerView: 27,
-              },
-            }}
-            className="mySwiper"
-          >
-            {emojiData.map((emoji, index) => (
-              <SwiperSlide key={index}>
-                <Tippy offset={[0, 10]} content={<span>{emoji.text}</span>}>
-                  <div className="mood-emoji-visual">{emoji.emoji}</div>
-                </Tippy>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <MoodEmojiMobile />
+  return (
+    <div className="mood-emoji-mobile-data">
+      <div className="mood-emoji-mobile-data-row mood-emoji-mobile-data-row-sm">
+        {emojiData
+          .slice(0, showEmoji ? emojiData.length - 3 : 5)
+          .map((emoji, index) => (
+            <div className="mood-emoji-mobile-data-item" key={index}>
+              <Tippy offset={[0, 10]} content={<span>{emoji.text}</span>}>
+                <div className="mood-emoji-mobile-visual">{emoji.emoji}</div>
+              </Tippy>
+            </div>
+          ))}
       </div>
-    </section>
+
+      <p
+        onClick={() => setShowEmoji(!showEmoji)}
+        className="moodmood-emoji-mobile-show"
+      >
+        {showEmoji ? 'Show Less' : 'Show More'}
+      </p>
+    </div>
   );
 };
 
-export default MoodEmoji;
+export default MoodEmojiMobile;

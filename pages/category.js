@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import CategoryHeader from '../components/CategoryHeader';
 import CategoryResults from '../components/CategoryResults';
+import MobileMenu from '../components/MobileMenu';
 import Navbar from '../components/Navbar';
 import ProFooter from '../components/ProFooter';
 import TopicBrowse from '../components/TopicBrowse';
@@ -21,6 +22,7 @@ user experience for quotes."
       </Head>
 
       <Navbar />
+      <MobileMenu />
       <CategoryHeader />
 
       <main className="category-main">
