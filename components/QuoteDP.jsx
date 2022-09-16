@@ -1,8 +1,8 @@
-import QuoteCard from "./QuoteStatic"
+import QuoteCard from "./QuoteCard"
 import randomAuthor from '../public/static/quote-card-author.jpg'
 import { useRouter } from "next/router"
 
-export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal }) {
+export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal, authorQuotes, tagQuotes }) {
     const router = useRouter();
     return (
         <div className="quote">
@@ -31,7 +31,7 @@ export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal })
             <div className="quote-body">
                 <div className="quote-body-heading">
                     <span className="quote-body-heading-topic">{singleQuote?.category?.name} quote </span>from{' '}
-                    <span className="quote-body-heading-author">{singleQuote?.author?.name}</span>,
+                    <span className="quote-body-heading-author">{singleQuote?.author?.name}</span>
                     <span className="quote-body-heading-start">
                         {' '}
                         {singleQuote?.text}{' '}
@@ -47,12 +47,17 @@ export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal })
 
                         <div className="quote-body-author-profile">
                             <span className="quote-body-author-name">{singleQuote?.author?.name}</span>
-                            <div className="quote-body-author-tags">
+                            {singleQuote?.tags?.length > 0 && <div className="quote-body-author-tags">
                                 Main tags:&nbsp;
-                                <span className="quote-body-author-tag">tomorrow</span>,&nbsp;
-                                <span className="quote-body-author-tag current">matter</span>
-                                ,&nbsp; <span className="quote-body-author-tag ">today</span>
-                            </div>
+                                {singleQuote?.tags?.map((tag) =>
+                                    <>
+                                        <span className="quote-body-author-tag">{tag?.tag_text}</span>
+                                        ,&nbsp;
+                                    </>
+                                )}
+                                {/* <span className="quote-body-author-tag current">{singleQuote?.tags[1]}</span> */}
+                                { }
+                            </div>}
                         </div>
                     </div>
                     <div className="quote-body-options">
@@ -112,22 +117,18 @@ export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal })
                         Other quotes for {singleQuote?.author?.name}
                     </h3>
                     <div className="quote-body-other-quotes-cards">
-                        <QuoteCard />
-                        <QuoteCard />
-                        <QuoteCard />
+                     {authorQuotes?.results?.map(quote => <QuoteCard key={quote.id} quote={quote} />)}
+
                     </div>
                 </section>
 
                 <section className="quote-body-similar-quotes">
                     <h3 className="quote-body-similar-quotes-title">
                         Other similar quotes for&nbsp;
-                        <span className="quote-body-author-tag current">matter</span>
+                        <span className="quote-body-author-tag current">{singleQuote?.tags[0]?.tag_text}</span>
                     </h3>
                     <div className="quote-body-similar-quotes-cards">
-                        <QuoteCard />
-                        <QuoteCard />
-                        <QuoteCard />
-                        <QuoteCard />
+                        {tagQuotes?.results?.map(quote => <QuoteCard key={quote.id} quote={quote} />)}
                     </div>
                 </section>
             </div>

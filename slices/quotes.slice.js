@@ -1,18 +1,28 @@
 //import asyncthunk and createSlice from redux toolkit
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import authService from "../services/auth.service";
-const { getQuotes, getQuote } = authService;
+const { getQuotes, getQuote, getQuotesAgainstTag } = authService;
 
 //initialize quotes state
 const initialState = {
     quotes: [],
     singleQuote: null,
     isModal: false,
+    quotesAgainstTag: []
 };
 export const fetchSingleQuote = createAsyncThunk(
-    "quote/singleQuote",
+    "quotes/singleQuote",
     async (id) => {
         const result = await getQuote(id);
+        return result;
+    }
+)
+
+export const fetchQuotesAgainstTag = createAsyncThunk(
+    "quotes/fetchQuotesAgainstTag",
+    async (tagId) => {
+        const result = await getQuotesAgainstTag(tagId);
+        console.log(result, 'tags');
         return result;
     }
 )
@@ -60,6 +70,12 @@ export const quotesSlice = createSlice({
         },
         [fetchSingleQuote.fulfilled]: (state, action) => {
             state.singleQuote = action.payload;
+        },
+        [fetchQuotesAgainstTag.fulfilled] : (state, action) => {
+            state.quotesAgainstTag = action.payload;
+        },
+        [fetchQuotesAgainstTag.rejected] : (state, action) => {
+            state.quotesAgainstTag = [];
         }
     },
 });
