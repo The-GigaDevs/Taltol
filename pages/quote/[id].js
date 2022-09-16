@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSingleQuote, toggleModal } from '../../slices/quotes.slice';
+import { fetchQuotesAgainstTag, fetchSingleQuote, toggleModal } from '../../slices/quotes.slice';
 import Modal from 'react-modal';
 import QuoteDP from '../../components/QuoteDP';
+import { getAllQuotesOfAuthor } from '../../slices/authors.slice';
 Modal.setAppElement("#__next");
 
 const ModalStyles = {
@@ -27,12 +28,19 @@ const Quote = ({ id }) => {
     const dispatch = useDispatch()
     const isModal = useSelector(state => state.quotes.isModal)
     const singleQuote = useSelector(state => state.quotes.singleQuote)
-    
+    const authorQuotes = useSelector(state => state.authors.authorQuotes)
+    const tagQuotes = useSelector(state => state.quotes.quotesAgainstTag)
     useEffect(() => {
         if (!isModal) {
             dispatch(fetchSingleQuote(id));
         }
     }, [dispatch, id, isModal])
+    useEffect(() => {
+        if(singleQuote) {
+            dispatch(getAllQuotesOfAuthor(singleQuote?.author?.id))
+            dispatch(fetchQuotesAgainstTag(singleQuote?.tags[0]?.tagId))
+        }
+    }, [dispatch, singleQuote])
 
     return (
         isModal ?
@@ -41,9 +49,9 @@ const Quote = ({ id }) => {
                 onRequestClose={() => dispatch(toggleModal(false))}
                 style={ModalStyles}
             >
-                <QuoteDP singleQuote={singleQuote} isModal={isModal} toggleModal={toggleModal} dispatch={dispatch} />
+                <QuoteDP singleQuote={singleQuote} isModal={isModal} toggleModal={toggleModal} dispatch={dispatch} authorQuotes={authorQuotes} tagQuotes={tagQuotes} />
             </Modal>
-            : <QuoteDP singleQuote={singleQuote} />
+            : <QuoteDP singleQuote={singleQuote} authorQuotes={authorQuotes} tagQuotes={tagQuotes} />
     );
 };
 

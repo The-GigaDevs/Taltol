@@ -1,5 +1,4 @@
 import randomAuthor from '../public/static/quote-card-author.jpg';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { singleQuote, toggleModal } from '../slices/quotes.slice';
 import { useDispatch } from 'react-redux';
@@ -7,9 +6,6 @@ import { useDispatch } from 'react-redux';
 const QuoteCard = quote => {
   const dispatch = useDispatch();
   const router = useRouter();
-  useEffect(() => {
-    // console.log(quote);
-  }, []);
 
   return (
     <div className="quote-card">
@@ -29,7 +25,7 @@ const QuoteCard = quote => {
           </svg>
         </span>
         <span className="quote-card-likes-count">
-          {quote.quote.quote_liked}
+          {quote?.quote?.total_likes}
         </span>
       </div>
       <h4
@@ -38,13 +34,13 @@ const QuoteCard = quote => {
           dispatch(toggleModal(true));
           dispatch(singleQuote(quote.quote));
           router.push(
-            `/quote/${encodeURIComponent(quote.quote.id)}`,
+            `/quote/${encodeURIComponent(quote?.quote?.id)}`,
             undefined,
             { shallow: true }
           );
         }}
       >
-        {quote.quote.text}
+        {quote?.quote?.text}
       </h4>
       <div className="quote-card-author">
         <img
@@ -52,7 +48,7 @@ const QuoteCard = quote => {
           alt="Author Avatar"
           className="quote-card-author-avatar"
         />
-        <p className="quote-card-author-name">{quote.quote.author.name}</p>
+        <p className="quote-card-author-name">{quote?.quote?.author?.name}</p>
       </div>
     </div>
   );
