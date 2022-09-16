@@ -80,6 +80,11 @@ const getCategory = (name) => httpService
     .catch(({error})=> Promise.reject(error.response))
 
 
+const searchQuotesModal = (authors, tags, categories) => httpService
+    .get(`/quotes/?authors=${authors}&tags=${tags}&categories=${categories}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
+
 const authService = {
     login,
     me,
@@ -95,6 +100,7 @@ const authService = {
     getTag,
     getAuthor,
     getCategory,
-    getQuotesAgainstTag
+    getQuotesAgainstTag,
+    searchQuotesModal
 }
 export default authService;
