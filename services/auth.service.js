@@ -89,6 +89,11 @@ const getQuotesOfSingleCategory = (id, page) => httpService
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 
+const searchQuotesModal = (authors, tags, categories) => httpService
+    .get(`/quotes/?authors=${authors}&tags=${tags}&categories=${categories}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
+
 const authService = {
     login,
     me,
@@ -106,6 +111,7 @@ const authService = {
     getCategory,
     getQuotesAgainstTag,
     getSingleCategory,
-    getQuotesOfSingleCategory
+    getQuotesOfSingleCategory,
+    searchQuotesModal
 }
 export default authService;
