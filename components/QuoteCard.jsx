@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 import { singleQuote, toggleModal } from '../slices/quotes.slice';
 import { useDispatch } from 'react-redux';
 
-const QuoteCard = quote => {
+const QuoteCard = (props) => {
+  const { quote, category} = props;
+  console.log(quote, category, 'Tada')
   const dispatch = useDispatch();
   const router = useRouter();
-
   return (
     <div className="quote-card">
       <div className="quote-card-likes">
@@ -25,22 +26,28 @@ const QuoteCard = quote => {
           </svg>
         </span>
         <span className="quote-card-likes-count">
-          {quote?.quote?.total_likes}
+          {quote?.total_likes}
         </span>
       </div>
       <h4
         className="quote-card-text"
         onClick={() => {
-          dispatch(toggleModal(true));
-          dispatch(singleQuote(quote.quote));
-          router.push(
-            `/quote/${encodeURIComponent(quote?.quote?.id)}`,
-            undefined,
-            { shallow: true }
-          );
+          if (category) {
+            router.push(
+              `/quote/${encodeURIComponent(quote?.id)}`
+            )
+          } else {
+            dispatch(toggleModal(true));
+            dispatch(singleQuote(quote));
+            router.push(
+              `/quote/${encodeURIComponent(quote?.id)}`,
+              undefined,
+              { shallow: true }
+            );
+          }
         }}
       >
-        {quote?.quote?.text}
+        {quote?.text}
       </h4>
       <div className="quote-card-author">
         <img
@@ -48,7 +55,7 @@ const QuoteCard = quote => {
           alt="Author Avatar"
           className="quote-card-author-avatar"
         />
-        <p className="quote-card-author-name">{quote?.quote?.author?.name}</p>
+        <p className="quote-card-author-name">{quote?.author?.name}</p>
       </div>
     </div>
   );

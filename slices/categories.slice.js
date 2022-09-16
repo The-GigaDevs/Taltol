@@ -1,10 +1,19 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import authService from "../services/auth.service";
-const { getCategories , getCategory} = authService;
+const { getCategories , getCategory, getSingleCategory , getQuotesOfSingleCategory} = authService;
 //initialize categories state
 const initialState = {
     categories: [],
+    singleCategory : null,
 }
+
+export const fetchSingleCategory = createAsyncThunk(
+    "categories/fetchSingleCategory", 
+    async (categoryId) => {
+        const result = await getSingleCategory(categoryId);
+        return result
+    }
+)
 
 //create async thunk to fetch categories
 export const fetchCategories = createAsyncThunk(
@@ -36,7 +45,14 @@ export const categoriesSlice = createSlice({
         },
         [searchCategory.fulfilled]: (state, action) => {
             state.categories = action.payload;
-        }
+        },
+        [fetchSingleCategory.fulfilled] : (state, action) => {
+            state.singleCategory = action.payload;
+        },
+        [fetchSingleCategory.rejected] : (state, action) => {
+            state.singleCategory = null;
+        },
+        
     },
 
 })

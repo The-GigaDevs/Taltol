@@ -1,7 +1,7 @@
 //import asyncthunk and createSlice from redux toolkit
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import authService from "../services/auth.service";
-const { getQuotes, getQuote, getQuotesAgainstTag } = authService;
+const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory } = authService;
 
 //initialize quotes state
 const initialState = {
@@ -42,6 +42,15 @@ export const addMoreQuotes = createAsyncThunk(
         return result;
     }
 );
+
+export const fetchQuotesOfCategory = createAsyncThunk(
+    "categories/fetchQuotesOfCategory", 
+    async ({id, page}) => {
+        const result = await getQuotesOfSingleCategory(id, page);
+        console.log(result, 'category');
+        return result
+    }
+)
 //create quotes slice
 export const quotesSlice = createSlice({
     name: "quotes",
@@ -76,6 +85,12 @@ export const quotesSlice = createSlice({
         },
         [fetchQuotesAgainstTag.rejected] : (state, action) => {
             state.quotesAgainstTag = [];
+        },
+        [fetchQuotesOfCategory.fulfilled] : (state, action) => {
+            state.quotes = action.payload;
+        },
+        [fetchQuotesOfCategory.rejected] : (state, action) => {
+            state.quotes = null;
         }
     },
 });
