@@ -4,12 +4,11 @@ const QuoteCards = ({quotes, fetchNext }) => {
   return (
     <>
       <div className="quote-cards">
-        { quotes?.map((quote) => (
-          <QuoteCard key={quote.id} quote={quote} />
+        { quotes?.map((quote, index) => (
+          <QuoteCard key={index} quote={quote} />
         ))}
       </div>
       <div>
-        
         <button className="filter-modal-footer-btn" onClick={() => fetchNext()}>Load More</button>
       </div>
     </>

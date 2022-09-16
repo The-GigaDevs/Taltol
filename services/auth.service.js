@@ -54,6 +54,27 @@ const getAuthorQuotes = (id) => httpService
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 
+const getTags = () => httpService
+    .get(`/quotes/tags/`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
+
+const getTag = (text) => httpService
+    .get(`/quotes/tags/?text=${text}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
+
+const getAuthor = (name) => httpService
+    .get(`/quotes/authors/?name=${name}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
+
+const getCategory = (name) => httpService
+    .get(`/quotes/categories/?name=${name}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
+
+
 const authService = {
     login,
     me,
@@ -65,5 +86,9 @@ const authService = {
     getQuotesByCategory,
     getCategories,
     getAuthorQuotes,
+    getTags,
+    getTag,
+    getAuthor,
+    getCategory
 }
 export default authService;

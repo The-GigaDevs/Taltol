@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import authService from "../services/auth.service";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthors } from "../slices/authors.slice";
+import { fetchAuthors, authorSearch } from "../slices/authors.slice";
+import { fetchTags, searchTag } from "../slices/tags.slice";
+import { fetchCategories, searchCategory } from "../slices/categories.slice";
+import { getLocationOrigin } from "next/dist/shared/lib/utils";
+
 
 Modal.setAppElement("#__next");
 const filterModalStyles = {
@@ -32,26 +36,27 @@ const FilterModal = ({ show, setShow , selectedArray, setSelectedCount}) => {
   const [inputShowTopics, setInputShowTopics] = useState(false);
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
   const [count, setCount] = useState(0);
   const [selected, setSelected] = useState([]);
   const dispatch = useDispatch();
   const authors1 = useSelector((state) => state.authors?.authors);
   const categories1 = useSelector((state) => state.categories?.categories);
+  const tagsRedux = useSelector((state) => state.tags?.tags);
 
   useEffect(() => {
+    
     console.log(selectedArray)
     setSelected(selectedArray)
+    dispatch(fetchTags())
     dispatch(fetchAuthors());
+    dispatch(fetchCategories())
+    
   }, []);
 
   function setCountAndStuff(name) {
     if(selected.includes(name)){
-      //delete the name from the array using reduc
       setSelected(selected.filter((item) => item !== name));
-
-      // const index = selected.indexOf(name);
-     
-      // setSelected(selected.reduce(selected.indexOf(name)));
     }else{
       setSelected(prevState => [...prevState, name]);
     }
@@ -61,6 +66,7 @@ const FilterModal = ({ show, setShow , selectedArray, setSelectedCount}) => {
     
     setAuthors(authors1.results);
     setCategories(categories1.results);
+    setTags(tagsRedux.results);
     // debugger
     if(show){
       document.body.style.overflow = "hidden";
@@ -69,7 +75,7 @@ const FilterModal = ({ show, setShow , selectedArray, setSelectedCount}) => {
       document.body.style.overflow = "unset";
 
     }
-  }, [authors, authors1, show]);
+  }, [authors1, tagsRedux,  categories1, show]);
 
 
   function closeModal() {
@@ -79,6 +85,24 @@ const FilterModal = ({ show, setShow , selectedArray, setSelectedCount}) => {
     setInputShowTopics(false);
     setSelectedCount(count, selected);
   }
+
+  //write a function to send api call fro search authors
+
+  async function handleChange(value, type) {
+    // console.log("I am here",value, type);
+    if(value.length >= 3){
+      if(type === "author"){
+        dispatch(authorSearch(value))
+      }
+      if(type === "tags"){
+        dispatch(searchTag(value))
+      }
+      if(type === "category"){
+        dispatch(searchCategory(value))
+      }   
+    }
+  }
+
 
   return (
     <>
@@ -131,24 +155,19 @@ const FilterModal = ({ show, setShow , selectedArray, setSelectedCount}) => {
                       <path d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"></path>
                     </svg>
                   </span>
-                  <input type="text" placeholder="Search in Authors" />
+                  <input type="text" placeholder="Search in Authors" onChange={(e) => { handleChange(e.target.value ,"author")}}/>
                 </div>
               </div>
               <div className="filter-modal-filters-categories">
                 <div className="filter-modal-filters-checks">
-                  {!inputShowAuthors ? authors?.slice(0, 10).map((author, index) => (
+                  {authors?.slice(0, !inputShowAuthors ? 9 : undefined ).map((author, index) => (
                     <label className="filter-modal-filters-check" key={index}>
                       {author.name}
                       <input type="checkbox" checked={selected.includes(author.name)} onClick={() => setCountAndStuff(author.name)}/>
                       <span className="filter-modal-filters-check-checkmark"></span>
                     </label>
-                  )) : authors?.map((author, index) => (
-                    <label className="filter-modal-filters-check" key={index}>
-                      {author.name}
-                      <input type="checkbox" />
-                      <span className="filter-modal-filters-check-checkmark"></span>
-                    </label>
-                  ))}
+                  ))
+}
                 </div>
                 {!inputShowAuthors && (
                 <div className="filter-modal-filters-showall" onClick={() => setInputShowAuthors(true)}>
@@ -220,76 +239,64 @@ const FilterModal = ({ show, setShow , selectedArray, setSelectedCount}) => {
                       <path d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"></path>
                     </svg>
                   </span>
-                  <input type="text" placeholder="Search in Authors" />
+                  <input type="text" placeholder="Search in Tags" onChange={(e) => { handleChange(e.target.value ,"tags")}}/>
                 </div>
               </div>
               <div className="filter-modal-filters-categories">
                 <div className="filter-modal-filters-checks">
-                  <label className="filter-modal-filters-check">
-                    Best
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Life
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Tomorrow
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Love
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Inspiring
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Hammer
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Tomorrow
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Life
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
-                  <label className="filter-modal-filters-check">
-                    Best
-                    <input type="checkbox" />
-                    <span className="filter-modal-filters-check-checkmark"></span>
-                  </label>
+                  {tags?.slice(0, !inputShowTags ? 9 : undefined).map((tag, index) => (
+                    <label className="filter-modal-filters-check" key={index}>
+                      {tag.text}
+                      <input type="checkbox" checked={selected.includes(tag.text)} onClick={() => setCountAndStuff(tag.text)}/>
+
+                      <span className="filter-modal-filters-check-checkmark"></span>
+                    </label>
+                  ))} 
                 </div>
-                <div className="filter-modal-filters-showall">
-                  <span className="filter-modal-filters-showall-text">
-                    Show All
-                  </span>
-                  <span className="filter-modal-filters-showall-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="8"
-                      viewBox="0 0 12 8"
-                      fill="none"
-                    >
-                      <path
-                        d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z"
-                        fill="#333333"
-                      ></path>
-                    </svg>
-                  </span>
-                </div>
+                {!inputShowTags && (
+                    <div className="filter-modal-filters-showall" onClick={() => setInputShowTags(true)}>
+                      <span className="filter-modal-filters-showall-text" >
+                        Show All
+                      </span>
+                      <span className="filter-modal-filters-showall-icon">
+                        <svg
+
+                          xmlns="http://www.w3.org/2000/svg"  
+                          width="12"
+                          height="8"
+                          viewBox="0 0 12 8"
+                          fill="none"
+                        >
+                          <path
+                            d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z"
+                            fill="#333333"
+                          ></path>
+                        </svg>
+                      </span>
+                    </div>
+                  )}
+                  {inputShowTags && (
+                    <div className="filter-modal-filters-showall" onClick={() => setInputShowTags(false)}>
+                      <span className="filter-modal-filters-showall-text" >
+                        Show Less
+                      </span>
+                      <span className="filter-modal-filters-showall-icon">
+                        <svg
+
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="12"
+                          height="8"
+                          viewBox="0 0 12 8"
+                          fill="none"
+                        >
+                          <path
+                            d="M1.41 8L6 3.42L10.59 8L12 6.59L6 0.59L0 6.59L1.41 8Z"
+                            fill="#333333"
+                          ></path>
+                        </svg>
+                      </span>
+                    </div>
+                  )}
               </div>
             </div>
             <div className="filter-modal-filters">
@@ -316,16 +323,17 @@ const FilterModal = ({ show, setShow , selectedArray, setSelectedCount}) => {
                       <path d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"></path>
                     </svg>
                   </span>
-                  <input type="text" placeholder="Search in Authors" />
+                  <input type="text" placeholder="Search in Category" onChange={(e) => { handleChange(e.target.value ,"category")}}/>
                 </div>
               </div>
               <div className="filter-modal-filters-categories">
 
                 <div className="filter-modal-filters-checks">
-                  {categories?.slice(0, !inputShowTopics ? 10 : undefined).map((category) => (
+                  {categories?.slice(0,  !inputShowTopics ? 9 : undefined).map((category) => (
                     <label className="filter-modal-filters-check">
                       {category.name}
-                      <input type="checkbox" />
+                      <input type="checkbox" checked={selected.includes(category.name)} onClick={() => setCountAndStuff(category.name)}/>
+
                       <span className="filter-modal-filters-check-checkmark"></span>
                     </label>
                   ))}
