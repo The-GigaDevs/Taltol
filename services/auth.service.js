@@ -80,8 +80,8 @@ const getCategory = (name) => httpService
     .catch(({error})=> Promise.reject(error.response))
 
 
-const searchQuotesModal = (authors, tags, categories) => httpService
-    .get(`/quotes/?authors=${authors}&tags=${tags}&categories=${categories}`)
+const searchQuotesModal = (authors, tags, categories, search) => httpService
+    .get(`/quotes/?authors=${authors}&tags=${tags}&categories=${categories}&search=${search}`)
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 
