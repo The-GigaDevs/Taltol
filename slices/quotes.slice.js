@@ -1,7 +1,7 @@
 //import asyncthunk and createSlice from redux toolkit
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import authService from "../services/auth.service";
-const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory } = authService;
+const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage } = authService;
 
 //initialize quotes state
 const initialState = {
@@ -44,10 +44,19 @@ export const addMoreQuotes = createAsyncThunk(
 );
 
 export const fetchQuotesOfCategory = createAsyncThunk(
-    "categories/fetchQuotesOfCategory", 
+    "quotes/fetchQuotesOfCategory", 
     async ({id, page}) => {
         const result = await getQuotesOfSingleCategory(id, page);
         console.log(result, 'category');
+        return result
+    }
+)
+
+export const fetchQuotesOfAuthorWithPage = createAsyncThunk(
+    "quotes/fetchQuotesOfAuthorWithPage", 
+    async ({id, page}) => {
+        const result = await getAuthorQuotesWithPage(id, page);
+        console.log(result, 'author');
         return result
     }
 )
@@ -90,6 +99,12 @@ export const quotesSlice = createSlice({
             state.quotes = action.payload;
         },
         [fetchQuotesOfCategory.rejected] : (state, action) => {
+            state.quotes = null;
+        },
+        [fetchQuotesOfAuthorWithPage.fulfilled] : (state, action) => {
+            state.quotes = action.payload;
+        },
+        [fetchQuotesOfAuthorWithPage.rejected] : (state, action) => {
             state.quotes = null;
         }
     },

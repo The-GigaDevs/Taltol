@@ -1,6 +1,7 @@
 import QuoteCard from "./QuoteCard"
 import randomAuthor from '../public/static/quote-card-author.jpg'
 import { useRouter } from "next/router"
+import Link from "next/link";
 
 export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal, authorQuotes, tagQuotes }) {
     const router = useRouter();
@@ -31,7 +32,9 @@ export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal, a
             <div className="quote-body">
                 <div className="quote-body-heading">
                     <span className="quote-body-heading-topic">{singleQuote?.category?.name} quote </span>from{' '}
-                    <span className="quote-body-heading-author">{singleQuote?.author?.name}</span>
+                    <Link href={`/author/${encodeURIComponent(singleQuote?.author?.id)}`} passHref>
+                        <span className="quote-body-heading-author">{singleQuote?.author?.name}</span>
+                    </Link>
                     <span className="quote-body-heading-start">
                         {' '}
                         {singleQuote?.text}{' '}
@@ -46,7 +49,9 @@ export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal, a
                         />
 
                         <div className="quote-body-author-profile">
-                            <span className="quote-body-author-name">{singleQuote?.author?.name}</span>
+                            <Link href={`/author/${encodeURIComponent(singleQuote?.author?.id)}`} passHref>                    
+                                <span className="quote-body-author-name">{singleQuote?.author?.name}</span>
+                            </Link>
                             {singleQuote?.tags?.length > 0 && <div className="quote-body-author-tags">
                                 Main tags:&nbsp;
                                 {singleQuote?.tags?.map((tag) =>
@@ -113,9 +118,11 @@ export default function QuoteDP({ singleQuote, isModal, dispatch, toggleModal, a
                 </div>
 
                 <section className="quote-body-other-quotes">
-                    <h3 className="quote-body-other-quotes-title">
-                        Other quotes for {singleQuote?.author?.name}
-                    </h3>
+                    <Link href={`/author/${encodeURIComponent(singleQuote?.author?.id)}`} passHref>
+                        <h3 className="quote-body-other-quotes-title">
+                            Other quotes for {singleQuote?.author?.name}
+                        </h3>
+                    </Link>
                     <div className="quote-body-other-quotes-cards">
                      {authorQuotes?.results?.map(quote => <QuoteCard key={quote.id} quote={quote} />)}
 

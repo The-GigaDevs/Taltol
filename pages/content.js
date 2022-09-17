@@ -44,7 +44,7 @@ export default function Content() {
       <div className="home-main-content">
         <section className="home-main-left-content">
           <PickedSelect />
-          <QuoteCards fetchNext={fetchNext} quotes={quotes} category={false} />
+          <QuoteCards fetchNext={fetchNext} quotes={quotes} category={false} next ={quotesReduxState?.next} />
         </section>
         <section className="home-main-right-content">
           <TopicBrowse />

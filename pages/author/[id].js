@@ -8,15 +8,15 @@ import Navbar from '../../components/Navbar';
 import ProFooter from '../../components/ProFooter';
 import QuoteCards from '../../components/QuoteCards';
 import TopicBrowse from '../../components/TopicBrowse';
-import { fetchSingleCategory } from '../../slices/categories.slice';
-import { fetchQuotesOfCategory } from '../../slices/quotes.slice';
+import { fetchSingleAuthor } from '../../slices/authors.slice';
+import { fetchQuotesOfAuthorWithPage } from '../../slices/quotes.slice';
 
-const Category = ({ id }) => {
+const Author = ({ id }) => {
     const dispatch = useDispatch()
     const [ page , setPage] = useState(1);
     const [ tags , setTags] = useState([]);
     const quotesRedux = useSelector(state => state.quotes?.quotes)
-    const singleCategoryRedux = useSelector(state => state.categories.singleCategory)
+    const singleAuthorRedux = useSelector(state => state.authors.singleAuthor)
 
     const fetchNext = () => {
         setPage(page+1);
@@ -28,11 +28,11 @@ const Category = ({ id }) => {
         }
     }, [quotesRedux?.results])
     useEffect(() => {
-        if(!singleCategoryRedux || singleCategoryRedux?.id !== id) {
-            dispatch(fetchSingleCategory(id));
+        if(!singleAuthorRedux || singleAuthorRedux?.id !== id) {
+            dispatch(fetchSingleAuthor(id));
         }
-        dispatch(fetchQuotesOfCategory({id, page}))
-    }, [id, dispatch, page, singleCategoryRedux])
+        dispatch(fetchQuotesOfAuthorWithPage({id, page}))
+    }, [id, dispatch, page, singleAuthorRedux])
 
     return (
         <>
@@ -49,7 +49,7 @@ const Category = ({ id }) => {
 
             <Navbar />
             <MobileMenu />
-            <CategoryHeader category = {singleCategoryRedux} quotes={quotesRedux} tags={tags} />
+            <CategoryHeader category = {singleAuthorRedux} quotes={quotesRedux} tags={tags} />
 
             <main className="category-main">
                 <div className="container">
@@ -68,7 +68,7 @@ const Category = ({ id }) => {
     );
 };
 
-export default Category;
+export default Author;
 
 
 export async function getServerSideProps(ctx) {

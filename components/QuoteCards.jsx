@@ -1,5 +1,5 @@
 import QuoteCard from "./QuoteCard";
-const QuoteCards = ({quotes, fetchNext, category }) => {
+const QuoteCards = ({quotes, fetchNext, category, next }) => {
   return (
     <>
       <div className="quote-cards">
@@ -8,7 +8,7 @@ const QuoteCards = ({quotes, fetchNext, category }) => {
         ))}
       </div>
       <div>
-        <button className="filter-modal-footer-btn" onClick={() => fetchNext()}>Load More</button>
+        {next !== null && (<button className="filter-modal-footer-btn" onClick={() => fetchNext()}>Load More</button>)}
       </div>
     </>
   );
