@@ -1,8 +1,54 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import authService from '../services/auth.service';
+import { addQuotes } from '../slices/quotes.slice';
+
+const { searchQuotesModal } = authService
 
 const PickedSelect = () => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(0);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function dropDrownSearch(){
+
+    switch (selectedOption) {
+      case 0:
+        let results = await searchQuotesModal( "","", "",   "");
+      results = {...results, results: results.results.slice(0, 100)}
+        dispatch({type: "quotes/addQuotes", payload: results})
+        break;
+      case 1:
+        results = await searchQuotesModal( "","", "",   "elon musk");
+        // results = results.results.slice(0, 20);
+
+      results = {...results, results: results.results.slice(0, 20)}
+        dispatch({type: "quotes/addQuotes", payload: results})
+        break;
+      case 2:
+        results = await searchQuotesModal( "","", "",   "Bill Gates");
+        // results = results.results.slice(0, 20);
+        
+      results = {...results, results: results.results.slice(0, 20)}
+        dispatch({type: "quotes/addQuotes", payload: results})
+
+        break;
+      case 3:
+        results =await searchQuotesModal( "","", "",   "Steve Jobs");
+
+      results = {...results, results: results.results.slice(0, 20)}
+        // results = results.results.slice(0, 20);
+        dispatch({type: "quotes/addQuotes", payload: results})
+        break;
+    }
+    
+  }
+  dropDrownSearch();
+  }, [selectedOption]);
+
+
 
   const optionsList = [
     'Top 100 picked quotes this month',
@@ -18,7 +64,9 @@ const PickedSelect = () => {
   const setSelectedThenCloseDropdown = index => {
     setSelectedOption(index);
     setIsOptionsOpen(false);
+    
   };
+
 
   const handleKeyDown = index => e => {
     switch (e.key) {
