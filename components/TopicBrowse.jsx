@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 import { useEffect, useState, useContext } from 'react';
 import authService from '../services/auth.service';
 import quotesContext from '../pages/context/quotes.context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
+=======
+import { useEffect, useState, useContext } from "react";
+import authService from "../services/auth.service";
+import  quotesContext  from "../pages/context/quotes.context";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategories } from "../slices/categories.slice";
+import Link from "next/link";
+
+>>>>>>> f3fa3be292ceb0163ca4ec7d188b1098c1f3081c
 
 const TopicBrowse = () => {
   const [loading, setLoading] = useState(true);
@@ -27,6 +37,7 @@ const TopicBrowse = () => {
   ) : (
     <div id="browse-topics" className="topic-browse">
       <h3 className="topic-browse-title">Browse by topic</h3>
+<<<<<<< HEAD
       <ul className="topic-browse-list">
         {categories
           ?.slice(0, !showAll ? 15 : undefined)
@@ -35,6 +46,16 @@ const TopicBrowse = () => {
               {`${category.name} Quotes`}
             </li>
           ))}
+=======
+      <ul className="topic-browse-list" >
+        {categories?.slice(0, !showAll ? 15 : undefined).map((category, index) => (
+          <Link key={index} passHref href={`/category/${encodeURIComponent(category.id)}`}>
+            <li key={index} className="topic-browse-list-item">
+              {`${category.name} Quotes`}
+            </li>
+          </Link>
+        ))}
+>>>>>>> f3fa3be292ceb0163ca4ec7d188b1098c1f3081c
       </ul>
       {!showAll && (
         <div className="filter-modal-filters-showall">

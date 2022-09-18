@@ -1,10 +1,11 @@
 import { createAsyncThunk , createSlice, current} from "@reduxjs/toolkit";    
 import authService from "../services/auth.service";
-const { getAuthors, getAuthorQuotes, getAuthor } = authService;
+const { getAuthors, getAuthorQuotes, getAuthor, getSingleAuthor } = authService;
 //initialize authors state
 const initialState = {
     authors: [],
     authorQuotes: [],
+    singleAuthor: null,
 };
 //create async thunk to fetch authors
 export const fetchAuthors = createAsyncThunk(
@@ -31,6 +32,14 @@ export const authorSearch = createAsyncThunk(
     }
 );
 
+export const fetchSingleAuthor = createAsyncThunk(
+    "authors/fetchSingleAuthor",
+    async (authorId) => {
+        const result = await getSingleAuthor(authorId);
+        console.log(result);
+        return result;
+    }
+)
 
 export const getAllQuotesOfAuthor = createAsyncThunk(
     "authors/getAllQuotesOfAuthor",
@@ -66,11 +75,17 @@ export const authorsSlice = createSlice({
             state.authorQuotes = action.payload
         },
         [getAllQuotesOfAuthor.rejected]: (state, action) => {
-            state.authorQuotes = action.payload
+            state.authorQuotes = []
         },
         [authorSearch.fulfilled]: (state, action) => {
             state.authors = action.payload;
             console.log("State of the quotes" , current(state));
+        },
+        [fetchSingleAuthor.fulfilled]: (state, action) => {
+            state.singleAuthor = action.payload
+        },
+        [fetchSingleAuthor.rejected]: (state, action) => {
+            state.singleAuthor = null
         }
     },
 });

@@ -10,11 +10,22 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
 
-  function setSelectedCount(number, selected) {
-    setSelected(selected);
+  function setSelectedCount(value, selected) {
+    if(value === "author") {
+    setSelectedAuthors(selected);
+    } else if(value === "category") {
+    setSelectedCategories(selected);
+    } else if(value === "tag") {
+    setSelectedTags(selected);
+    }
     console.log(selected);
   }
+
+
 
   return (
     <>
@@ -83,7 +94,7 @@ const Navbar = () => {
                   ></path>
                 </svg>
                 <span className="navbar-filters-text">Filters</span>
-                <span className="navbar-filters-count">{selected.length}</span>
+                <span className="navbar-filters-count">{selectedAuthors.length + selectedCategories.length + selectedTags.length}</span>
               </div>
             </div>
             <div onClick={() => setIsOpen(!isOpen)} className="navbar-profile">
@@ -174,7 +185,7 @@ const Navbar = () => {
 
     <Provider store={store}>
 
-        <FilterModal show={show} setShow={setShow} selectedArray={selected} setSelectedCount={setSelectedCount}/>
+        <FilterModal show={show} setShow={setShow} selectedAuthorsProp={selectedAuthors} selectedTagsProp={selectedTags} selectedCategoriesProp={selectedCategories} setSelectedCount={setSelectedCount}/>
         </Provider>
     </>
   );

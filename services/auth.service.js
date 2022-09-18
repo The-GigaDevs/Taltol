@@ -39,7 +39,7 @@ const getAuthors = (page, pageSize) => httpService
 
 //write a get request to get quotes in a catgory
 const getQuotesByCategory = (category, page, pageSize) => httpService
-    .get(`/quotes/categories/${category}/?page=${page}&page_size=${pageSize}`)
+    .get(`/quotes/categories/${category}/?page=${page || ''}&page_size=${pageSize || ''}`)
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
@@ -51,6 +51,11 @@ const getCategories = () => httpService
 
 const getAuthorQuotes = (id) => httpService
     .get(`/quotes?authors=${id}`)
+    .then(({ data }) => data)
+    .catch(({ error }) => Promise.reject(error.response))
+
+const getAuthorQuotesWithPage = (id, page) => httpService
+    .get(`/quotes?authors=${id}&page=${page}`)
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
@@ -79,6 +84,25 @@ const getCategory = (name) => httpService
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 
+const getSingleCategory = (id) => httpService
+    .get(`quotes/categories/${id}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
+
+const getSingleAuthor = (id) => httpService
+    .get(`quotes/authors/${id}`)
+    .then(({ data }) => data)
+    .catch(({ error }) => Promise.reject(error.response))
+
+const getQuotesOfSingleCategory = (id, page) => httpService
+    .get(`quotes?categories=${id}&page=${page}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
+
+const searchQuotesModal = (authors, tags, categories) => httpService
+    .get(`/quotes/?authors=${authors}&tags=${tags}&categories=${categories}`)
+    .then(({data}) => data)
+    .catch(({error})=> Promise.reject(error.response))
 
 const authService = {
     login,
@@ -95,6 +119,11 @@ const authService = {
     getTag,
     getAuthor,
     getCategory,
-    getQuotesAgainstTag
+    getQuotesAgainstTag,
+    getSingleCategory,
+    getQuotesOfSingleCategory,
+    searchQuotesModal,
+    getSingleAuthor,
+    getAuthorQuotesWithPage
 }
 export default authService;
