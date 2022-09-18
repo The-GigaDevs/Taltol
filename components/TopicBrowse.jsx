@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import { useEffect, useState, useContext } from 'react';
-import authService from '../services/auth.service';
-import quotesContext from '../pages/context/quotes.context';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../slices/categories.slice';
-=======
 import { useEffect, useState, useContext } from "react";
 import authService from "../services/auth.service";
 import  quotesContext  from "../pages/context/quotes.context";
@@ -12,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../slices/categories.slice";
 import Link from "next/link";
 
->>>>>>> f3fa3be292ceb0163ca4ec7d188b1098c1f3081c
 
 const TopicBrowse = () => {
   const [loading, setLoading] = useState(true);
