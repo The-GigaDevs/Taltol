@@ -3,6 +3,7 @@ import authService from '../services/auth.service';
 import quotesContext from '../pages/context/quotes.context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
+import Link from 'next/link';
 
 const TopicBrowse = () => {
   const [loading, setLoading] = useState(true);
@@ -31,9 +32,15 @@ const TopicBrowse = () => {
         {categories
           ?.slice(0, !showAll ? 15 : undefined)
           .map((category, index) => (
-            <li key={index} className="topic-browse-list-item">
-              {`${category.name} Quotes`}
-            </li>
+            <Link
+              key={index}
+              passHref
+              href={`/category/${encodeURIComponent(category.id)}`}
+            >
+              <li key={index} className="topic-browse-list-item">
+                {`${category.name} Quotes`}
+              </li>
+            </Link>
           ))}
       </ul>
       {!showAll && (
