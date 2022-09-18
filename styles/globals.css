@@ -1080,7 +1080,7 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  column-gap: 1.5rem;
+  column-gap: 3.5rem;
   padding-top: 15px;
 }
 
@@ -1088,6 +1088,10 @@ svg {
   display: flex;
   align-items: center;
   column-gap: 1.5rem;
+}
+
+.quote-body-author-profile {
+  flex: 1;
 }
 
 .quote-body-author-name {
@@ -1101,6 +1105,7 @@ svg {
 
 .quote-body-author-tags {
   font-size: 1.4rem;
+  line-height: 1.8rem;
   font-weight: 400;
   color: var(--clr-gray-light);
 }
@@ -1110,7 +1115,8 @@ svg {
   color: var(--clr-gray-semi);
 }
 
-.quote-body-author-tag.current {
+.quote-body-author-tag.current,
+.quote-body-author-tag:hover {
   color: var(--clr-pink);
 }
 
@@ -1150,12 +1156,12 @@ svg {
   font-weight: 700;
   line-height: 7.2rem;
   color: var(--clr-gray-medium);
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 
 .quote-body-other-quotes,
 .quote-body-similar-quotes {
-  margin-top: 8rem;
+  margin-top: 5rem;
 }
 
 .quote-body-other-quotes-cards,
@@ -1568,6 +1574,29 @@ svg {
   color: var(--clr-gray-light);
 }
 
+.load-more-btn {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  background: var(--clr-pink);
+  border-radius: 5px;
+  border: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr-white);
+  box-shadow: 0 5px 0 #c41b6c;
+  cursor: pointer;
+  width: 30rem;
+  margin: 0 auto;
+  margin-top: 5rem;
+}
+
+.load-more-btn:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
 /* Media Queries */
 
 @media (max-width: 945px) {
@@ -1685,6 +1714,56 @@ svg {
   .category-main-content {
     gap: 1.5rem;
   }
+
+  .quote-header {
+    padding: 15px;
+    background-color: var(--clr-white);
+  }
+
+  .quote-header-close > svg path {
+    fill: var(--clr-gray-medium);
+  }
+
+  .quote-body-heading {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    text-align: center;
+    padding: 15px 0;
+  }
+
+  .quote-body-content {
+    flex-direction: column;
+    row-gap: 3.5rem;
+  }
+
+  .quote-body-author {
+    width: 100%;
+  }
+
+  .quote-body-options {
+    align-self: flex-end;
+  }
+
+  .quote-body-text {
+    font-size: 3.2rem;
+    line-height: 4.8rem;
+    margin-top: 5rem;
+  }
+
+  .quote-body-author-avatar {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .quote-body-author-name {
+    font-size: 1.6rem;
+    line-height: 2.1rem;
+  }
+
+  .quote-body-author-tags {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
 }
 
 @media (min-width: 601px) {
@@ -1711,13 +1790,16 @@ svg {
   .home-main-content,
   .category-main-content {
     flex-direction: column;
-    row-gap: 5rem;
   }
 
   .topic-browse,
   .home-main-right-content,
   .category-main-right-content {
     width: 100%;
+  }
+
+  .topic-browse {
+    padding-top: 50px;
   }
 
   .picked-select {

@@ -5,7 +5,7 @@ const MobileMenu = () => {
     <div className="mobile-menu">
       <div className="container">
         <div className="mobile-menu-content">
-          <Link href="#">
+          <Link href="/home">
             <a className="mobile-menu-link">
               <span className="mobile-menu-link-icon">
                 <svg
@@ -34,7 +34,7 @@ const MobileMenu = () => {
               <span className="mobile-menu-link-text">Home</span>
             </a>
           </Link>
-          <Link href="#">
+          <Link href="#browse-topics">
             <a className="mobile-menu-link">
               <span className="mobile-menu-link-icon">
                 <svg
