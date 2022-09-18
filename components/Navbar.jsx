@@ -62,7 +62,7 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="container">
           <div className="navbar-content">
-            <Link href="#">
+            <Link href="/home" passHref>
               <a className="navbar-brand">
                 t<span className="navbar-brand-mobile">altol</span>
               </a>

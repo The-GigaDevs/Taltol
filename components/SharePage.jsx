@@ -3,8 +3,7 @@ import React from "react";
 
 const SharePage = ({place, id}) => {
   return (
-    <Link href={`/${place}/${id}`} passHref>
-      <button className="category-header-share-btn">
+      <button className="category-header-share-btn" onClick={()=> navigator.clipboard.writeText(`${process.env.NEXTAUTH_URL}/${place}/${id}`)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="21"
@@ -19,7 +18,6 @@ const SharePage = ({place, id}) => {
         </svg>
         Share this page
       </button>
-    </Link>
   );
 };
 

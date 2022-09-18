@@ -1056,6 +1056,7 @@ svg {
 
 .quote-body-heading-author {
   text-transform: capitalize;
+  cursor: pointer;
 }
 
 .quote-body-heading-start {
@@ -1101,6 +1102,7 @@ svg {
   color: var(--clr-gray-semi);
   display: block;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 .quote-body-author-tags {
@@ -1179,6 +1181,7 @@ svg {
   font-weight: 700;
   line-height: 2.3rem;
   color: var(--clr-gray-light);
+  cursor: pointer;
 }
 
 /* -***********Category-Main***********- */
