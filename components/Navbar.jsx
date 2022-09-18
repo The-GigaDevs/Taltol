@@ -1,10 +1,16 @@
 import Link from "next/link";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import FilterModal from "./FilterModal";
 import { signOut } from "next-auth/react";
 import { Provider } from "react-redux";
 import  store  from "../store";
-import { useRouter } from "next/router";
+import { fetchQuotes, addQuotes } from "../slices/quotes.slice";
+import authService  from "../services/auth.service";
+import { useSelector, useDispatch } from "react-redux";
+
+
+const { searchQuotesModal } = authService;
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +19,10 @@ const Navbar = () => {
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+
+  const [search, setSearch] = useState("");
+
+  const dispatch = useDispatch();
 
   function setSelectedCount(value, selected) {
     if(value === "author") {
@@ -25,6 +35,26 @@ const Navbar = () => {
     console.log(selected);
   }
 
+  function handleSearch(e) {
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
+
+  // useEffect(() => {
+  
+  //   searchQuotes();
+
+  // }, [search])
+ 
+
+
+
+  async function searchQuotes() {
+
+      const results = await searchQuotesModal(selectedAuthors, selectedTags, selectedCategories, search);
+      dispatch({type: "quotes/addQuotes", payload: results})
+    
+  }
 
 
   return (
@@ -49,7 +79,14 @@ const Navbar = () => {
                   <path d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"></path>
                 </svg>
                 <input
+                
+                  onChange={(e) => handleSearch(e)}
                   type="text"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      searchQuotes();
+                    }
+                  }}
                   className="navbar-search-field"
                   placeholder="Search quotes, authors, and tags"
                 />
@@ -185,7 +222,7 @@ const Navbar = () => {
 
     <Provider store={store}>
 
-        <FilterModal show={show} setShow={setShow} selectedAuthorsProp={selectedAuthors} selectedTagsProp={selectedTags} selectedCategoriesProp={selectedCategories} setSelectedCount={setSelectedCount}/>
+        <FilterModal show={show} setShow={setShow} selectedAuthorsProp={selectedAuthors} selectedTagsProp={selectedTags} selectedCategoriesProp={selectedCategories} search={search} setSelectedCount={setSelectedCount}/>
         </Provider>
     </>
   );

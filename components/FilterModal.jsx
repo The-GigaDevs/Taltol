@@ -31,7 +31,7 @@ const filterModalStyles = {
   },
 };
 
-const FilterModal = ({ show, setShow , selectedAuthorsProp, selectedTagsProp, selectedCategoriesProp, setSelectedCount}) => {
+const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTagsProp, selectedCategoriesProp, setSelectedCount}) => {
   const [inputShowAuthors, setInputShowAuthors] = useState(false);
   const [inputShowTags, setInputShowTags] = useState(false);
   const [inputShowTopics, setInputShowTopics] = useState(false);
@@ -43,6 +43,7 @@ const FilterModal = ({ show, setShow , selectedAuthorsProp, selectedTagsProp, se
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [searchField , setSearchField] = useState('');
   
   const dispatch = useDispatch();
 
@@ -142,12 +143,13 @@ const FilterModal = ({ show, setShow , selectedAuthorsProp, selectedTagsProp, se
       dispatch(fetchQuotes())
     }else {
       setCount(0)
-      const results = await searchQuotesModal(selectedAuthors, selectedTags, selectedCategories);
+      const results = await searchQuotesModal(selectedAuthors, selectedTags, selectedCategories, search);
       dispatch({type: "quotes/addQuotes", payload: results})
       setCount(results.count);
     }
 
   }
+
 
 
   return (
