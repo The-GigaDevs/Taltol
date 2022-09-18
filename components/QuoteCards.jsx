@@ -9,10 +9,7 @@ const QuoteCards = ({ quotes, fetchNext, category, next }) => {
       </div>
       <div>
         {next !== null && (
-          <button
-            className="filter-modal-footer-btn"
-            onClick={() => fetchNext()}
-          >
+          <button className="load-more-btn" onClick={() => fetchNext()}>
             Load More
           </button>
         )}
