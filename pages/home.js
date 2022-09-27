@@ -6,10 +6,13 @@ import Content from './content';
 import { Provider } from 'react-redux';
 import store from '../store';
 import MobileMenu from '../components/MobileMenu';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from '../pages/api/auth/[...nextauth]'
 
-const Home = () => {
+const Home = ({ session }) => {
+  console.log(session, "Session from NextAuth");
   return (
-    <>
+    <>  
       <Head>
         <title>Taltol</title>
         <meta
@@ -37,3 +40,11 @@ user experience for quotes."
 };
 
 export default Home;
+
+
+export async function getServerSideProps(ctx) {
+  const session = await unstable_getServerSession(ctx.req,ctx.res, authOptions);
+  return {
+    props: { session },
+  }
+}

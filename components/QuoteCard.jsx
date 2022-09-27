@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 
 const QuoteCard = (props) => {
   const { quote, category} = props;
-  console.log(quote, category, 'Tada')
   const dispatch = useDispatch();
   const router = useRouter();
   return (
