@@ -1607,6 +1607,250 @@ svg {
   transform: translateY(5px);
 }
 
+/* User-Page */
+.user-header {
+  background-color: var(--bg-primary);
+  padding: 35px 35px 0 35px;
+}
+
+.user-header-content-data {
+  display: flex;
+  align-items: center;
+  column-gap: 2.5rem;
+}
+
+.user-header-avatar > img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e0e0e0;
+}
+
+.user-header-info {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.user-header-info-name {
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+  color: var(--clr-gray-dark);
+}
+
+.user-header-info-date,
+.user-header-info-mail {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--clr-gray-semi);
+  line-height: 2rem;
+  margin-top: 0.5rem;
+}
+
+.user-header-info-mail {
+  margin-top: 0.25rem;
+}
+
+.user-header-content-actions {
+  font-family: 'Quicksand', sans-serif;
+  padding-top: 35px;
+  display: flex;
+  align-items: center;
+  column-gap: 3.5rem;
+}
+
+.user-header-content-actions-btn {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  padding: 0 2.5px;
+  padding-bottom: 8px;
+  color: var(--clr-gray-light);
+  cursor: pointer;
+}
+
+.user-header-content-actions-btn.active {
+  border-bottom: 5px solid var(--clr-black);
+  color: var(--clr-black);
+}
+
+.user-liked-quotes {
+  font-family: 'Quicksand', sans-serif;
+  padding: 6rem 0;
+}
+
+.user-liked-quotes.show {
+  display: block;
+}
+
+.user-liked-quotes.hide {
+  display: none;
+}
+
+.user-liked-quotes-count {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-gray-light);
+}
+
+.user-liked-quotes-content {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 1.5rem;
+}
+
+.user-saved-collection {
+  font-family: 'Quicksand', sans-serif;
+  padding: 6rem 0;
+  max-width: 76.7rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.user-saved-collection.show {
+  display: block;
+}
+
+.user-saved-collection.hide {
+  display: none;
+}
+
+.user-saved-collection-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+  gap: 2.5rem;
+}
+
+.user-saved-collection-card {
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  padding-left: 30px;
+  padding-bottom: 20px;
+  cursor: pointer;
+}
+
+.user-saved-collection-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 2rem;
+}
+
+.user-saved-collection-card-actions-btn:hover svg path {
+  fill: var(--clr-pink);
+}
+
+.user-saved-collection-card-title {
+  margin-top: 0.85rem;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  font-weight: 700;
+  color: var(--clr-black);
+}
+
+.user-saved-collection-card-counts {
+  margin-top: 0.95rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2rem;
+  color: var(--clr-gray-semi);
+}
+
+.user-saved-collection-quotes {
+  font-family: 'Quicksand', sans-serif;
+  padding: 6rem 0;
+}
+
+.user-saved-collection-quotes-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
+.user-saved-collection-quotes-content-info-title {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-black);
+}
+
+.user-saved-collection-quotes-content-info-count {
+  margin-top: 0.85rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  color: var(--clr-gray-semi);
+}
+
+.user-saved-collection-quotes-content-actions {
+  display: flex;
+  align-items: center;
+  column-gap: 2.5rem;
+}
+
+.user-saved-collection-quotes-content-actions-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 0.5rem;
+  cursor: pointer;
+}
+
+.user-saved-collection-quotes-content-actions-btn:hover svg path {
+  fill: var(--clr-pink);
+}
+
+.user-saved-collection-quotes-content-actions-btn:hover
+  .user-saved-collection-quotes-content-actions-btn-text {
+  color: var(--clr-pink);
+}
+
+.user-saved-collection-quotes-content-actions-btn > svg {
+  height: 2.2rem;
+}
+
+.user-saved-collection-quotes-content-actions-btn-text {
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  color: var(--clr-gray-light);
+}
+
+.user-saved-collection-quotes-cards {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 1.5rem;
+}
+
+.user-collection-back {
+  padding-top: 25px;
+  padding-bottom: 45px;
+}
+
+.user-collection-back-btn {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  border: 0;
+  background: 0;
+  cursor: pointer;
+}
+
+.user-collection-back-btn-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2rem;
+  color: var(--clr-black);
+}
+
+/* Add Collection Modal */
+
 /* Media Queries */
 
 @media (max-width: 945px) {
@@ -1658,6 +1902,10 @@ svg {
 
 @media (min-width: 768px) {
   .mobile-menu {
+    display: none;
+  }
+
+  .user-liked-quotes-mobile {
     display: none;
   }
 }
@@ -1775,6 +2023,51 @@ svg {
   .quote-body-author-tags {
     font-size: 1.2rem;
     line-height: 1.6rem;
+  }
+
+  .user-header {
+    display: none;
+  }
+
+  .user-liked-quotes.show {
+    display: none;
+  }
+
+  .user-liked-quotes-mobile {
+    font-family: 'Quicksand', sans-serif;
+    display: block;
+    padding-top: 60px;
+    padding-bottom: 130px;
+  }
+
+  .user-liked-quotes-mobile-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 1.5rem;
+  }
+
+  .user-liked-quotes-mobile-data-back {
+    cursor: pointer;
+  }
+
+  .user-liked-quotes-mobile-data-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 3.6rem;
+    color: var(--clr-black);
+  }
+
+  .user-collection-back {
+    display: none;
+  }
+
+  .user-saved-collection-quotes {
+    padding-bottom: 130px;
+  }
+
+  .user-saved-collection {
+    padding-bottom: 130px;
   }
 }
 
