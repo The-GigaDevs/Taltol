@@ -8,7 +8,7 @@ import { useState } from 'react';
 import MobileMenu from '../components/MobileMenu';
 import UserCollectionBack from '../components/UserCollectionBack';
 import AddCollectionModal from '../components/AddCollectionModal';
-import CreateCollectionModal from '../components/CreateCollectionModal';
+import UserLikedQuotesMobile from '../components/UserLikedQuotesMobile';
 
 const users = () => {
   //get the tab state from userheader
@@ -37,26 +37,10 @@ user experience for quotes."
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <MobileMenu />
-      <Navbar />
-      {
-        // if the active tab is tab2
-        activeTab === 'tab2' ? <UserCollectionBack /> : ''
-      }
 
-      <UserHeader
-        handleTab1={handleTab1}
-        handleTab2={handleTab2}
-        activeTab={activeTab}
-      />
-      <main className="user-main">
-        <div className="container">
-          <UserLikedQuotes activeTab={activeTab} />
-          <UserSavedCollection activeTab={activeTab} />
-          <UserSavedCollectionQuotes />
-          <AddCollectionModal />
-          <CreateCollectionModal />
-        </div>
-      </main>
+      <div className="container">
+        <UserLikedQuotesMobile />
+      </div>
     </>
   );
 };

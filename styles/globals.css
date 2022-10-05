@@ -1702,6 +1702,7 @@ svg {
   gap: 1.5rem;
 }
 
+/* User-Saved-Collections-Cards */
 .user-saved-collection {
   font-family: 'Quicksand', sans-serif;
   padding: 6rem 0;
@@ -1759,9 +1760,12 @@ svg {
   color: var(--clr-gray-semi);
 }
 
+/* User-Saved-Collection-Quotes */
+
 .user-saved-collection-quotes {
   font-family: 'Quicksand', sans-serif;
   padding: 6rem 0;
+  display: none;
 }
 
 .user-saved-collection-quotes-content {
@@ -1849,7 +1853,217 @@ svg {
   color: var(--clr-black);
 }
 
+/* User-Liked-Mobile */
+.user-liked-quotes-mobile {
+  font-family: 'Quicksand', sans-serif;
+  display: block;
+  padding-top: 60px;
+  padding-bottom: 130px;
+}
+
+.user-liked-quotes-mobile-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
+.user-liked-quotes-mobile-data-back {
+  cursor: pointer;
+}
+
+.user-liked-quotes-mobile-data-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 3.6rem;
+  color: var(--clr-black);
+}
+
 /* Add Collection Modal */
+.add-collection-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1.5rem;
+  padding: 25px 35px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.add-collection-modal-title {
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 2.6rem;
+}
+
+.add-collection-modal-close > svg {
+  cursor: pointer;
+  width: 1.8rem;
+}
+
+.add-collection-modal-body {
+  padding: 35px;
+  height: calc(100vh - 32rem);
+  overflow-y: auto;
+}
+
+.add-collection-modal-body-collection {
+  padding: 125px 35px;
+}
+
+.add-collection-modal-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.add-collection-modal-body::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+}
+
+.add-collection-modal-body::-webkit-scrollbar-thumb {
+  background-color: var(--clr-pink);
+}
+
+.add-collection-modal-search {
+  display: flex;
+  align-items: center;
+  column-gap: 0.85rem;
+  background-color: var(--clr-white);
+  border-radius: 5px;
+  height: 4.5rem;
+  width: 30rem;
+  padding: 0 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.add-collection-modal-search-icon {
+  display: block;
+  height: 1.8rem;
+  width: 1.8rem;
+  cursor: pointer;
+}
+
+.add-collection-modal-search-icon > svg {
+  fill: #e0e0e0;
+}
+
+.add-collection-modal-search > input {
+  display: block;
+  width: 25rem;
+  height: 100%;
+  border: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--clr-gray-dark);
+  outline: none;
+}
+
+.add-collection-modal-search > input::placeholder {
+  color: #e0e0e0;
+}
+
+.add-collection-modal-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.add-collection-modal-card {
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  padding-left: 30px;
+  padding-bottom: 20px;
+  cursor: pointer;
+}
+
+.add-collection-modal-card:hover {
+  background-color: var(--bg-primary);
+}
+
+.add-collection-modal-card-title {
+  margin-top: 0.85rem;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  font-weight: 700;
+  color: var(--clr-black);
+}
+
+.add-collection-modal-card-counts {
+  margin-top: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2rem;
+  color: var(--clr-gray-semi);
+}
+
+.add-collection-modal-card-timestamp {
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2rem;
+  color: var(--clr-gray-light);
+}
+
+.add-collection-modal-footer {
+  padding: 25px 35px;
+  border-top: 1px solid #f2f2f2;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-collection-modal-footer-btn {
+  display: block;
+  width: fit-content;
+  height: 5.5rem;
+  padding: 0 25px;
+  background: var(--clr-pink);
+  border-radius: 5px;
+  border: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr-white);
+  box-shadow: 0 5px 0 #c41b6c;
+  cursor: pointer;
+}
+
+.add-collection-modal-footer-btn:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+.add-collection-modal-footer-create {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--clr-gray-semi);
+  color: var(--clr-gray-semi);
+  cursor: pointer;
+}
+
+.add-collection-field {
+  max-width: 60rem;
+  width: 100%;
+}
+
+.add-collection-field > input {
+  display: block;
+  width: 100%;
+  background-color: var(--clr-white);
+  outline: none;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 2.6rem;
+  color: var(--clr-gray-dark);
+  padding: 20px 15px;
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.add-collection-field > input::placeholder {
+  color: var(--clr-gray-light);
+}
 
 /* Media Queries */
 
@@ -2033,32 +2247,7 @@ svg {
     display: none;
   }
 
-  .user-liked-quotes-mobile {
-    font-family: 'Quicksand', sans-serif;
-    display: block;
-    padding-top: 60px;
-    padding-bottom: 130px;
-  }
-
-  .user-liked-quotes-mobile-data {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    column-gap: 1.5rem;
-  }
-
-  .user-liked-quotes-mobile-data-back {
-    cursor: pointer;
-  }
-
-  .user-liked-quotes-mobile-data-title {
-    font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 3.6rem;
-    color: var(--clr-black);
-  }
-
-  .user-collection-back {
+  /* .user-collection-back {
     display: none;
   }
 
@@ -2068,7 +2257,7 @@ svg {
 
   .user-saved-collection {
     padding-bottom: 130px;
-  }
+  } */
 }
 
 @media (min-width: 601px) {
@@ -2122,9 +2311,33 @@ svg {
     padding: 0 15px;
   }
 
+  .add-collection-modal-body {
+    padding: 35px 15px;
+  }
+
   .filter-modal-footer,
-  .filter-modal-header {
+  .filter-modal-header,
+  .add-collection-modal-header,
+  .add-collection-modal-footer {
     padding: 20px 15px;
+  }
+
+  .add-collection-modal-title {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+  }
+
+  .add-collection-modal-card-title {
+    font-size: 1.6rem;
+  }
+
+  .add-collection-modal-card-counts,
+  .add-collection-modal-card-timestamp {
+    font-size: 1.4rem;
+  }
+
+  .add-collection-modal-close > svg {
+    width: 1.6rem;
   }
 
   .filter-modal-footer-btn {
@@ -2142,6 +2355,10 @@ svg {
 
   .filter-modal-filters-search > input {
     width: 18rem;
+  }
+
+  .add-collection-modal-body-collection {
+    padding: 75px 15px;
   }
 
   .pro-footer-content {

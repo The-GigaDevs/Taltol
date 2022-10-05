@@ -1,9 +1,8 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
+import UserSavedCollection from './UserSavedCollection';
 
 const AddCollectionModal = () => {
-  const [inputShowField, setInputShowField] = useState(false);
-
   const [showCollectionModal, setShowCollectionModal] = useState(false);
 
   function closeModal() {
@@ -67,6 +66,66 @@ const AddCollectionModal = () => {
             </span>
             <span></span>
           </div>
+          <div className="add-collection-modal-body">
+            <div className="add-collection-modal-search">
+              <span className="add-collection-modal-search-icon">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="#BDBDBD"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"></path>
+                </svg>
+              </span>
+              <input type="text" placeholder="Search for a collection" />
+            </div>
+            <div className="add-collection-modal-cards">
+              <div className="add-collection-modal-card">
+                <h4 className="add-collection-modal-card-title">
+                  Collection name
+                </h4>
+                <p className="add-collection-modal-card-counts">12 quotes</p>
+                <p className="add-collection-modal-card-timestamp">
+                  updated 5 months ago
+                </p>
+              </div>
+              <div className="add-collection-modal-card">
+                <h4 className="add-collection-modal-card-title">
+                  Collection name
+                </h4>
+                <p className="add-collection-modal-card-counts">12 quotes</p>
+                <p className="add-collection-modal-card-timestamp">
+                  updated 5 months ago
+                </p>
+              </div>
+              <div className="add-collection-modal-card">
+                <h4 className="add-collection-modal-card-title">
+                  Collection name
+                </h4>
+                <p className="add-collection-modal-card-counts">12 quotes</p>
+                <p className="add-collection-modal-card-timestamp">
+                  updated 5 months ago
+                </p>
+              </div>
+              <div className="add-collection-modal-card">
+                <h4 className="add-collection-modal-card-title">
+                  Collection name
+                </h4>
+                <p className="add-collection-modal-card-counts">12 quotes</p>
+                <p className="add-collection-modal-card-timestamp">
+                  updated 5 months ago
+                </p>
+              </div>
+            </div>
+          </div>
+          <footer className="add-collection-modal-footer">
+            <button className="add-collection-modal-footer-btn">Done</button>
+            <span className="add-collection-modal-footer-create">
+              Create a new collection
+            </span>
+          </footer>
         </div>
       </Modal>
     </>
