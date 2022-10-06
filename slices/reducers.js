@@ -4,10 +4,14 @@ import quotesReducer from './quotes.slice'
 import authorsReducer from './authors.slice'
 import categoriesReducer from './categories.slice'
 import tagsReducer from './tags.slice'
+import likesReducer from './likes.slice'
+import collectionsReducer from './collection.slice'
 export const allReducers = combineReducers({
     auth: authReducer,
     authors: authorsReducer,
     quotes: quotesReducer,
     categories : categoriesReducer,
-    tags: tagsReducer
+    tags: tagsReducer,
+    collections: collectionsReducer,
+    likes: likesReducer
 })

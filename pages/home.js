@@ -6,8 +6,17 @@ import Content from './content';
 import { Provider } from 'react-redux';
 import store from '../store';
 import MobileMenu from '../components/MobileMenu';
+import { fetchLikedQuotes } from '../slices/likes.slice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 const Home = () => {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchLikedQuotes());
+  }, []);
+
   return (
     <>
       <Head>

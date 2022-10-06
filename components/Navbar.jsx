@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { useState, useEffect} from "react";
 import FilterModal from "./FilterModal";
-import { signOut } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import { Provider } from "react-redux";
 import  store  from "../store";
 import { fetchQuotes, addQuotes } from "../slices/quotes.slice";
 import authService  from "../services/auth.service";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useSession } from "next-auth/react";
 
 const { searchQuotesModal } = authService;
 
 
-const Navbar = () => {
+const Navbar = ({session}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState([]);
@@ -21,6 +21,9 @@ const Navbar = () => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const [search, setSearch] = useState("");
+
+  //session testing
+  // const { session} = useSession();
 
   const dispatch = useDispatch();
 
@@ -40,11 +43,10 @@ const Navbar = () => {
     setSearch(e.target.value);
   }
 
-  // useEffect(() => {
-  
-  //   searchQuotes();
+  useEffect(() => {
+    console.log("Session from navbar: ", session);
 
-  // }, [search])
+  }, []);
  
 
 
@@ -172,7 +174,7 @@ const Navbar = () => {
                 <p className="navbar-profile-dropdown-mail">
                   atabic14@gmail.com
                 </p>
-                <Link href="#">
+                <Link href="/users">
                   <a className="navbar-profile-dropdown-link">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -229,3 +231,16 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+export async function getServerSideProps(context) {
+  const { req, resolvedUrl } = context
+  const session = await getSession({ req })
+
+  if (session) {
+    return {
+      props: {
+        session,
+      },
+    }
+}
+}

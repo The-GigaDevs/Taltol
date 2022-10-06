@@ -60,7 +60,6 @@ const FilterModal = ({
   const tagsRedux = useSelector(state => state.tags?.tags);
 
   useEffect(() => {
-    console.log(selectedAuthors);
 
     setSelectedAuthors(selectedAuthorsProp);
     setSelectedTags(selectedTagsProp);
@@ -72,7 +71,6 @@ const FilterModal = ({
   }, []);
 
   useEffect(() => {
-    console.log(selectedAuthors); // refreshed
     searchQuotes();
   }, [selectedAuthors, selectedCategories, selectedTags]);
 

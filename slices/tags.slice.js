@@ -33,7 +33,6 @@ export const tagsSlice = createSlice({
     extraReducers: {
         [fetchTags.fulfilled]: (state, action) => {
             state.tags = action.payload;
-            console.log("State of the quotes" , current(state));
         },
         [searchTag.fulfilled]: (state, action) => {
             state.tags = action.payload;

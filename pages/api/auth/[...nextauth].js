@@ -28,7 +28,7 @@ export default NextAuth({
         }),
         CredentialProvider({
             name: "Credentials",
-            
+            id: "credentials",
             async authorize(credentials, { body }) {
                 // Add logic here to look up the user from the credentials supplied
                 const { username, password } = body;
@@ -49,6 +49,7 @@ export default NextAuth({
     // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
     // a seperate secret is defined explicitly for encrypting the JWT.
     secret: process.env.SECRET,
+
     
     pages: {
         signIn: "/",
@@ -58,16 +59,20 @@ export default NextAuth({
         newUser: "/auth/new-user", // If set, new users will be directed here on first sign in
     },
     callbacks: {
-        async signIn(user, account, profile) {
-            //check if user is verified
-            console.log(user, profile, account);
-            if (user) 
-            return '/home';
+        async signIn(user) {
+            if (user){
+                return '/home';
+            }
         },
-        async redirect(url, baseUrl) {
-            return baseUrl;
+        // async redirect(url) {
+        //     console.log("The url from here",url);
+        //     return url.baseUrl;
+        // },
+        async redirect({ url, baseUrl }) {
+            return url
         },
         async session(session, user) {
+            console.log("The session from here",session);
             session.user = user;
             return session;
         },
@@ -77,5 +82,5 @@ export default NextAuth({
     },
     events: {},
     theme: "auto",
-    debug: false,
+    debug: true,
 })

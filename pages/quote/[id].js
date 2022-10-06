@@ -24,7 +24,7 @@ const ModalStyles = {
         zIndex: "3",
     },
 };
-const Quote = ({ id }) => {
+const Quote = ({ id, url }) => {
     const dispatch = useDispatch()
     const isModal = useSelector(state => state.quotes.isModal)
     const singleQuote = useSelector(state => state.quotes.singleQuote)
@@ -49,7 +49,8 @@ const Quote = ({ id }) => {
                 onRequestClose={() => dispatch(toggleModal(false))}
                 style={ModalStyles}
             >
-                <QuoteDP singleQuote={singleQuote} isModal={isModal} toggleModal={toggleModal} dispatch={dispatch} authorQuotes={authorQuotes} tagQuotes={tagQuotes} />
+                <QuoteDP singleQuote={singleQuote} isModal={isModal} toggleModal={toggleModal} dispatch={dispatch} authorQuotes={authorQuotes} tagQuotes={tagQuotes} url={'home'} />
+
             </Modal>
             : <QuoteDP singleQuote={singleQuote} authorQuotes={authorQuotes} tagQuotes={tagQuotes} />
     );
