@@ -2290,6 +2290,41 @@ svg {
   margin-bottom: 5px;
 }
 
+/* Admin-topics */
+.admin-topics-content {
+  padding-top: 8rem;
+}
+
+.admin-topics-text {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-gray-light);
+  margin-bottom: 2.5rem;
+}
+
+.admin-topic-browse-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+}
+
+.admin-topic-browse-list-item {
+  background: var(--bg-primary);
+  border-radius: 3px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2rem;
+  color: var(--clr-gray-semi);
+}
+
+.admin-topic-browse-list-item:hover {
+  background-color: var(--clr-pink);
+  color: var(--clr-white);
+}
+
 /* Admin-Quotes */
 .admin-quotes-content {
   padding-top: 8rem;
