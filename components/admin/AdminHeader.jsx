@@ -1,0 +1,46 @@
+import AdminRoleSelect from './AdminRoleSelect';
+
+const AdminHeader = () => {
+  return (
+    <div className="admin-header">
+      <AdminRoleSelect />
+      <div className="admin-search">
+        <span className="admin-search-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+          >
+            <path
+              d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"
+              fill="#E0E0E0"
+            />
+          </svg>
+        </span>
+        <input
+          type="text"
+          className="admin-search-field"
+          placeholder="Search in quotes"
+        />
+      </div>
+      <div className="admin-filter">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="12"
+          viewBox="0 0 18 12"
+          fill="none"
+        >
+          <path
+            d="M7 12H11V10H7V12ZM0 0V2H18V0H0ZM3 7H15V5H3V7Z"
+            fill="#828282"
+          />
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+export default AdminHeader;
