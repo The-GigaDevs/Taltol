@@ -28,7 +28,7 @@ export const authOptions = {
         }),
         CredentialProvider({
             name: "Credentials",
-            
+            id: "credentials",
             async authorize(credentials, { body }) {
                 // Add logic here to look up the user from the credentials supplied
                 const { username, password } = body;
@@ -66,8 +66,12 @@ export const authOptions = {
             if (user) 
             return '/home';
         },
-        async redirect(url, baseUrl) {
-            return baseUrl;
+        // async redirect(url) {
+        //     console.log("The url from here",url);
+        //     return url.baseUrl;
+        // },
+        async redirect({ url, baseUrl }) {
+            return url
         },
         async session({ session, user, token }) {
             console.log(token, user, "Running in Session")

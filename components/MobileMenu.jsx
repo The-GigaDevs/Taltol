@@ -70,7 +70,7 @@ const MobileMenu = () => {
               <span className="mobile-menu-link-text">Topics</span>
             </a>
           </Link>
-          <Link href="#">
+          <Link href="/likes">
             <a className="mobile-menu-link">
               <span className="mobile-menu-link-icon">
                 <svg

@@ -102,7 +102,7 @@ const getQuotesOfSingleCategory = (id, page) => httpService
 const searchQuotesModal = (authors, tags, categories, search) => httpService
     .get(`/quotes/?authors=${authors}&tags=${tags}&categories=${categories}&search=${search}`)
     .then(({data}) => data)
-    .catch(({error})=> Promise.reject(error.response))
+    .catch(({error})=> Promise.reject(error?.response))
 
 const authService = {
     login,

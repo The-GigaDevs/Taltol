@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
 import { useState } from 'react';
 // import authService from '../../services/auth.service';
-import {  signIn, useSession } from "next-auth/react"
+import {  signIn } from "next-auth/react"
 import { useRouter } from 'next/router';
 
 const RegisterLoginModal = ({ providers }) => {
@@ -10,13 +10,10 @@ const RegisterLoginModal = ({ providers }) => {
   const [registerBtnActive, setRegisterBtnActive] = useState(false);
   const [loginUser, setLoginUser] = useState({ email: '', password: ''})
   const route = useRouter();
-  // console.log(providers);
-  const { data: session, status } = useSession();
 
-  console.log(session);
   const handleEmailBtnClick = async (e) => {
     e.preventDefault();
-    const result = await signIn('credentials', { username: loginUser.email, password: loginUser.password , redirect: false})
+    const result = await signIn('credentials', { username: loginUser.email, password: loginUser.password , redirect: true, callbackUrl: 'http://localhost:3000' });
     console.log(result, 'result of signIn');
     if(result?.status === 200) {
       route.push(`${result?.url}/home`);
@@ -26,7 +23,6 @@ const RegisterLoginModal = ({ providers }) => {
   }
   const signInThroughProvider = async (id) => {
     const result = await signIn(id)
-    console.log(result, 'result of signIn');
     if(result?.status === 200) {
       route.push(`${result?.url}/home`);
     } else {

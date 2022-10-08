@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import Modal from "react-modal";
-import authService from "../services/auth.service";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthors, authorSearch } from "../slices/authors.slice";
-import { fetchTags, searchTag } from "../slices/tags.slice";
-import { fetchCategories, searchCategory } from "../slices/categories.slice";
-import {fetchQuotes } from '../slices/quotes.slice'
+import { useEffect, useState } from 'react';
+import Modal from 'react-modal';
+import authService from '../services/auth.service';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAuthors, authorSearch } from '../slices/authors.slice';
+import { fetchTags, searchTag } from '../slices/tags.slice';
+import { fetchCategories, searchCategory } from '../slices/categories.slice';
+import { fetchQuotes } from '../slices/quotes.slice';
 
-const { searchQuotesModal } = authService
+const { searchQuotesModal } = authService;
 
-Modal.setAppElement("#__next");
+Modal.setAppElement('#__next');
 const filterModalStyles = {
   content: {
     top: '50%',
@@ -31,7 +31,15 @@ const filterModalStyles = {
   },
 };
 
-const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTagsProp, selectedCategoriesProp, setSelectedCount}) => {
+const FilterModal = ({
+  show,
+  setShow,
+  search,
+  selectedAuthorsProp,
+  selectedTagsProp,
+  selectedCategoriesProp,
+  setSelectedCount,
+}) => {
   const [inputShowAuthors, setInputShowAuthors] = useState(false);
   const [inputShowTags, setInputShowTags] = useState(false);
   const [inputShowTopics, setInputShowTopics] = useState(false);
@@ -39,64 +47,61 @@ const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTag
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
-   const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [searchField , setSearchField] = useState('');
-  
+  const [searchField, setSearchField] = useState('');
+
   const dispatch = useDispatch();
 
-  const authors1 = useSelector((state) => state.authors?.authors);
-  const categories1 = useSelector((state) => state.categories?.categories);
-  const tagsRedux = useSelector((state) => state.tags?.tags);
+  const authors1 = useSelector(state => state.authors?.authors);
+  const categories1 = useSelector(state => state.categories?.categories);
+  const tagsRedux = useSelector(state => state.tags?.tags);
 
   useEffect(() => {
-    
-    console.log(selectedAuthors)
-    
-    setSelectedAuthors(selectedAuthorsProp)
-    setSelectedTags(selectedTagsProp)
-    setSelectedCategories(selectedCategoriesProp)
 
-    dispatch(fetchTags())
+    setSelectedAuthors(selectedAuthorsProp);
+    setSelectedTags(selectedTagsProp);
+    setSelectedCategories(selectedCategoriesProp);
+
+    dispatch(fetchTags());
     dispatch(fetchAuthors());
     dispatch(fetchCategories());
   }, []);
 
   useEffect(() => {
-    console.log(selectedAuthors)// refreshed
-    searchQuotes()
+    searchQuotes();
   }, [selectedAuthors, selectedCategories, selectedTags]);
 
   function setCountAndStuff(value, name) {
-    if(value === "author") {
-      if(selectedAuthors.includes(name)){
-      setSelectedAuthors(prevState => prevState.filter((item) => item !== name));
-      console.log(selectedAuthors)
-    }else{
-      console.log(name, value)
-      let updatedArray = [...selectedAuthors, name];
-     setSelectedAuthors(() => updatedArray);
-
-    }
-  }else if(value === "tag") {
-    if(selectedTags.includes(name)){
-      setSelectedTags(prevState => prevState.filter((item) => item !== name));
-
-    }else{
-      setSelectedTags(prevState => [...prevState, name]);
-
-    }
-  }else if(value === "category") {
-    if(selectedCategories.includes(name)){
-      setSelectedCategories(prevState => prevState.filter((item) => item !== name));
-
-    }else{
-      setSelectedCategories(prevState => [...prevState, name]);
+    if (value === 'author') {
+      if (selectedAuthors.includes(name)) {
+        setSelectedAuthors(prevState =>
+          prevState.filter(item => item !== name)
+        );
+        console.log(selectedAuthors);
+      } else {
+        console.log(name, value);
+        let updatedArray = [...selectedAuthors, name];
+        setSelectedAuthors(() => updatedArray);
+      }
+    } else if (value === 'tag') {
+      if (selectedTags.includes(name)) {
+        setSelectedTags(prevState => prevState.filter(item => item !== name));
+      } else {
+        setSelectedTags(prevState => [...prevState, name]);
+      }
+    } else if (value === 'category') {
+      if (selectedCategories.includes(name)) {
+        setSelectedCategories(prevState =>
+          prevState.filter(item => item !== name)
+        );
+      } else {
+        setSelectedCategories(prevState => [...prevState, name]);
+      }
     }
   }
-}
 
   useEffect(() => {
     setAuthors(authors1.results);
@@ -115,9 +120,9 @@ const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTag
     setInputShowAuthors(false);
     setInputShowTags(false);
     setInputShowTopics(false);
-    setSelectedCount("author", selectedAuthors);
-    setSelectedCount("tag", selectedTags);
-    setSelectedCount("category", selectedCategories);
+    setSelectedCount('author', selectedAuthors);
+    setSelectedCount('tag', selectedTags);
+    setSelectedCount('category', selectedCategories);
   }
 
   //write a function to send api call fro search authors
@@ -138,19 +143,25 @@ const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTag
   }
 
   async function searchQuotes() {
-    if(selectedAuthors.length ===  0 && selectedTags.length === 0 && selectedCategories.length === 0){
-      setCount(-1)
-      dispatch(fetchQuotes())
-    }else {
-      setCount(0)
-      const results = await searchQuotesModal(selectedAuthors, selectedTags, selectedCategories, search);
-      dispatch({type: "quotes/addQuotes", payload: results})
+    if (
+      selectedAuthors.length === 0 &&
+      selectedTags.length === 0 &&
+      selectedCategories.length === 0
+    ) {
+      setCount(-1);
+      dispatch(fetchQuotes());
+    } else {
+      setCount(0);
+      const results = await searchQuotesModal(
+        selectedAuthors,
+        selectedTags,
+        selectedCategories,
+        search
+      );
+      dispatch({ type: 'quotes/addQuotes', payload: results });
       setCount(results.count);
     }
-
   }
-
-
 
   return (
     <>
@@ -214,14 +225,19 @@ const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTag
               </div>
               <div className="filter-modal-filters-categories">
                 <div className="filter-modal-filters-checks">
-                  {authors?.slice(0, !inputShowAuthors ? 9 : undefined ).map((author, index) => (
-                    <label className="filter-modal-filters-check" key={index}>
-                      {author.name}
-                      <input type="checkbox" checked={selectedAuthors.includes(author.id)} onClick={() => setCountAndStuff("author", author.id)}/>
-                      <span className="filter-modal-filters-check-checkmark"></span>
-                    </label>
-                  ))
-}
+                  {authors
+                    ?.slice(0, !inputShowAuthors ? 9 : undefined)
+                    .map((author, index) => (
+                      <label className="filter-modal-filters-check" key={index}>
+                        {author.name}
+                        <input
+                          type="checkbox"
+                          checked={selectedAuthors.includes(author.id)}
+                          onClick={() => setCountAndStuff('author', author.id)}
+                        />
+                        <span className="filter-modal-filters-check-checkmark"></span>
+                      </label>
+                    ))}
                 </div>
                 {!inputShowAuthors && (
                   <div
@@ -308,10 +324,16 @@ const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTag
               </div>
               <div className="filter-modal-filters-categories">
                 <div className="filter-modal-filters-checks">
-                  {tags?.slice(0, !inputShowTags ? 9 : undefined).map((tag, index) => (
-                    <label className="filter-modal-filters-check" key={index}>
-                      {tag.text}
-                      <input type="checkbox" checked={selectedTags.includes(tag.id)} onClick={() => setCountAndStuff("tag", tag.id)}/>
+                  {tags
+                    ?.slice(0, !inputShowTags ? 9 : undefined)
+                    .map((tag, index) => (
+                      <label className="filter-modal-filters-check" key={index}>
+                        {tag.text}
+                        <input
+                          type="checkbox"
+                          checked={selectedTags.includes(tag.id)}
+                          onClick={() => setCountAndStuff('tag', tag.id)}
+                        />
 
                         <span className="filter-modal-filters-check-checkmark"></span>
                       </label>
@@ -402,10 +424,21 @@ const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTag
               </div>
               <div className="filter-modal-filters-categories">
                 <div className="filter-modal-filters-checks">
-                  {categories?.slice(0,  !inputShowTopics ? 9 : undefined).map((category) => (
-                    <label className="filter-modal-filters-check">
-                      {category.name}
-                      <input type="checkbox" checked={selectedCategories.includes(category.id)} onClick={() => setCountAndStuff("category", category.id)}/>
+                  {categories
+                    ?.slice(0, !inputShowTopics ? 9 : undefined)
+                    .map(category => (
+                      <label
+                        className="filter-modal-filters-check"
+                        key={category.id}
+                      >
+                        {category.name}
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(category.id)}
+                          onClick={() =>
+                            setCountAndStuff('category', category.id)
+                          }
+                        />
 
                         <span className="filter-modal-filters-check-checkmark"></span>
                       </label>
@@ -466,8 +499,15 @@ const FilterModal = ({ show, setShow , search,  selectedAuthorsProp, selectedTag
           </div>
           <footer className="filter-modal-footer">
             <span className="filter-modal-footer-clear">Clear All</span>
-            <button className="filter-modal-footer-btn" onClick={() => closeModal()}>
-              { count === -1  ? `Show Quotes` : count === 0 ? "Loading..." : `Show ${count} Quotes`}
+            <button
+              className="filter-modal-footer-btn"
+              onClick={() => closeModal()}
+            >
+              {count === -1
+                ? `Show Quotes`
+                : count === 0
+                ? 'Loading...'
+                : `Show ${count} Quotes`}
             </button>
           </footer>
         </div>
