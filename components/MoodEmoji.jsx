@@ -5,6 +5,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import MoodEmojiMobile from './MoodEmojiMobile';
+import authService from '../services/auth.service';
+import { useDispatch } from 'react-redux';
+const { searchQuotesModal } = authService;
 
 const MoodEmoji = () => {
   const emojiData = [
@@ -468,7 +471,14 @@ const MoodEmoji = () => {
       text: 'Private',
     },
   ];
+  const dispatch = useDispatch();
 
+  async function searchQuotes(search) {
+
+    const results = await searchQuotesModal('', '', '', search);
+    dispatch({type: "quotes/addQuotes", payload: results})
+  
+}
   return (
     <section className="mood-emoji">
       <div className="container">
@@ -496,8 +506,8 @@ const MoodEmoji = () => {
           >
             {emojiData.map((emoji, index) => (
               <SwiperSlide key={index}>
-                <Tippy offset={[0, 10]} content={<span>{emoji.text}</span>}>
-                  <div className="mood-emoji-visual">{emoji.emoji}</div>
+                <Tippy offset={[0, 10]} content={<span>{emoji.text}</span>} >
+                  <div className="mood-emoji-visual" onClick={() => searchQuotes(emoji.text)}>{emoji.emoji}</div>
                 </Tippy>
               </SwiperSlide>
             ))}

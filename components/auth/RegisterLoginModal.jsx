@@ -115,7 +115,7 @@ const RegisterLoginModal = ({ providers }) => {
               Continue with Twitter
             </span>
           </div>
-          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider(providers.facebook.id)}>
+          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider('facebook')}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"

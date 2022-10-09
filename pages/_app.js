@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { SessionProvider } from 'next-auth/react'
 
 function MyApp({ Component, pageProps }) {
+  console.log(pageProps.session, "Session in MyApp")
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>

@@ -6,7 +6,7 @@ import TwitterProvider from "next-auth/providers/twitter";
 import CredentialProvider from "next-auth/providers/credentials";
 import authService from "../../../services/auth.service";
 
-export default NextAuth({
+export const authOptions = {
     // Configure one or more authentication providers
     providers: [
         GoogleProvider({
@@ -49,8 +49,9 @@ export default NextAuth({
     // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
     // a seperate secret is defined explicitly for encrypting the JWT.
     secret: process.env.SECRET,
-
-    
+    session: {
+        strategy: "jwt",
+    },
     pages: {
         signIn: "/",
         signOut: "/auth/signout",
@@ -59,10 +60,11 @@ export default NextAuth({
         newUser: "/auth/new-user", // If set, new users will be directed here on first sign in
     },
     callbacks: {
-        async signIn(user) {
-            if (user){
-                return '/home';
-            }
+        async signIn({ user, account, profile }) {
+            //check if user is verified
+            console.log(user, profile, account, 'I get called in nextAuth');
+            if (user) 
+            return '/home';
         },
         // async redirect(url) {
         //     console.log("The url from here",url);
@@ -71,16 +73,18 @@ export default NextAuth({
         async redirect({ url, baseUrl }) {
             return url
         },
-        async session(session, user) {
-            console.log("The session from here",session);
+        async session({ session, user, token }) {
+            console.log(token, user, "Running in Session")
             session.user = user;
             return session;
         },
-        async jwt(token, user, account, profile, isNewUser) {
+        async jwt({ token, user, account, profile, isNewUser }) {
+            console.log(token, user, "Running in JWT")
             return token;
         }        
     },
     events: {},
     theme: "auto",
-    debug: true,
-})
+    debug: false,
+}
+export default NextAuth(authOptions);
