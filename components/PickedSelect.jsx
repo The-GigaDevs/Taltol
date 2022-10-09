@@ -7,7 +7,7 @@ const { searchQuotesModal } = authService
 
 const PickedSelect = () => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -38,9 +38,12 @@ const PickedSelect = () => {
       case 3:
         results =await searchQuotesModal( "","", "",   "Steve Jobs");
 
-      results = {...results, results: results.results.slice(0, 20)}
-        // results = results.results.slice(0, 20);
-        dispatch({type: "quotes/addQuotes", payload: results})
+        results = {...results, results: results.results.slice(0, 20)}
+          // results = results.results.slice(0, 20);
+          dispatch({type: "quotes/addQuotes", payload: results})
+          break;
+
+      default:
         break;
     }
     
