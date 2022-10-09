@@ -26,11 +26,16 @@ const AdminPagination = ({next, fetchNext}) => {
       </h3>
       <ul className="admin-pagination-count-list">
         <li className="admin-pagination-count-list-no current" onClick={() => fetchNext(1)}>1</li>
-        <li className="admin-pagination-count-list-no" onClick={() => fetchNext(2)}>2</li>
-        <li className="admin-pagination-count-list-no" onClick={() => fetchNext(3)}>3</li>
-        <li className="admin-pagination-count-list-no">...</li>
-        <li className="admin-pagination-count-list-no" onClick={() => fetchNext(11)}>11</li>
-        <li className="admin-pagination-count-list-no" onClick={() => fetchNext(12)}>12</li>
+        {next && 
+          (
+            <>
+              <li className="admin-pagination-count-list-no" onClick={() => fetchNext(2)}>2</li>
+              <li className="admin-pagination-count-list-no" onClick={() => fetchNext(3)}>3</li>
+              <li className="admin-pagination-count-list-no">...</li>
+              <li className="admin-pagination-count-list-no" onClick={() => fetchNext(11)}>11</li>
+              <li className="admin-pagination-count-list-no" onClick={() => fetchNext(12)}>12</li>
+            </>
+        )}
       </ul>
     </div>
   );

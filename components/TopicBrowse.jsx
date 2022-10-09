@@ -15,7 +15,7 @@ const TopicBrowse = () => {
   const categories1 = useSelector(state => state.categories?.categories);
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(fetchCategories({page: 1, pageSize: 30}));
   }, []);
 
   useEffect(() => {

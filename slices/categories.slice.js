@@ -18,8 +18,8 @@ export const fetchSingleCategory = createAsyncThunk(
 //create async thunk to fetch categories
 export const fetchCategories = createAsyncThunk(
     "categories/fetchCategories",
-    async () => {
-        const result = await getCategories(1, 30);
+    async ({page, pageSize}) => {
+        const result = await getCategories(page, pageSize);
         return result;
     }
 )

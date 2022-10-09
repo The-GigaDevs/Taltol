@@ -67,7 +67,7 @@ const FilterModal = ({
 
     dispatch(fetchTags());
     dispatch(fetchAuthors());
-    dispatch(fetchCategories());
+    dispatch(fetchCategories({ page: 1, pageSize: 30 }));
   }, []);
 
   useEffect(() => {
