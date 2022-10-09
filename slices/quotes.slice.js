@@ -8,7 +8,8 @@ const initialState = {
     quotes: [],
     singleQuote: null,
     isModal: false,
-    quotesAgainstTag: []
+    quotesAgainstTag: [],
+    route: ''
 };
 export const fetchSingleQuote = createAsyncThunk(
     "quotes/singleQuote",
@@ -74,10 +75,12 @@ export const quotesSlice = createSlice({
         },
         toggleModal: (state, action) => {
             state.isModal = action.payload;
+        },
+        changeRoute: (state, action) => {
+            state.route = action.payload;
         }
-        // addMoreQuotes: (state, action) => {
-        //     state.quotes = state.quotes.concat(action.payload);
-        // }
+
+        
     },
     extraReducers: {
         [fetchQuotes.fulfilled]: (state, action) => {
@@ -110,5 +113,5 @@ export const quotesSlice = createSlice({
     },
 });
 
-export const { addQuotes, singleQuote, toggleModal } = quotesSlice.actions;
+export const { addQuotes, singleQuote, toggleModal, changeRoute } = quotesSlice.actions;
 export default quotesSlice.reducer;

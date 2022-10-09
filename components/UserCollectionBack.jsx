@@ -1,6 +1,8 @@
-const UserCollectionBack = () => {
+const UserCollectionBack = ({showCollection, setShowCollection}) => {
+
   return (
-    <div className="user-collection-back">
+
+    <div className="user-collection-back" onClick={() => {setShowCollection(!showCollection)}}>
       <div className="container">
         <button className="user-collection-back-btn">
           <svg

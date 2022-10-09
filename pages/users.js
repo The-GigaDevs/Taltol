@@ -13,6 +13,7 @@ import CreateCollectionModal from '../components/CreateCollectionModal';
 const users = () => {
   //get the tab state from userheader
   const [activeTab, setActiveTab] = useState('tab1');
+  const [showCollection, setShowCollection] = useState(true);
   //  Functions to handle Tab Switching
   const handleTab1 = () => {
     // update the state to tab1
@@ -40,7 +41,7 @@ user experience for quotes."
       <Navbar />
       {
         // if the active tab is tab2
-        activeTab === 'tab2' ? <UserCollectionBack /> : ''
+        activeTab === 'tab2' ? <UserCollectionBack showCollection={showCollection} setShowCollection={setShowCollection}/> : ''
       }
 
       <UserHeader
@@ -51,10 +52,9 @@ user experience for quotes."
       <main className="user-main">
         <div className="container">
           <UserLikedQuotes activeTab={activeTab} />
-          <UserSavedCollection activeTab={activeTab} />
-          <UserSavedCollectionQuotes />
-          <AddCollectionModal />
-          <CreateCollectionModal />
+          <UserSavedCollection activeTab={activeTab} showCollection={showCollection} setShowCollection={setShowCollection}/>
+          {/* <AddCollectionModal />
+          <CreateCollectionModal /> */}
         </div>
       </main>
     </>

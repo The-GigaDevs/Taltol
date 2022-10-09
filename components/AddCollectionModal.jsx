@@ -1,12 +1,36 @@
 import Modal from 'react-modal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import UserSavedCollection from './UserSavedCollection';
+import { useSelector, useDispatch } from 'react-redux';
+import { addQuoteToCollection, fetchCollections } from '../slices/collection.slice';
+import CreateCollectionModal from './CreateCollectionModal';
 
-const AddCollectionModal = () => {
-  const [showCollectionModal, setShowCollectionModal] = useState(false);
+const AddCollectionModal = ({show,setShow, quoteId}) => {
+
+  //get collections from redux store
+  const collections1 = useSelector((state) => state.collections?.collections);
+  const [collections, setCollections] = useState([]);
+  const dispatch = useDispatch();
+  const [showCreateCollectionModal, setShowCreateCollectionModal] = useState(false);
+
+  useEffect(() => {
+    //get collections from service
+    dispatch(fetchCollections());
+  }, []);
+
+  useEffect(() => {
+    //set collections to state
+    setCollections(collections1);
+    
+  }, [collections1]);
+
 
   function closeModal() {
-    setShowCollectionModal(false);
+    setShow(false);
+  }
+
+  function handleShowCreateCollectionModal() {
+    setShowCreateCollectionModal(true);
   }
 
   Modal.setAppElement('#__next');
@@ -35,13 +59,13 @@ const AddCollectionModal = () => {
     <>
       <button
         onClick={() => {
-          setShowCollectionModal(true);
+          setShow(true);
         }}
       >
         Show Collection Modal
       </button>
       <Modal
-        isOpen={showCollectionModal}
+        isOpen={show}
         onRequestClose={closeModal}
         style={addCollectionModalStyles}
       >
@@ -82,52 +106,29 @@ const AddCollectionModal = () => {
               <input type="text" placeholder="Search for a collection" />
             </div>
             <div className="add-collection-modal-cards">
-              <div className="add-collection-modal-card">
+              {collections?.results?.map((collection) => (
+              <div className="add-collection-modal-card" onClick={() => dispatch(addQuoteToCollection({ collection: collection.id, quote:  quoteId}))}>
                 <h4 className="add-collection-modal-card-title">
-                  Collection name
+                  {collection.name}
                 </h4>
-                <p className="add-collection-modal-card-counts">12 quotes</p>
+                <p className="add-collection-modal-card-counts">{collection.total_quotes} Quote(s)</p>
                 <p className="add-collection-modal-card-timestamp">
-                  updated 5 months ago
+                  Last Updated : {collection.last_updated}
                 </p>
               </div>
-              <div className="add-collection-modal-card">
-                <h4 className="add-collection-modal-card-title">
-                  Collection name
-                </h4>
-                <p className="add-collection-modal-card-counts">12 quotes</p>
-                <p className="add-collection-modal-card-timestamp">
-                  updated 5 months ago
-                </p>
-              </div>
-              <div className="add-collection-modal-card">
-                <h4 className="add-collection-modal-card-title">
-                  Collection name
-                </h4>
-                <p className="add-collection-modal-card-counts">12 quotes</p>
-                <p className="add-collection-modal-card-timestamp">
-                  updated 5 months ago
-                </p>
-              </div>
-              <div className="add-collection-modal-card">
-                <h4 className="add-collection-modal-card-title">
-                  Collection name
-                </h4>
-                <p className="add-collection-modal-card-counts">12 quotes</p>
-                <p className="add-collection-modal-card-timestamp">
-                  updated 5 months ago
-                </p>
-              </div>
+              ))} 
             </div>
           </div>
           <footer className="add-collection-modal-footer">
-            <button className="add-collection-modal-footer-btn">Done</button>
-            <span className="add-collection-modal-footer-create">
+            <button className="add-collection-modal-footer-btn" onClick={closeModal}>Done</button>
+            <span className="add-collection-modal-footer-create" onClick={() => handleShowCreateCollectionModal()}>
               Create a new collection
             </span>
           </footer>
         </div>
       </Modal>
+      {showCreateCollectionModal && (
+        <CreateCollectionModal show={showCreateCollectionModal} setShow={setShowCreateCollectionModal} /> ) }
     </>
   );
 };

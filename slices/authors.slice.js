@@ -61,11 +61,8 @@ export const authorsSlice = createSlice({
     extraReducers: {
         [fetchAuthors.fulfilled]: (state, action) => {
             state.authors = action.payload;
-            console.log("State of the quotes" , current(state));
         },
         [fetchAuthors.rejected]: (state, action) => {
-            console.log("State of the quotes" , current(state));
-            console.log("Error in fetching authors",action.error);
             state.authors = [];
         },
         [fetchAuthors.pending]: (state, action) => {

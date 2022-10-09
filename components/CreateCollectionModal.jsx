@@ -1,13 +1,22 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
 import UserSavedCollection from './UserSavedCollection';
+import { useDispatch } from 'react-redux';
+import { createCollection } from '../slices/collection.slice';
 
-const CreateCollectionModal = () => {
-  const [showCreateCollectionModal, setShowCreateCollectionModal] =
-    useState(false);
+const CreateCollectionModal = ({show, setShow}) => {
 
+  const [collectionName, setCollectionName] = useState('');
+const dispatch = useDispatch();
   function closeModal() {
-    setShowCreateCollectionModal(false);
+    setShow(false);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(collectionName);
+    dispatch(createCollection(collectionName));   
+    setShow(false); 
   }
 
   Modal.setAppElement('#__next');
@@ -36,13 +45,13 @@ const CreateCollectionModal = () => {
     <>
       <button
         onClick={() => {
-          setShowCreateCollectionModal(true);
+          show(true);
         }}
       >
         Create Collection Modal
       </button>
       <Modal
-        isOpen={showCreateCollectionModal}
+        isOpen={show}
         onRequestClose={closeModal}
         style={addCreateCollectionModalStyles}
       >
@@ -73,11 +82,13 @@ const CreateCollectionModal = () => {
                 type="text"
                 name="collection-name"
                 placeholder="Choose Name"
+                value={collectionName}
+                onChange={(e) => setCollectionName(e.target.value)}
               />
             </div>
           </div>
           <footer className="add-collection-modal-footer">
-            <button className="add-collection-modal-footer-btn">
+            <button className="add-collection-modal-footer-btn" onClick={handleSubmit}>
               Create collection
             </button>
           </footer>

@@ -8,9 +8,16 @@ import store from '../store';
 import MobileMenu from '../components/MobileMenu';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from '../pages/api/auth/[...nextauth]'
-
+import { fetchLikedQuotes } from '../slices/likes.slice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 const Home = ({ session }) => {
   console.log(session, "Session from NextAuth");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchLikedQuotes());
+  }, []);
+
   return (
     <>  
       <Head>

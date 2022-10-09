@@ -1,8 +1,25 @@
 import QuoteStatic from './QuoteStatic';
+import { fetchLikedQuotes } from '../slices/likes.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import QuoteCard from './QuoteCard';
 
 const UserLikedQuotes = (
   { activeTab } //get the active tab from userheader
 ) => {
+
+  const dispatch = useDispatch();
+  const { likedQuotes } = useSelector((state) => state.likes);
+  const [quotes, setQuotes] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchLikedQuotes());
+  }, []);
+
+  useEffect(() => {
+      setQuotes(likedQuotes);
+      console.log(likedQuotes);
+  }, [ likedQuotes]);
   return (
     <>
       <section
@@ -12,15 +29,12 @@ const UserLikedQuotes = (
             : 'user-liked-quotes hide'
         }
       >
-        <p className="user-liked-quotes-count">726 liked quotes</p>
-        <div className="user-liked-quotes-content">
-          <QuoteStatic />
-          <QuoteStatic />
-          <QuoteStatic />
-          <QuoteStatic />
-          <QuoteStatic />
-          <QuoteStatic />
-        </div>
+      <p className="user-liked-quotes-count">{likedQuotes.count} liked quotes</p>
+        {quotes?.results?.map((quote, index) => (
+          <div className="user-liked-quotes-content">
+            <QuoteCard key={ index } quote = {quote} url={'users'} />
+          </div>
+      ))}
       </section>
     </>
   );
