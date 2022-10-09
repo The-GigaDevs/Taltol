@@ -1,6 +1,20 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import authService from '../../services/auth.service';
 import AdminRoleSelect from './AdminRoleSelect';
 
+const { searchQuotesModal } = authService
 const AdminHeader = () => {
+  const [searchText, setSearchText] = useState('');
+  const dispatch = useDispatch();
+
+  async function fetchQuotes(slug) {
+    if(slug) {
+      const results = await searchQuotesModal('','','', slug);
+        dispatch({type: "quotes/addQuotes", payload: results})
+        setSearchText('')
+    }
+  }
   return (
     <div className="admin-header">
       <AdminRoleSelect />
@@ -23,6 +37,13 @@ const AdminHeader = () => {
           type="text"
           className="admin-search-field"
           placeholder="Search in quotes"
+          value={searchText}
+          onChange={({ target }) => setSearchText(target.value)}
+          onKeyDown={(e) => {
+            if(e.key === 'Enter') {
+              fetchQuotes(searchText);
+            }
+          }}
         />
       </div>
       <div className="admin-filter">
