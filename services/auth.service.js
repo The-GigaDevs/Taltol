@@ -64,8 +64,8 @@ const getQuotesAgainstTag = (id) => httpService
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
-const getTags = () => httpService
-    .get(`/quotes/tags/`)
+const getTags = (page=1) => httpService
+    .get(`/quotes/tags/?page=${page}`)
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 

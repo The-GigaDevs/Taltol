@@ -8,8 +8,8 @@ const initialState = {
 //create async thunk to fetch tags
 export const fetchTags = createAsyncThunk(
     "tags/fetchTags",
-    async () => {
-        const result = await getTags(1, 30);
+    async (page) => {
+        const result = await getTags(page ? page.page : 1, 30);
         return result;
     }
 );
