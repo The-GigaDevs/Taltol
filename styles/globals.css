@@ -1,5 +1,5 @@
 /* -----------Font From Google----------- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Quicksand:wght@400;500;600;700&display=swap');
 
 /* -----------CSS Reset----------- */
 
@@ -2421,6 +2421,295 @@ svg {
 
 .admin-pagination-count-list-no.current {
   color: var(--clr-black);
+}
+
+/* Admin-Go-Back */
+
+.admin-go-back {
+  padding: 25px 0;
+}
+
+.admin-go-back-btn {
+  display: flex;
+  align-items: center;
+  column-gap: 1.5rem;
+  border: 0;
+  background: 0;
+  cursor: pointer;
+}
+
+.admin-go-back-btn-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2rem;
+  color: var(--clr-black);
+}
+
+/* Admin-Form-Box */
+
+.admin-form {
+  padding-bottom: 35px;
+}
+
+.admin-form-container {
+  max-width: 99.2rem;
+  width: min(100% - 3.5rem);
+  margin: 0 auto;
+}
+
+.admin-form-box-field {
+  background-color: var(--clr-white);
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  height: 5.6rem;
+  position: relative;
+  padding-left: 30px;
+  padding-right: 15px;
+  margin-bottom: 3.5rem;
+}
+
+.admin-form-box-field--flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
+.admin-form-box-field > input {
+  display: block;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+  font-family: 'Quicksand';
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  font-weight: 700;
+  color: var(--clr-black);
+}
+
+.admin-form-box-field-label {
+  display: block;
+  color: #adadad;
+  font-family: 'Roboto';
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.2rem;
+  position: absolute;
+  top: -12px;
+  left: 25px;
+  background-color: var(--clr-white);
+  padding: 0 10px;
+}
+
+.admin-form-box-field-edit {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.admin-form-box-field-edit > svg:hover path {
+  fill: var(--clr-pink);
+}
+
+.admin-form-box-fields {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.admin-form-box-fields .admin-form-box-field {
+  flex: 1 1 32rem;
+}
+
+/* Admin-Description-Field */
+.admin-description-field {
+  background-color: var(--clr-white);
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  height: 28.2rem;
+  position: relative;
+  padding-left: 30px;
+  padding-right: 15px;
+  margin-bottom: 5rem;
+  max-width: 65rem;
+  width: 100%;
+}
+
+.admin-description-field-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: -12px;
+  left: 25px;
+  width: 100%;
+}
+
+.admin-description-field-editor {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  background-color: var(--clr-white);
+  padding: 0 10px;
+}
+
+.admin-description-field-editor-btn {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.admin-description-field-editor-btn > svg:hover path {
+  fill: var(--clr-pink);
+}
+
+.admin-description-field-editor-btn.current > svg path {
+  fill: var(--clr-pink);
+}
+
+.admin-description-field > textarea {
+  display: block;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+  font-family: 'Quicksand';
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  font-weight: 700;
+  padding-top: 25px;
+  color: var(--clr-black);
+  resize: none;
+}
+
+.admin-description-field-label,
+.admin-description-field-characters {
+  display: block;
+  color: #adadad;
+  font-family: 'Roboto';
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.2rem;
+  background-color: var(--clr-white);
+  padding: 0 10px;
+}
+
+.admin-description-field-characters {
+  display: block;
+  margin-right: 50px;
+}
+
+.admin-form-box-selected {
+  padding-bottom: 3.5rem;
+  font-family: 'Quicksand';
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  color: var(--clr-gray-semi);
+}
+
+.admin-form-box-field-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: -12px;
+  left: 25px;
+  width: 100%;
+}
+
+.admin-form-box-field-delete {
+  display: block;
+  margin-right: 50px;
+}
+
+.admin-form-box-field-text {
+  display: block;
+  color: #adadad;
+  font-family: 'Roboto';
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.2rem;
+  background-color: var(--clr-white);
+  padding: 0 10px;
+}
+
+.admin-form-box-field-delete {
+  background-color: var(--clr-white);
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.admin-form-box-field-delete > svg:hover path {
+  fill: var(--clr-pink);
+}
+
+.admin-form-box-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.85rem;
+  width: 22rem;
+  height: 5.5rem;
+  background: var(--clr-pink);
+  border-radius: 5px;
+  border: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr-white);
+  box-shadow: 0 5px 0 #c41b6c;
+  cursor: pointer;
+}
+
+.admin-form-box-btn:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
+.admin-author-description-avatar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3.5rem 1.5rem;
+}
+
+.admin-avatar-upload {
+  display: block;
+  width: 20rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.admin-avatar-upload > input {
+  display: none;
+}
+
+.admin-avatar-upload-image {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.admin-avatar-upload-icon {
+  margin: 0 auto;
+  margin-top: -2rem;
+  width: 5.5rem;
 }
 
 /* Media Queries */
