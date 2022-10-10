@@ -10,8 +10,8 @@ const initialState = {
 //create async thunk to fetch authors
 export const fetchAuthors = createAsyncThunk(
     "authors/fetchAuthors",
-    async () => {
-        const result = await getAuthors(1, 30);
+    async (page) => {
+        const result = await getAuthors(page ? page.page : 1, 30);
         return result;
     }
 );
