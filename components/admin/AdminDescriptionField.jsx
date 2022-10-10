@@ -1,4 +1,6 @@
-const AdminDescriptionField = () => {
+const AdminDescriptionField = ({state, setState}) => {
+  
+  
   return (
     <div className="admin-description-field">
       <div className="admin-description-field-actions">
@@ -123,7 +125,11 @@ const AdminDescriptionField = () => {
         </div>
         <span className="admin-description-field-characters">300</span>
       </div>
-      <textarea></textarea>
+      <textarea value={state.page_description} onChange = {
+        (e) => {
+          setState({...state, page_description: e.target.value})
+        }
+      } ></textarea>
     </div>
   );
 };

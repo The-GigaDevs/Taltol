@@ -6,7 +6,7 @@ const admin = () => {
   return (
     <>
       <AdminHeader />
-      <AdminGoBack />
+      {/* <AdminGoBack /> */}
       <AdminAuthorForm />
     </>
   );

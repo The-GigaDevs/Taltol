@@ -6,6 +6,7 @@ const AdminRoleSelect = () => {
 
   const optionsList = [
     'Quotes',
+    'Authors',
     'Topics',
     'Tags',
     'Customized pages',
