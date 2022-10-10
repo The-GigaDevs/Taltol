@@ -52,10 +52,10 @@ const Navbar = ({session}) => {
 
 
   async function searchQuotes() {
-
-      const results = await searchQuotesModal(selectedAuthors, selectedTags, selectedCategories, search);
-      dispatch({type: "quotes/addQuotes", payload: results})
-    
+      if(isOpen){
+        const results = await searchQuotesModal(selectedAuthors, selectedTags, selectedCategories, search);
+        dispatch({type: "quotes/addQuotes", payload: results})
+      } 
   }
 
 
