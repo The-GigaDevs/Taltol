@@ -25,6 +25,7 @@ const AdminQuotes = () => {
   }, [dispatch, quotesReduxState]);
 
 
+  
   useEffect(() => {
     setQuotes(quotesReduxState.results);
   }, [quotesReduxState, quotes]);
