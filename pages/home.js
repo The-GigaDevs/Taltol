@@ -16,7 +16,7 @@ const Home = ({ session }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchLikedQuotes());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>  

@@ -4,7 +4,7 @@ import AdminForm from '../components/admin/AdminForm';
 import AdminTopics from '../components/admin/AdminTopics';
 import { useRouter } from 'next/router';
 
-const admin = () => {
+const Admin = () => {
   const router = useRouter();
 
   return (
@@ -16,4 +16,4 @@ const admin = () => {
   );
 };
 
-export default admin;
+export default Admin;

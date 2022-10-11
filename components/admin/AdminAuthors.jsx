@@ -20,7 +20,7 @@ const AdminAuthors = () => {
             dispatch(fetchAuthors({ page: number, pageSize: 30 }));
         } else {
             setPage(page + 1);
-            dispatch(fecth(page + 1));
+            dispatch(fetchAuthors(page + 1));
         }
     }
     return (

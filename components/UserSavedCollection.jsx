@@ -41,8 +41,8 @@ const UserSavedCollection = (
           : "user-saved-collection hide"
       }
     >
-      { showCollection ?  collections?.map((collection) => (
-        <div
+      { showCollection ?  collections?.map((collection, index) => (
+        <div key={index}
           className="user-saved-collection-cards"
           onClick={() => {
             dispatch(

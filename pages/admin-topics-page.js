@@ -3,7 +3,7 @@ import AdminGoBack from '../components/admin/AdminGoBack';
 import AdminForm from '../components/admin/AdminForm';
 // import AdminForm from '../components/admin/AdminForm';
 
-const admin = () => {
+const Admin = () => {
   return (
     <>
       <AdminHeader />
@@ -14,4 +14,4 @@ const admin = () => {
   );
 };
 
-export default admin;
+export default Admin;

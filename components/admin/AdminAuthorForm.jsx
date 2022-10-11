@@ -8,7 +8,7 @@ const { addAuthor } = authService
 
 const AdminAuthorForm = () => {
   const router = useRouter();
-  const [author, setAuthor] = useState({title: '', page_description: '', page_url: '', iamge_path: '', quote_urls: []});
+  const [author, setAuthor] = useState({title: '', page_description: '', page_url: '',image_path: '', quote_urls: []});
 
 
   function addANewQuote(event) {

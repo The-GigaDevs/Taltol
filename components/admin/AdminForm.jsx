@@ -92,7 +92,7 @@ const AdminForm = () => {
           <AdminDescriptionField state={topics} setState={setTopics}/>
           <p className="admin-form-box-selected">{topics.quote_urls.length} quotes selected</p>
           {topics.quote_urls.map((quote, index) => (
-            <div className="admin-form-box-field ">
+            <div key={index} className="admin-form-box-field ">
               <div className="admin-form-box-field-actions">
                 <span className="admin-form-box-field-text">Quote {index}</span>
                 <span className="admin-form-box-field-delete" 

@@ -8,16 +8,17 @@ const { searchQuotesModal } = authService
 const PickedSelect = () => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-
+  let results = [];
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function dropDrownSearch(){
-
+    
     switch (selectedOption) {
+      
       case 0:
-        let results = await searchQuotesModal( "","", "",   "");
-      results = {...results, results: results.results.slice(0, 100)}
+        results = await searchQuotesModal( "","", "",   "");
+        results = {...results, results: results.results.slice(0, 100)}
         dispatch({type: "quotes/addQuotes", payload: results})
         break;
       case 1:

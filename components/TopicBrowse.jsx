@@ -1,6 +1,5 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState} from 'react';
 import authService from '../services/auth.service';
-import quotesContext from '../pages/context/quotes.context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
 import Link from 'next/link';
@@ -8,7 +7,6 @@ import Link from 'next/link';
 const TopicBrowse = () => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-  const { quotes, setQuotes } = useContext(quotesContext);
   const [showAll, setShowAll] = useState(false);
 
   const dispatch = useDispatch();

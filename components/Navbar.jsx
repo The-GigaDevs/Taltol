@@ -8,6 +8,7 @@ import { fetchQuotes, addQuotes } from "../slices/quotes.slice";
 import authService  from "../services/auth.service";
 import { useSelector, useDispatch } from "react-redux";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const { searchQuotesModal } = authService;
 
@@ -26,6 +27,7 @@ const Navbar = ({session}) => {
   // const { session} = useSession();
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   function setSelectedCount(value, selected) {
     if(value === "author") {
@@ -197,7 +199,7 @@ const Navbar = ({session}) => {
                   passHref
                   onClick={async () => {
                     await signOut();
-                    route.push('/')
+                    router.push('/')
                   }}>
                   <span className="navbar-profile-dropdown-link">
                     <svg
