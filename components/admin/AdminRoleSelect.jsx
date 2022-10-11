@@ -98,13 +98,13 @@ const AdminRoleSelect = () => {
         break;
       case 'ArrowUp':
         e.preventDefault();
-        setSelectedOption(
+        setSelectedThenCloseDropdown(
           selectedOption - 1 >= 0 ? selectedOption - 1 : optionsList.length - 1
         );
         break;
       case 'ArrowDown':
         e.preventDefault();
-        setSelectedOption(
+        setSelectedThenCloseDropdown(
           selectedOption == optionsList.length - 1 ? 0 : selectedOption + 1
         );
         break;
@@ -182,4 +182,4 @@ const AdminRoleSelect = () => {
 };
 
 
-export default React.memo(AdminRoleSelect);
+export default AdminRoleSelect;

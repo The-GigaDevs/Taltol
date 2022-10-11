@@ -2,10 +2,32 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import authService from '../../services/auth.service';
 import AdminRoleSelect from './AdminRoleSelect';
+import filterModal from '../FilterModal';
+import FilterModal from '../FilterModal';
+
 
 const { searchQuotesModal } = authService
 const AdminHeader = () => {
   const [searchText, setSearchText] = useState('');
+  const [show, setShow] = useState(false);
+  const [search, setSearch] = useState("");
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  function setSelectedCount(value, selected) {
+    if(value === "author") {
+    setSelectedAuthors(selected);
+    } else if(value === "category") {
+    setSelectedCategories(selected);
+    } else if(value === "tag") {
+    setSelectedTags(selected);
+    }
+    console.log(selected);
+  }
+
+
+
   const dispatch = useDispatch();
 
   async function fetchQuotes(slug) {
@@ -36,7 +58,7 @@ const AdminHeader = () => {
         <input
           type="text"
           className="admin-search-field"
-          placeholder="Search in quotes"
+          placeholder="Search"
           value={searchText}
           onChange={({ target }) => setSearchText(target.value)}
           onKeyDown={(e) => {
@@ -46,7 +68,7 @@ const AdminHeader = () => {
           }}
         />
       </div>
-      <div className="admin-filter">
+      <div className="admin-filter" onClick={() => setShow(true)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -60,6 +82,7 @@ const AdminHeader = () => {
           />
         </svg>
       </div>
+      <FilterModal show={show} setShow={setShow} selectedAuthorsProp={selectedAuthors} selectedTagsProp={selectedTags} selectedCategoriesProp={selectedCategories} search={search} setSelectedCount={setSelectedCount} />
     </div>
   );
 };

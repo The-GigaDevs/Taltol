@@ -4,28 +4,28 @@ import AdminDescriptionField from './AdminDescriptionField';
 import AdminGoBack from './AdminGoBack';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import tagsService from '../../services/tags.service';
-const { createTag } = tagsService
+import customPageService from '../../services/custom-page.service';
+const { createCustomPage } = customPageService
 
 
 const AdminForm = () => {
   const router = useRouter();
-  const [tags, setTags] = useState({title: '', page_description: '', page_url: '', source: '', quote_urls: []});
+  const [customPage, setCustomPage] = useState({title: '', page_description: '', page_url: '', quote_urls: []});
 
   function addANewQuote(event) {
     //prevent the page from reloading
     event.preventDefault();
     //add a new quote to the array
-    setTags({...tags, quote_urls: [...tags.quote_urls, ""]});
+    setCustomPage({...customPage, quote_urls: [...customPage.quote_urls, ""]});
   }
 
   function removeQuote(event, index) {
     //prevent the page from reloading
     event.preventDefault();
     //remove the quote from the array
-    const newQuotes = tags.quote_urls.filter((i, ind) => ind !== index);
+    const newQuotes = customPage.quote_urls.filter((i, ind) => ind !== index);
     //update the state
-    setTags((prevState) => {
+    setCustomPage((prevState) => {
       return {...prevState, quote_urls: newQuotes}});
   }
 
@@ -33,9 +33,10 @@ const AdminForm = () => {
     //prevent the page from reloading
     event.preventDefault();
     //send the data to the server
-    createTag(tags)
+    createCustomPage(customPage)
       .then((response) => {
         //redirect to the admin page
+        console.log(response);
         router.back();
       })
       .catch((error) => {
@@ -44,8 +45,8 @@ const AdminForm = () => {
   }
 
   useEffect(() => {
-    // console.log("tags after the render is",tags);
-  }, [tags]);
+    // console.log("customPage after the render is",customPage);
+  }, [customPage]);
 
   return (
     <>
@@ -77,21 +78,21 @@ const AdminForm = () => {
                 Topic Page Title
               </span>
               <input type="text" 
-                value={tags.title}
-                onChange={(e) => setTags({...tags, title: e.target.value})}
+                value={customPage.title}
+                onChange={(e) => setCustomPage({...customPage, title: e.target.value})}
               />
             </div>
             <div className="admin-form-box-field ">
               <span className="admin-form-box-field-label">Video URL</span>
               <input type="text" 
-                value={tags.page_url}
-                onChange={(e) => setTags({...tags, page_url: e.target.value})}
+                value={customPage.page_url}
+                onChange={(e) => setCustomPage({...customPage, page_url: e.target.value})}
               />
             </div>
           </div>
-          <AdminDescriptionField state={tags} setState={setTags}/>
-          <p className="admin-form-box-selected">{tags.quote_urls.length} quotes selected</p>
-          {tags.quote_urls.map((quote, index) => (
+          <AdminDescriptionField state={customPage} setState={setCustomPage}/>
+          <p className="admin-form-box-selected">{customPage.quote_urls.length} quotes selected</p>
+          {customPage.quote_urls.map((quote, index) => (
             <div key={index} className="admin-form-box-field ">
               <div className="admin-form-box-field-actions">
                 <span className="admin-form-box-field-text">Quote {index}</span>
@@ -112,11 +113,11 @@ const AdminForm = () => {
                   </svg>
                 </span>
               </div>
-              <input type="text" value={tags.quote_urls[index]}
+              <input type="text" value={customPage.quote_urls[index]}
                 onChange={(e) => {
-                  const newQuoteUrls = [...tags.quote_urls];
+                  const newQuoteUrls = [...customPage.quote_urls];
                   newQuoteUrls[index] = e.target.value;
-                  setTags({...tags, quote_urls: newQuoteUrls});
+                  setCustomPage({...customPage, quote_urls: newQuoteUrls});
                 }}
               />
             </div>

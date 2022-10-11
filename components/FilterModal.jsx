@@ -144,9 +144,9 @@ const FilterModal = ({
 
   async function searchQuotes() {
     if (
-      selectedAuthors.length === 0 &&
-      selectedTags.length === 0 &&
-      selectedCategories.length === 0
+      selectedAuthors?.length === 0 &&
+      selectedTags?.length === 0 &&
+      selectedCategories?.length === 0
     ) {
       setCount(-1);
       dispatch(fetchQuotes());
@@ -232,7 +232,7 @@ const FilterModal = ({
                         {author.name}
                         <input
                           type="checkbox"
-                          checked={selectedAuthors.includes(author.id)}
+                          checked={selectedAuthors?.includes(author.id)}
                           onClick={() => setCountAndStuff('author', author.id)}
                         />
                         <span className="filter-modal-filters-check-checkmark"></span>
@@ -331,7 +331,7 @@ const FilterModal = ({
                         {tag.text}
                         <input
                           type="checkbox"
-                          checked={selectedTags.includes(tag.id)}
+                          checked={selectedTags?.includes(tag.id)}
                           onClick={() => setCountAndStuff('tag', tag.id)}
                         />
 
@@ -434,7 +434,7 @@ const FilterModal = ({
                         {category.name}
                         <input
                           type="checkbox"
-                          checked={selectedCategories.includes(category.id)}
+                          checked={selectedCategories?.includes(category.id)}
                           onClick={() =>
                             setCountAndStuff('category', category.id)
                           }

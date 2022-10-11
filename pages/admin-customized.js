@@ -11,7 +11,7 @@ const Admin = () => {
     <>
       <AdminHeader />
       <AdminTopics />
-      <button onClick={() => { router.push('/admin-customized-page') }}>Add Customized Page</button>
+      <button style={{marginBottom: '50px'}} onClick={() => { router.push('/admin-customized-page') }}>Add Customized Page</button>
     </>
   );
 };
