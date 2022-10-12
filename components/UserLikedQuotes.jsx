@@ -31,7 +31,7 @@ const UserLikedQuotes = (
       >
       <p className="user-liked-quotes-count">{likedQuotes.count} liked quotes</p>
         {quotes?.results?.map((quote, index) => (
-          <div className="user-liked-quotes-content">
+          <div key={index} className="user-liked-quotes-content">
             <QuoteCard key={ index } quote = {quote} url={'users'} />
           </div>
       ))}

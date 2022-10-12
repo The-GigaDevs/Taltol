@@ -1,6 +1,5 @@
 import AdminHeader from '../components/admin/AdminHeader';
-import AdminGoBack from '../components/admin/AdminGoBack';
-import AdminTopicsForm from '../components/admin/AdminTopicsForm';
+import AdminCustomPageForm from '../components/admin/AdminCustomPageForm';
 // import AdminForm from '../components/admin/AdminForm';
 
 const Admin = () => {
@@ -8,7 +7,7 @@ const Admin = () => {
     <>
       <AdminHeader />
       {/* <AdminGoBack /> */}
-      <AdminTopicsForm />
+      <AdminCustomPageForm />
       
     </>
   );

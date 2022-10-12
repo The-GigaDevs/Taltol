@@ -16,7 +16,7 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
   useEffect(() => {
     //get collections from service
     dispatch(fetchCollections());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     //set collections to state
@@ -106,8 +106,8 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
               <input type="text" placeholder="Search for a collection" />
             </div>
             <div className="add-collection-modal-cards">
-              {collections?.results?.map((collection) => (
-              <div className="add-collection-modal-card" onClick={() => dispatch(addQuoteToCollection({ collection: collection.id, quote:  quoteId}))}>
+              {collections?.results?.map((collection, index) => (
+              <div key={index} className="add-collection-modal-card" onClick={() => dispatch(addQuoteToCollection({ collection: collection.id, quote:  quoteId}))}>
                 <h4 className="add-collection-modal-card-title">
                   {collection.name}
                 </h4>

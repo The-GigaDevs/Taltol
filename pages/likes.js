@@ -10,7 +10,7 @@ import UserCollectionBack from '../components/UserCollectionBack';
 import AddCollectionModal from '../components/AddCollectionModal';
 import UserLikedQuotesMobile from '../components/UserLikedQuotesMobile';
 
-const users = () => {
+const Users = () => {
   //get the tab state from userheader
   const [activeTab, setActiveTab] = useState('tab1');
   //  Functions to handle Tab Switching
@@ -45,4 +45,4 @@ user experience for quotes."
   );
 };
 
-export default users;
+export default Users;

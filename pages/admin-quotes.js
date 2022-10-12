@@ -2,7 +2,7 @@ import AdminHeader from '../components/admin/AdminHeader';
 import AdminMainSort from '../components/admin/AdminMainSort';
 import AdminQuotes from '../components/admin/AdminQuotes';
 
-const admin = () => {
+const Admin = () => {
   return (
     <>
       <AdminHeader />
@@ -12,4 +12,4 @@ const admin = () => {
   );
 };
 
-export default admin;
+export default Admin;

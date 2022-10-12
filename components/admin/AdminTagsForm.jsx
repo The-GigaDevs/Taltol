@@ -1,38 +1,39 @@
 import React from 'react';
 import AdminAuthorDescriptionAvatar from './AdminAuthorDescriptionAvatar';
+import AdminDescriptionField from './AdminDescriptionField';
 import AdminGoBack from './AdminGoBack';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import authService from '../../services/auth.service';
-const { addAuthor } = authService
+import tagsService from '../../services/tags.service';
+const { createTag } = tagsService
 
-const AdminAuthorForm = () => {
+
+const AdminForm = () => {
   const router = useRouter();
-  const [author, setAuthor] = useState({title: '', page_description: '', page_url: '',image_path: '', quote_urls: []});
-
+  const [tags, setTags] = useState({title: '', page_description: '', page_url: '', source: '', quote_urls: []});
 
   function addANewQuote(event) {
     //prevent the page from reloading
     event.preventDefault();
     //add a new quote to the array
-    setAuthor({...author, quote_urls: [...author.quote_urls, ""]});
+    setTags({...tags, quote_urls: [...tags.quote_urls, ""]});
   }
-  
+
   function removeQuote(event, index) {
     //prevent the page from reloading
     event.preventDefault();
     //remove the quote from the array
-    const newQuotes = author.quote_urls.filter((i, ind) => ind !== index);
+    const newQuotes = tags.quote_urls.filter((i, ind) => ind !== index);
     //update the state
-    setAuthor((prevState) => {
+    setTags((prevState) => {
       return {...prevState, quote_urls: newQuotes}});
   }
 
-  function handleSubmit(event) {
+  function handleSubmit (event) {
     //prevent the page from reloading
     event.preventDefault();
     //send the data to the server
-    addAuthor(author)
+    createTag(tags)
       .then((response) => {
         //redirect to the admin page
         router.back();
@@ -41,9 +42,10 @@ const AdminAuthorForm = () => {
         console.log(error);
       });
   }
+
   useEffect(() => {
-    // console.log("authors after the render is",author);
-  }, [author]);
+    // console.log("tags after the render is",tags);
+  }, [tags]);
 
   return (
     <>
@@ -53,10 +55,7 @@ const AdminAuthorForm = () => {
         <form className="admin-form-box">
           <div className="admin-form-box-field admin-form-box-field--flex">
             <span className="admin-form-box-field-label">Topic Page URL</span>
-            <input type="text" 
-              value={author.page_url}
-              onChange={(e) => setAuthor({...author, page_url: e.target.value})}
-            />
+            <input type="text" />
             <span className="admin-form-box-field-edit">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,26 +77,27 @@ const AdminAuthorForm = () => {
                 Topic Page Title
               </span>
               <input type="text" 
-                value={author.title}
-                onChange={(e) => setAuthor({...author, title: e.target.value})}
+                value={tags.title}
+                onChange={(e) => setTags({...tags, title: e.target.value})}
               />
             </div>
             <div className="admin-form-box-field ">
               <span className="admin-form-box-field-label">Video URL</span>
-              <input type="text"  
-                value={author.video_url}
-                onChange={(e) => setAuthor({...author, video_url: e.target.value})}
-
+              <input type="text" 
+                value={tags.page_url}
+                onChange={(e) => setTags({...tags, page_url: e.target.value})}
               />
             </div>
           </div>
-          <AdminAuthorDescriptionAvatar  state={author} setState={setAuthor}/>
-          <p className="admin-form-box-selected">{author.quote_urls.length} quotes selected</p>
-          {author.quote_urls.map((quote, index) => (
-            <div className="admin-form-box-field " key={index}>
+          <AdminDescriptionField state={tags} setState={setTags}/>
+          <p className="admin-form-box-selected">{tags.quote_urls.length} quotes selected</p>
+          {tags.quote_urls.map((quote, index) => (
+            <div key={index} className="admin-form-box-field ">
               <div className="admin-form-box-field-actions">
                 <span className="admin-form-box-field-text">Quote {index}</span>
-                <span className="admin-form-box-field-delete" onClick={(event) => removeQuote(event, index)}>
+                <span className="admin-form-box-field-delete" 
+                  onClick={(e) => removeQuote(e, index)}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="14"
@@ -112,20 +112,17 @@ const AdminAuthorForm = () => {
                   </svg>
                 </span>
               </div>
-              <input type="text" 
-                value={author.quote_urls[index]}
+              <input type="text" value={tags.quote_urls[index]}
                 onChange={(e) => {
-                  const newQuotes = [...author.quote_urls];
-                  newQuotes[index] = e.target.value;
-                  setAuthor({...author, quote_urls: newQuotes});
+                  const newQuoteUrls = [...tags.quote_urls];
+                  newQuoteUrls[index] = e.target.value;
+                  setTags({...tags, quote_urls: newQuoteUrls});
                 }}
               />
             </div>
           ))}
-         
-        
 
-          <button className="admin-form-box-btn" onClick={addANewQuote}>
+          <button  className="admin-form-box-btn" onClick={(event) => addANewQuote(event)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -138,9 +135,9 @@ const AdminAuthorForm = () => {
                 fill="#ffffff"
               />
             </svg>
-            Add new quote
+            Add new quote here
           </button>
-          <button style={{marginTop: '20px'}} className="admin-form-box-btn" onClick={handleSubmit}>
+          <button className="admin-form-box-btn" onClick={handleSubmit} style={{marginTop: '20px'}}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -155,7 +152,7 @@ const AdminAuthorForm = () => {
             </svg>
             Submit
           </button>
-          
+
         </form>
       </div>
     </div>
@@ -163,4 +160,4 @@ const AdminAuthorForm = () => {
   );
 };
 
-export default AdminAuthorForm;
+export default AdminForm;

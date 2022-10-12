@@ -10,7 +10,7 @@ import UserCollectionBack from '../components/UserCollectionBack';
 import AddCollectionModal from '../components/AddCollectionModal';
 import CreateCollectionModal from '../components/CreateCollectionModal';
 
-const users = () => {
+const Users = () => {
   //get the tab state from userheader
   const [activeTab, setActiveTab] = useState('tab1');
   const [showCollection, setShowCollection] = useState(true);
@@ -61,4 +61,4 @@ user experience for quotes."
   );
 };
 
-export default users;
+export default Users;

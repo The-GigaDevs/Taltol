@@ -1,8 +1,12 @@
+import { useRouter } from "next/router";
+
+
 const AdminGoBack = () => {
+  const router = useRouter();
   return (
     <div className="admin-go-back">
       <div className="container">
-        <button className="admin-go-back-btn">
+        <button className="admin-go-back-btn" onClick={() => router.back()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="10"
