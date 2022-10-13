@@ -13,7 +13,7 @@ const UserLikedQuotes = (
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
-    debugger
+    // debugger
     dispatch(fetchLikedQuotes());
   }, []);
 

@@ -11,7 +11,7 @@ const initialState = {
 export const fetchAuthors = createAsyncThunk(
     "authors/fetchAuthors",
     async (page) => {
-        debugger
+        
         const result = await getAuthors(page ? page.page : 1, page ? page.pageSize :  30);
         return result;
     }
