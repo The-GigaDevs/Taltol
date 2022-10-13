@@ -19,7 +19,7 @@ const Home = ({ session }) => {
   }, [dispatch]);
 
   return (
-    <>  
+    <>
       <Head>
         <title>Taltol</title>
         <meta
@@ -50,7 +50,7 @@ export default Home;
 
 
 export async function getServerSideProps(ctx) {
-  const session = await unstable_getServerSession(ctx.req,ctx.res, authOptions);
+  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions);
   return {
     props: { session },
   }

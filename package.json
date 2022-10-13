@@ -2,7 +2,7 @@
   "name": "quotesplanner",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm install && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -23,6 +23,7 @@
     "react-media": "^1.10.0",
     "react-modal": "^3.15.1",
     "react-redux": "^8.0.2",
+    "react-toastify": "^9.0.8",
     "swiper": "^8.3.2"
   },
   "devDependencies": {

@@ -6,7 +6,7 @@ const login = (email, password) => httpService
     .catch((response) => Promise.reject(response))
 
 const register = (data) => httpService
-    .post('/register', data)
+    .post('/users/', data)
     .then(({ data }) => Promise.resolve(data))
     .catch(({ error }) => Promise.reject(error))
 

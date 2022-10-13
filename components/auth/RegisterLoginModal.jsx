@@ -4,23 +4,46 @@ import { useState } from 'react';
 // import authService from '../../services/auth.service';
 import {  signIn } from "next-auth/react"
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser, loginUser as loginUserInTaltol } from '../../slices/auth.slice';
+import { validatePassword } from '../../utils';
+import { useEffect } from 'react';
+
 
 const RegisterLoginModal = ({ providers }) => {
   const [emailBtnActive, setEmailBtnActive] = useState(false);
   const [registerBtnActive, setRegisterBtnActive] = useState(false);
+  const [userRegisterInfo, setUserRegisterInfo] = useState({
+    first_name: '',
+    last_name: '',
+    email:'',
+    password: '',
+    confirmPassword: ''
+  })
   const [loginUser, setLoginUser] = useState({ email: '', password: ''})
   const route = useRouter();
+  const dispatch = useDispatch();
+  const userInRedux = useSelector(state => state.auth.user)
+
+  useEffect(()=> {
+    if(userInRedux) {
+      route.push('/home')
+    }
+  }, [userInRedux])
 
   const handleEmailBtnClick = async (e) => {
     e.preventDefault();
-    const result = await signIn('credentials', { username: loginUser.email, password: loginUser.password , redirect: true, callbackUrl: 'http://localhost:3000' });
-    console.log(result, 'result of signIn');
-    if(result?.status === 200) {
-      route.push(`${result?.url}/home`);
+    const error = Object.keys(loginUser).filter((key) => {
+      if(loginUser[key] === '') return key;
+    });
+    if (error.length > 0) {
+      error.forEach((key)=> toast.error(key.toUpperCase() + ' is required'));
     } else {
-      console.log(result?.error)
+      dispatch(loginUserInTaltol({email: loginUser.email, password: loginUser.password}));
     }
   }
+
   const signInThroughProvider = async (id) => {
     const result = await signIn(id)
     if(result?.status === 200) {
@@ -29,6 +52,28 @@ const RegisterLoginModal = ({ providers }) => {
       console.log(result?.error)
     }
   }
+  
+  const validateFields = () => {
+    const error = Object.keys(userRegisterInfo).filter((key) => {
+      if(userRegisterInfo[key] === '') return key;
+    });
+    if (error.length > 0) {
+      error.forEach((key)=> toast.error(key.toUpperCase() + ' is required'));
+      return false;
+    }
+    const isValidPassword = validatePassword(userRegisterInfo.password);
+    if (userRegisterInfo.password === userRegisterInfo.confirmPassword) {
+      return true;
+    }
+    toast.error('Password must have atleast one UPPER case, one LOWER case, 1 Number & 1 special character');
+    return false;
+  }
+
+  const registerUserInTaltol = async () => {
+    const isValid = validateFields();
+    if (isValid) dispatch(registerUser(userRegisterInfo));
+  }
+  
   return (
     <div className="register-login-modal">
       <div className="register-login-modal-content">
@@ -52,7 +97,7 @@ const RegisterLoginModal = ({ providers }) => {
       <div className="register-login-modal-wrapper">
         <h1 className="register-login-modal-title">Login or Register</h1>
         <div className="register-login-modal-socials">
-          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider(providers.linkedin.id)}>
+          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider('linkedin')}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -69,7 +114,7 @@ const RegisterLoginModal = ({ providers }) => {
               Continue with LinkedIn
             </span>
           </div>
-          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider(providers.google.id)}>
+          <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider('google')}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -98,7 +143,7 @@ const RegisterLoginModal = ({ providers }) => {
               Continue with Google
             </span>
           </div>
-          <div className="register-login-modal-socials-btn" onClick={() => signInThroughProvider(providers.twitter.id)}>
+          <div className="register-login-modal-socials-btn" onClick={() => signInThroughProvider('twitter')}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="23"
@@ -214,6 +259,8 @@ const RegisterLoginModal = ({ providers }) => {
               className="register-login-modal-form-group-input"
               type="text"
               placeholder="Enter first name"
+              value={userRegisterInfo.first_name}
+              onChange={({ target }) => setUserRegisterInfo({ ...userRegisterInfo, first_name: target.value })}
             />
           </div>
           <div className="register-login-modal-form-group">
@@ -221,6 +268,8 @@ const RegisterLoginModal = ({ providers }) => {
               className="register-login-modal-form-group-input"
               type="text"
               placeholder="Enter last name"
+              value={userRegisterInfo.last_name}
+              onChange={({ target }) => setUserRegisterInfo({ ...userRegisterInfo, last_name: target.value })}
             />
           </div>
           <div className="register-login-modal-form-group">
@@ -228,23 +277,34 @@ const RegisterLoginModal = ({ providers }) => {
               className="register-login-modal-form-group-input"
               type="text"
               placeholder="Enter email address"
+              value={userRegisterInfo.email}
+              onChange={({ target }) => setUserRegisterInfo({ ...userRegisterInfo, email: target.value })}
             />
           </div>
           <div className="register-login-modal-form-group">
             <input
               className="register-login-modal-form-group-input"
-              type="text"
+              type="password"
               placeholder="Enter password"
+              value={userRegisterInfo.password}
+              onChange={({ target }) => setUserRegisterInfo({ ...userRegisterInfo, password: target.value })}
             />
           </div>
           <div className="register-login-modal-form-group">
             <input
               className="register-login-modal-form-group-input"
-              type="text"
+              type="password"
               placeholder="Confirm password"
+              onKeyDown={({key}) => {
+                if(key === 'Enter') {
+                  registerUserInTaltol();
+                }
+              }}
+              value={userRegisterInfo.confirmPassword}
+              onChange={({ target }) => setUserRegisterInfo({ ...userRegisterInfo, confirmPassword: target.value })}
             />
           </div>
-          <button type="submit" className="register-login-modal-form-btn">
+          <button type="button" className="register-login-modal-form-btn" onClick={() => registerUserInTaltol()}>
             Register
           </button>
         </form>
