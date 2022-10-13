@@ -1,7 +1,6 @@
-import QuoteStatic from './QuoteStatic';
-import { fetchLikedQuotes } from '../slices/likes.slice';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLikedQuotes } from '../slices/likes.slice';
 import QuoteCard from './QuoteCard';
 
 const UserLikedQuotes = (
@@ -13,7 +12,6 @@ const UserLikedQuotes = (
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
-    debugger
     dispatch(fetchLikedQuotes());
   }, []);
 
