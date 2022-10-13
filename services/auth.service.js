@@ -53,7 +53,7 @@ const getQuotesByCategory = (category, page, pageSize) => httpService
 
 //write a get reqeust to get categories
 const getCategories = (page, pageSize) => httpService
-    .get(`/quotes/categories/?page=${page}&pageSize=${pageSize}`)
+    .get(`/quotes/categories/?page=${page}&page_size=${pageSize}`)
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 

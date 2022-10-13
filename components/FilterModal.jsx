@@ -63,14 +63,19 @@ const FilterModal = ({
 
     setSelectedAuthors(selectedAuthorsProp);
     setSelectedTags(selectedTagsProp);
-    setSelectedCategories(selectedCategoriesProp);
-
+    if(!categories1){
+      setSelectedCategories(selectedCategoriesProp);
+    }
     dispatch(fetchTags());
     dispatch(fetchAuthors());
     dispatch(fetchCategories({ page: 1, pageSize: 30 }));
   }, []);
 
+
+
   useEffect(() => {
+    //do not call this function if modal is not open
+    if (!show) return;
     searchQuotes();
   }, [selectedAuthors, selectedCategories, selectedTags]);
 

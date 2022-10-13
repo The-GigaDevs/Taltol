@@ -21,7 +21,8 @@ export default function Content() {
   //useffect to call fecQuotes
   
   useEffect(() => {
-    if(quotesReduxState?.length === 0 || quotesReduxState?.results?.length === 0) {
+    
+    if(quotesReduxState.length === 0) {
       dispatch(fetchQuotes());
     }
   }, [dispatch, quotesReduxState]);

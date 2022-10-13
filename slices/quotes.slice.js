@@ -61,6 +61,24 @@ export const fetchQuotesOfAuthorWithPage = createAsyncThunk(
         return result
     }
 )
+
+export const likeAQuoteInQuotes = createAsyncThunk(
+    "likes/likeAQuoteInQuotes",
+    async (id) => {
+        //change the state of the quote to liked
+        return id;
+        
+    }
+);
+
+export const unlikeAQuoteInQuotes = createAsyncThunk(
+    "likes/unlikeAQuoteInQuotes",
+    async (id) => {
+        return id;
+    }
+
+);
+
 //create quotes slice
 export const quotesSlice = createSlice({
     name: "quotes",
@@ -109,6 +127,16 @@ export const quotesSlice = createSlice({
         },
         [fetchQuotesOfAuthorWithPage.rejected] : (state, action) => {
             state.quotes = null;
+        },
+        [likeAQuoteInQuotes.fulfilled] : (state, action) => {
+            const quote = state.quotes.results.find((quote) => quote.id === action.payload);
+            quote.quote_liked = true;
+            quote.total_likes += 1;
+        },
+        [unlikeAQuoteInQuotes.fulfilled] : (state, action) => {
+            const quote = state.quotes.results.find((quote) => quote.id === action.payload);
+            quote.quote_liked = false;
+            quote.total_likes -= 1;
         }
     },
 });

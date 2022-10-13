@@ -45,11 +45,16 @@ const PickedSelect = () => {
           break;
 
       default:
+        setSelectedOption(0)
         break;
     }
     
   }
-  dropDrownSearch();
+  //do not call the function if the component is rendered for the first time
+    if(selectedOption !== null){
+      dropDrownSearch();
+    }
+  
   }, [selectedOption]);
 
 
@@ -119,7 +124,7 @@ const PickedSelect = () => {
           onClick={toggleOptions}
           onKeyDown={handleListKeyDown}
         >
-          {optionsList[selectedOption]}
+          { selectedOption ? optionsList[selectedOption] : optionsList[0] }
           <span
             className={
               isOptionsOpen

@@ -1,16 +1,27 @@
 import randomAuthor from '../public/static/quote-card-author.jpg';
 import { useRouter } from 'next/router';
-import { singleQuote, toggleModal, changeRoute, fetchQuotes } from '../slices/quotes.slice';
+import { singleQuote, toggleModal, changeRoute, likeAQuoteInQuotes, unlikeAQuoteInQuotes } from '../slices/quotes.slice';
 import { likeAQuote, fetchLikedQuotes } from '../slices/likes.slice';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 const QuoteCard = (props) => {
   const { quote, category, url='home'} = props;
+  const [isLiked, setIsLiked] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+
+
   function handleLike() {
+    
+    console.log('quote id', quote.id);
     dispatch(likeAQuote(quote.id));
-    dispatch(fetchLikedQuotes());
+    
+    if(!quote.quote_liked){
+      dispatch(likeAQuoteInQuotes(quote.id));
+    }else{
+      dispatch(unlikeAQuoteInQuotes(quote.id));
+    }
   }
   return (
     <div className="quote-card">
@@ -30,7 +41,7 @@ const QuoteCard = (props) => {
           </svg>
         </span>
         <span className="quote-card-likes-count">
-          {quote?.total_likes} 
+          {quote?.total_likes}
         </span>
       </div>
       <h4

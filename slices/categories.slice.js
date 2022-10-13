@@ -19,6 +19,7 @@ export const fetchSingleCategory = createAsyncThunk(
 export const fetchCategories = createAsyncThunk(
     "categories/fetchCategories",
     async ({page, pageSize}) => {
+        //call below function only if the state is empty
         const result = await getCategories(page, pageSize);
         return result;
     }
