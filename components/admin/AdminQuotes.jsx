@@ -10,11 +10,12 @@ import QuoteCards from '../QuoteCards';
 
 const AdminQuotes = () => {
   const [page, setPage] = useState(1);
-  const [pageSize, setPagesize] = useState(10);
+  const [pageSize, setPagesize] = useState(100);
   const [quotes, setQuotes] = useState([]);
 
   const dispatch = useDispatch();
   const quotesReduxState = useSelector(state => state.quotes?.quotes);
+  const [totalPages, setTotalPages] = useState(0);
 
   //useffect to call fecQuotes
   
@@ -28,8 +29,18 @@ const AdminQuotes = () => {
   
   useEffect(() => {
     setQuotes(quotesReduxState.results);
+    if(quotesReduxState.count){
+      CaluclatetotalPages();
+    }
+
   }, [quotesReduxState, quotes]);
 
+  //function to claculate total pages
+  const CaluclatetotalPages = () => {
+    let pages = Math.ceil(quotesReduxState.count / 100);
+    setTotalPages(pages);
+
+  };
 
   function fetchNext(number) {
     if(number) {
@@ -53,7 +64,7 @@ const AdminQuotes = () => {
             <div className="admin-quotes-cards">
               <QuoteCards fetchNext={fetchNext} quotes={quotes} category={false} next ={quotesReduxState?.next} loadMore={false} />
             </div>
-            <AdminPagination next={quotes?.next} fetchNext={fetchNext} />
+            <AdminPagination pagesTotal={totalPages} next={quotes?.next} fetchNext={fetchNext} />
           </section>
           <section className="admin-quotes-right-content">
             <TopicBrowse />

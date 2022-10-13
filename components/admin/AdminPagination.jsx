@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 const AdminPagination = ({next, fetchNext, pagesTotal}) => {
   
+  
   const quotes = "Quotes";
   //make an array of numbers from 1 to the total number of pages
   const pages = Array.from({length: pagesTotal}, (_, i) => i + 1);
@@ -23,20 +24,23 @@ const AdminPagination = ({next, fetchNext, pagesTotal}) => {
       setFirstSlice(activePage + 1);
       setSecondSlice(pages.length - 3);
       setLastSlice(pages.length - 1);
-      debugger;
+      // debugger
     }
   
 
   }, [activePage, pages, initialSlice, firstSlice, secondSlice, lastSlice]);
 
+
+
 useEffect(() => {
-  setInitialSlice(0);
+      setInitialSlice(0);
       setFirstSlice(3);
-      setSecondSlice(pages.length - 2);
-      setLastSlice(pages.length);
+      setSecondSlice(pagesTotal - 3);
+      setLastSlice(pagesTotal - 1);
       setActivePage(1);
-      debugger
-},[]);
+      
+},[pagesTotal]);
+
   
 
 
@@ -64,25 +68,31 @@ useEffect(() => {
               ))
 
           }
+          
+        </div>
+      </h3>
+      <h3>
+        <div>
+          <ul className="admin-pagination-count-list">
+        {//loop over the pages and show the ones fro initialSlice to firstSlice
+          pages.slice(initialSlice, firstSlice).map((page, index) => (
+              <li key={index} className="admin-pagination-count-list-no" onClick={() => {setActivePage(page); fetchNext(page)}}>{page}</li>
+            ))
+        }
+        {//show the ... if the current page is not the last page
+           <div className="admin-pagination-title-word admin-pagination-title-item-color">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        }
+        {//show the last page
+          pages.slice(secondSlice, lastSlice).map((page, index) => (
+              <li key={index} className="admin-pagination-count-list-no" style={{marginLeft : '15px'}} onClick={() => { setActivePage(page); fetchNext(page)}}>{page}</li>
+            ))
+        }
+      </ul>
         </div>
 
        
       </h3>
-      <ul className="admin-pagination-count-list">
-        {//loop over the pages and show the ones fro initialSlice to firstSlice
-          pages.slice(initialSlice, firstSlice).map((page, index) => (
-              <li className="admin-pagination-count-list-no" onClick={() => {setActivePage(page); fetchNext(page)}}>{page}</li>
-            ))
-        }
-        {//show the ... if the current page is not the last page
-          activePage !== lastSlice && <div className="admin-pagination-title-word admin-pagination-title-item-color">{'........'}</div>
-        }
-        {//show the last page
-          pages.slice(secondSlice, lastSlice).map((page, index) => (
-              <li className="admin-pagination-count-list-no" onClick={() => { setActivePage(page); fetchNext(page)}}>{page}</li>
-            ))
-        }
-      </ul>
+      
     </div>
   );
 };

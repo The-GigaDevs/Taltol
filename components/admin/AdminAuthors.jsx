@@ -7,17 +7,30 @@ const AdminAuthors = () => {
     const [page, setPage] = useState(1);
     const authors1 = useSelector(state => state.authors?.authors);
     const dispatch = useDispatch();
+    const [totalPages, setTotalPages] = useState(0);
     useEffect(() => {
-        dispatch(fetchAuthors({ page: 1, pageSize: 30 }));
+        dispatch(fetchAuthors({ page: 1, pageSize: 50 }));
     }
     , []);
     useEffect(() => {
         setAuthors(authors1.results);
+        if (authors1.count) {
+            CaluclatetotalPages();
+        }
     }
     , [authors, authors1]);
+
+
+    function CaluclatetotalPages() {
+        let pages = Math.ceil(authors1.count / 50);
+        setTotalPages(pages);
+    }
+
+
+
     function fetchNext(number) {
         if (number) {
-            dispatch(fetchAuthors({ page: number, pageSize: 30 }));
+            dispatch(fetchAuthors({ page: number, pageSize: 50 }));
         } else {
             setPage(page + 1);
             dispatch(fetchAuthors(page + 1));
@@ -35,7 +48,7 @@ const AdminAuthors = () => {
                             )}
                         </ul>
                     </section>
-                    <AdminPagination next={authors1.next} fetchNext={fetchNext} />
+                    <AdminPagination pagesTotal={totalPages} next={authors1.next} fetchNext={fetchNext} />
                 </div>
             </div>
         </div>

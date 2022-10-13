@@ -10,6 +10,13 @@ const AdminTopics = () => {
 
   const dispatch = useDispatch();
 
+   //function to claculate total pages
+  const CaluclatetotalPages = () => {
+    let pages = Math.ceil(categories1.count / 30);
+    setTotalPages(pages);
+    
+  };
+
   useEffect(() => {
     dispatch(fetchCategories({page: 1, pageSize: 30}));
   }, []);
@@ -21,12 +28,7 @@ const AdminTopics = () => {
     }
   }, [categories, categories1]);
 
-  //function to claculate total pages
-  const CaluclatetotalPages = () => {
-    let pages = Math.ceil(categories1.count / 10);
-    setTotalPages(pages);
-    
-  };
+ 
 
   function fetchNext(number) {
     // if(number) {
