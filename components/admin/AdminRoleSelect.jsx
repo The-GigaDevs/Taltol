@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const AdminRoleSelect = () => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -74,7 +73,7 @@ const AdminRoleSelect = () => {
       default:
         break;
 
-  };
+  }
 }
 
   const handleKeyDown = index => e => {
