@@ -1,5 +1,5 @@
 import QuoteCard from './QuoteCard';
-const QuoteCards = ({ quotes, fetchNext, category, next , loadMore = true, url="home"}) => {
+const QuoteCards = ({ quotes, fetchNext, category, next , loadMore = true, url="/"}) => {
   return (
     <>
       <div className="quote-cards">

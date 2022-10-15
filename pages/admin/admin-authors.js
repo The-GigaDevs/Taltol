@@ -1,6 +1,6 @@
-import AdminHeader from "../components/admin/AdminHeader";
-import AdminMainSort from "../components/admin/AdminMainSort";
-import AdminAuthors from "../components/admin/AdminAuthors";
+import AdminHeader from "../../components/admin/AdminHeader";
+import AdminMainSort from "../../components/admin/AdminMainSort";
+import AdminAuthors from "../../components/admin/AdminAuthors";
 //import useRoouter from 'next/router';
 import { useRouter } from "next/router";
 

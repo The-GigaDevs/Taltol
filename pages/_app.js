@@ -7,7 +7,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 function MyApp({ Component, pageProps }) {
-  console.log(pageProps.session, "Session in MyApp")
+
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>

@@ -28,7 +28,7 @@ const RegisterLoginModal = ({ providers }) => {
 
   useEffect(()=> {
     if(userInRedux) {
-      route.push('/home')
+      route.push('/')
     }
   }, [userInRedux])
 
@@ -45,12 +45,7 @@ const RegisterLoginModal = ({ providers }) => {
   }
 
   const signInThroughProvider = async (id) => {
-    const result = await signIn(id)
-    if(result?.status === 200) {
-      route.push(`${result?.url}/home`);
-    } else {
-      console.log(result?.error)
-    }
+    const result = await signIn(id, { callbackUrl: '/' })
   }
   
   const validateFields = () => {
@@ -77,21 +72,23 @@ const RegisterLoginModal = ({ providers }) => {
   return (
     <div className="register-login-modal">
       <div className="register-login-modal-content">
-
 `      <span className="register-login-modal-close" >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-        >
-          <path
-            d="M18 1.81286L16.1871 0L9 7.18714L1.81286 0L0 1.81286L7.18714 9L0 16.1871L1.81286 18L9 10.8129L16.1871 18L18 16.1871L10.8129 9L18 1.81286Z"
-            fill="#333333"
-          />
-        </svg>
+          <Link href={'/'} passHref>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+            >
+              <path
+                d="M18 1.81286L16.1871 0L9 7.18714L1.81286 0L0 1.81286L7.18714 9L0 16.1871L1.81286 18L9 10.8129L16.1871 18L18 16.1871L10.8129 9L18 1.81286Z"
+                fill="#333333"
+              />
+            </svg>
+          </Link>
       </span>
+
       </div>
       
       <div className="register-login-modal-wrapper">
