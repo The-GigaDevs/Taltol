@@ -39,9 +39,25 @@ export const authOptions = {
     },
     callbacks: {
         async signIn({ user, account, profile }) {
-            console.log(user, account, profile, 'I get called in nextAuth');
-            if (user) 
-            return '/home';
+            if (user) {
+                return true;
+            }
+            return false;
+        },
+        async jwt({token, account, profile, isNewUser}) {
+            if(account) {
+                token.access_token = account.access_token;
+                token.id = profile.id
+                token.provider = account.provider
+            }
+            return token;
+        },
+        async session({ session, token, user }) {
+            // Send properties to the client, like an access_token and user id from a provider.
+            session.access_token = token.access_token
+            session.user.id = token.id
+            session.user.provider = token.provider
+            return session;
         }
     },
     theme: "auto",

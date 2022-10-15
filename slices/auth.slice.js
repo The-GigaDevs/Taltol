@@ -22,6 +22,10 @@ export const loginUser = createAsyncThunk(
                 pending: 'Loggin in user, Please wait!'
             }
         )
+        console.log(result);
+        if(result?.accessToken && result.status === 200) {
+            localStorage.setItem('token', `Bearer ${result?.accessToken}`)
+        }
         return result;
     }
 )
@@ -46,6 +50,10 @@ export const authSlice = createSlice({
     reducers: {
         addUser: (state, action) => {
             state.user = action.payload
+        },
+        authenticateUser: (state, action) => {
+            state.isAuthenticated = true;
+            state.user = action.payload
         }
     },
     extraReducers : {
@@ -53,12 +61,12 @@ export const authSlice = createSlice({
             state.newUser = action.payload;
         },
         [loginUser.fulfilled] : (state, action) => {
-            state.user = action.payload;
+            state.user = action?.payload?.accessToken;
             state.isAuthenticated = true;
         }
     }
 })
 
-export const { addUser } = authSlice.actions
+export const { addUser, authenticateUser } = authSlice.actions
 
 export default authSlice.reducer;

@@ -12,8 +12,13 @@ const register = (data) => httpService
 
 const me = () => httpService
     .get('/users/me')
-    .then(({ data }) => Promise.resolve(data))
-    .catch(({ error }) => Promise.reject(error))
+    .then(({ data }) => data)
+    .catch((response) => Promise.reject(response))
+
+const socialLogin = (body) => httpService
+    .post('/users/social-info', { ...body })
+    .then(({ data }) => data)
+    .catch((response) => Promise.reject(response))
 
 const getQuotes = (page, pageSize) => httpService
     .get(`/quotes?page=${page}&page_size=${pageSize}`)
@@ -139,6 +144,7 @@ const authService = {
     getSingleAuthor,
     getAuthorQuotesWithPage,
     addAuthor,
-    addTopic
+    addTopic,
+    socialLogin
 }
 export default authService;

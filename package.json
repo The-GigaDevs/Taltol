@@ -2,7 +2,7 @@
   "name": "quotesplanner",
   "private": true,
   "scripts": {
-    "dev": "npm install && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

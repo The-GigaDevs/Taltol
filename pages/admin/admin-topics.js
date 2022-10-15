@@ -1,7 +1,7 @@
-import AdminHeader from '../components/admin/AdminHeader';
-import AdminMainSort from '../components/admin/AdminMainSort';
-import AdminForm from '../components/admin/AdminTopicsForm';
-import AdminTopics from '../components/admin/AdminTopics';
+import AdminHeader from '../../components/admin/AdminHeader';
+import AdminMainSort from '../../components/admin/AdminMainSort';
+import AdminForm from '../../components/admin/AdminTopicsForm';
+import AdminTopics from '../../components/admin/AdminTopics';
 import { useRouter } from 'next/router';
 
 const Admin = () => {

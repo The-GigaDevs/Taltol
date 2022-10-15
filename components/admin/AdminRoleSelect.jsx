@@ -44,19 +44,19 @@ const AdminRoleSelect = () => {
     setIsOptionsOpen(false);
     switch (index) {
       case 0:
-        router.push('/admin-quotes');
+        router.push('/admin/admin-quotes');
         break;
       case 1:
-        router.push('/admin-authors');
+        router.push('/admin/admin-authors');
         break;
       case 2:
-        router.push('/admin-topics');
+        router.push('/admin/admin-topics');
         break;
       case 3:
-        router.push('/admin-tags');
+        router.push('/admin/admin-tags');
         break;
       case 4:
-        router.push('/admin-customized');
+        router.push('/admin/admin-customized');
         break;
       // case 5:
       //   router.push('/admin/users');

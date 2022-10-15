@@ -49,7 +49,7 @@ const Quote = ({ id, url }) => {
                 onRequestClose={() => dispatch(toggleModal(false))}
                 style={ModalStyles}
             >
-                <QuoteDP singleQuote={singleQuote} isModal={isModal} toggleModal={toggleModal} dispatch={dispatch} authorQuotes={authorQuotes} tagQuotes={tagQuotes} url={'home'} />
+                <QuoteDP singleQuote={singleQuote} isModal={isModal} toggleModal={toggleModal} dispatch={dispatch} authorQuotes={authorQuotes} tagQuotes={tagQuotes} url={'/'} />
 
             </Modal>
             : <QuoteDP singleQuote={singleQuote} authorQuotes={authorQuotes} tagQuotes={tagQuotes} />
