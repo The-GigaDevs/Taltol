@@ -85,9 +85,9 @@ const FilterModal = ({
         setSelectedAuthors(prevState =>
           prevState.filter(item => item !== name)
         );
-        console.log(selectedAuthors);
+        //console.log(selectedAuthors);
       } else {
-        console.log(name, value);
+        //console.log(name, value);
         let updatedArray = [...selectedAuthors, name];
         setSelectedAuthors(() => updatedArray);
       }
@@ -107,6 +107,13 @@ const FilterModal = ({
       }
     }
   }
+
+  function clearAll () {
+    setSelectedAuthors([]);
+    setSelectedTags([]);
+    setSelectedCategories([]);
+  };
+
 
   useEffect(() => {
     setAuthors(authors1.results);
@@ -133,7 +140,7 @@ const FilterModal = ({
   //write a function to send api call fro search authors
 
   async function handleChange(value, type) {
-    // console.log("I am here",value, type);
+    // //console.log("I am here",value, type);
     if (value.length >= 3) {
       if (type === 'author') {
         dispatch(authorSearch(value));
@@ -503,7 +510,9 @@ const FilterModal = ({
             </div>
           </div>
           <footer className="filter-modal-footer">
-            <span className="filter-modal-footer-clear">Clear All</span>
+            <span className="filter-modal-footer-clear" onClick={() => {
+              clearAll();
+            }}>Clear All</span>
             <button
               className="filter-modal-footer-btn"
               onClick={() => closeModal()}

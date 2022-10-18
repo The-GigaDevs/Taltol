@@ -39,12 +39,12 @@ const AdminForm = () => {
         router.back();
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
   useEffect(() => {
-    // console.log("topics after the render is",topics);
+    // //console.log("topics after the render is",topics);
   }, [topics]);
 
   return (

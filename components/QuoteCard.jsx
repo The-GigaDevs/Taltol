@@ -2,26 +2,37 @@ import randomAuthor from '../public/static/quote-card-author.jpg';
 import { useRouter } from 'next/router';
 import { singleQuote, toggleModal, changeRoute, likeAQuoteInQuotes, unlikeAQuoteInQuotes } from '../slices/quotes.slice';
 import { likeAQuote, fetchLikedQuotes } from '../slices/likes.slice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { authSlice } from '../slices/auth.slice'
+import RestrictiveModal from './auth/RestrictiveModal';
 
 const QuoteCard = (props) => {
   const { quote, category, url='home'} = props;
   const [isLiked, setIsLiked] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const authRedux = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
 
 
+
   function handleLike() {
-    
-    console.log('quote id', quote.id);
-    dispatch(likeAQuote(quote.id));
-    
-    if(!quote.quote_liked){
-      dispatch(likeAQuoteInQuotes(quote.id));
+    //check the isAuthenticated use from auth slice and if it is true, then dispatch the likeAQuote action
+    //if it is false, then dispatch the toggleModal action
+  
+
+    if(authRedux.isAuthenticated){
+       dispatch(likeAQuote(quote.id));
+      if(!quote.quote_liked){
+        dispatch(likeAQuoteInQuotes(quote.id));
+      }else{
+        dispatch(unlikeAQuoteInQuotes(quote.id));
+      }
     }else{
-      dispatch(unlikeAQuoteInQuotes(quote.id));
+      setShowModal(true);
     }
+   
   }
   return (
     <div className="quote-card">
@@ -73,6 +84,7 @@ const QuoteCard = (props) => {
         />
         <p className="quote-card-author-name">{quote?.author?.name}</p>
       </div>
+      {showModal && <RestrictiveModal showModal = {showModal} setShowModal={setShowModal} />}
     </div>
   );
 };

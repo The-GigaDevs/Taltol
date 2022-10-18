@@ -30,7 +30,7 @@ const UserSavedCollection = (
   //detect changes in collections1 and update collections state in local component
   useEffect(() => {
     setCollections(collections1);
-    console.log("collections: ", collections);
+    //console.log("collections: ", collections);
   }, [collections1]);
 
   return (

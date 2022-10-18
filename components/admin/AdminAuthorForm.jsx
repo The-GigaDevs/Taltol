@@ -38,11 +38,11 @@ const AdminAuthorForm = () => {
         router.back();
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   }
   useEffect(() => {
-    // console.log("authors after the render is",author);
+    // //console.log("authors after the render is",author);
   }, [author]);
 
   return (

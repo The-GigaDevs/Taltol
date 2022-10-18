@@ -19,7 +19,7 @@ const AdminRoleSelect = () => {
     'General Settings',
   ];
   useEffect(() => {
-    console.log('Rendering AdminRoleSelect');
+    //console.log('Rendering AdminRoleSelect');
 
     //extract the role from the router.asPath separated by - and use second part as selectedOption
     const role = router.asPath.split('-')[1];

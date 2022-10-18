@@ -37,7 +37,7 @@ export const fetchSingleAuthor = createAsyncThunk(
     "authors/fetchSingleAuthor",
     async (authorId) => {
         const result = await getSingleAuthor(authorId);
-        console.log(result);
+        //console.log(result);
         return result;
     }
 )
@@ -46,7 +46,7 @@ export const getAllQuotesOfAuthor = createAsyncThunk(
     "authors/getAllQuotesOfAuthor",
     async (authorId) => {
         const result = await getAuthorQuotes(authorId);
-        console.log(result, 'getAllQuotesOfAuthor');
+        //console.log(result, 'getAllQuotesOfAuthor');
         return result;
     }
 )
@@ -77,7 +77,7 @@ export const authorsSlice = createSlice({
         },
         [authorSearch.fulfilled]: (state, action) => {
             state.authors = action.payload;
-            console.log("State of the quotes" , current(state));
+            //console.log("State of the quotes" , current(state));
         },
         [fetchSingleAuthor.fulfilled]: (state, action) => {
             state.singleAuthor = action.payload

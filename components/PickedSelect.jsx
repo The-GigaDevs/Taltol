@@ -17,7 +17,7 @@ const PickedSelect = () => {
     switch (selectedOption) {
       
       case 0:
-        results = await searchQuotesModal( "","", "",   "");
+        results = await searchQuotesModal( "","", "","", true);
         results = {...results, results: results.results.slice(0, 100)}
         dispatch({type: "quotes/addQuotes", payload: results})
         break;

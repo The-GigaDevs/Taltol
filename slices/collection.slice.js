@@ -21,7 +21,7 @@ export const saveInColection = createAsyncThunk(
     "collections/saveInColection",
     async (id) => {
         const result = await saveInCollection(id);
-        console.log("the result of the single collection is: ", result);
+        //console.log("the result of the single collection is: ", result);
         return result;
     }
 );
@@ -30,7 +30,7 @@ export const addQuoteToCollection = createAsyncThunk(
     "collections/addQuoteToCollection",
     async (params) => {
         const result = await saveInCollection({...params});
-        console.log("the result of the single collection is: ", result);
+        //console.log("the result of the single collection is: ", result);
         //update the collection state with the new quote
         fetchCollections();
         return result;
