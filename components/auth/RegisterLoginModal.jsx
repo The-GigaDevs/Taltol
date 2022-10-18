@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import { FaEnvelope } from 'react-icons/fa';
 import { useState } from 'react';
-// import authService from '../../services/auth.service';
-import {  signIn } from "next-auth/react"
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser, loginUser as loginUserInTaltol } from '../../slices/auth.slice';
 import { validatePassword } from '../../utils';
 import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
+const SocialLogins = dynamic(() => import("./SocialLogins"), {
+  ssr: false,
+});
 
 
 const RegisterLoginModal = ({ providers }) => {
@@ -24,13 +26,13 @@ const RegisterLoginModal = ({ providers }) => {
   const [loginUser, setLoginUser] = useState({ email: '', password: ''})
   const route = useRouter();
   const dispatch = useDispatch();
-  const userInRedux = useSelector(state => state.auth.user)
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
   useEffect(()=> {
-    if(userInRedux) {
+    if(isAuthenticated === true) {
       route.push('/')
     }
-  }, [userInRedux])
+  }, [isAuthenticated])
 
   const handleEmailBtnClick = async (e) => {
     e.preventDefault();
@@ -40,12 +42,9 @@ const RegisterLoginModal = ({ providers }) => {
     if (error.length > 0) {
       error.forEach((key)=> toast.error(key.toUpperCase() + ' is required'));
     } else {
-      dispatch(loginUserInTaltol({email: loginUser.email, password: loginUser.password}));
+      const login = dispatch(loginUserInTaltol({email: loginUser.email, password: loginUser.password}));
+      console.log(login, 'data')
     }
-  }
-
-  const signInThroughProvider = async (id) => {
-    const result = await signIn(id, { callbackUrl: '/' })
   }
   
   const validateFields = () => {
@@ -94,7 +93,7 @@ const RegisterLoginModal = ({ providers }) => {
       
       <div className="register-login-modal-wrapper">
         <h1 className="register-login-modal-title">Login or Register</h1>
-        <div className="register-login-modal-socials">
+        {/* <div className="register-login-modal-socials">
           <div className="register-login-modal-socials-btn" onClick={()=> signInThroughProvider('linkedin')}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +174,8 @@ const RegisterLoginModal = ({ providers }) => {
               Continue with Facebook
             </span>
           </div>
-        </div>
+        </div> */}
+        <SocialLogins />
         <div className="register-login-modal-or-line">
           <span className="register-login-modal-or-text"> OR </span>
         </div>

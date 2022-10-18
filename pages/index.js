@@ -3,26 +3,26 @@ import Footer from '../components/Footer';
 import MoodEmoji from '../components/MoodEmoji';
 import Navbar from '../components/Navbar';
 import Content from './content';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import store from '../store';
 import MobileMenu from '../components/MobileMenu';
 import { fetchLikedQuotes } from '../slices/likes.slice';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { authenticateUser } from '../slices/auth.slice';
-import { useSession } from 'next-auth/react';
+import { authenticateUser, isUserLoggedIn } from '../slices/auth.slice';
 
 const Home = ({ session }) => {
-  console.log(session, "Session from NextAuth");
   const dispatch = useDispatch();
-  const sessionNext = useSession();
-  console.log(sessionNext, 'sessionNext');
+  const authRedux = useSelector(state =>  state.auth);
+
   useEffect(() => {
-    if(localStorage.getItem('token')) {
-      dispatch(authenticateUser(localStorage.getItem('token')))
-    }
     dispatch(fetchLikedQuotes());
   }, [dispatch]);
+  
+  useEffect(()=> {
+    dispatch(isUserLoggedIn());
+    
+  }, [authRedux?.isAuthenticated])
 
   return (
     <>
