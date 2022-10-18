@@ -13,10 +13,10 @@ import { authenticateUser } from '../slices/auth.slice';
 import { useSession } from 'next-auth/react';
 
 const Home = ({ session }) => {
-  console.log(session, "Session from NextAuth");
+  //console.log(session, "Session from NextAuth");
   const dispatch = useDispatch();
   const sessionNext = useSession();
-  console.log(sessionNext, 'sessionNext');
+  //console.log(sessionNext, 'sessionNext');
   useEffect(() => {
     if(localStorage.getItem('token')) {
       dispatch(authenticateUser(localStorage.getItem('token')))

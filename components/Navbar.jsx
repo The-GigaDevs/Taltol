@@ -36,16 +36,18 @@ const Navbar = () => {
     } else if(value === "tag") {
     setSelectedTags(selected);
     }
-    console.log(selected);
+    //console.log(selected);
   }
 
-  function handleSearch(e) {
+  async function handleSearch(e) {
     e.preventDefault();
+    const result = await searchQuotesModal(selectedAuthors, selectedTags ,selectedCategories, search);
+    dispatch(addQuotes(result));
     setSearch(e.target.value);
   }
 
   useEffect(() => {
-    console.log("Session from navbar: ", session);
+    //console.log("Session from navbar: ", session);
 
   }, []);
  

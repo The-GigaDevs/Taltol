@@ -18,5 +18,5 @@ http.interceptors.request.use(
     }
 )
 
-console.log( "the env file: ", process.env.apiURL );
+//console.log( "the env file: ", process.env.apiURL );
 export default http;

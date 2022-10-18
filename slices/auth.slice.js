@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
                 pending: 'Loggin in user, Please wait!'
             }
         )
-        console.log(result);
+        //console.log(result);
         if(result?.accessToken && result.status === 200) {
             localStorage.setItem('token', `Bearer ${result?.accessToken}`)
         }
@@ -54,7 +54,8 @@ export const authSlice = createSlice({
         authenticateUser: (state, action) => {
             state.isAuthenticated = true;
             state.user = action.payload
-        }
+        },
+    
     },
     extraReducers : {
         [registerUser.fulfilled] : (state, action) => {

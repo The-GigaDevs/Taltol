@@ -36,7 +36,7 @@ export const tagsSlice = createSlice({
         },
         [searchTag.fulfilled]: (state, action) => {
             state.tags = action.payload;
-            console.log("State of the quotes" , current(state));
+            //console.log("State of the quotes" , current(state));
         }
     },
 });

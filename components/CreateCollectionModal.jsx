@@ -14,7 +14,7 @@ const dispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(collectionName);
+    //console.log(collectionName);
     dispatch(createCollection(collectionName));   
     setShow(false); 
   }

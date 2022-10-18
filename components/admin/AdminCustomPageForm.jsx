@@ -36,16 +36,16 @@ const AdminForm = () => {
     createCustomPage(customPage)
       .then((response) => {
         //redirect to the admin page
-        console.log(response);
+        //console.log(response);
         router.back();
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
   useEffect(() => {
-    // console.log("customPage after the render is",customPage);
+    // //console.log("customPage after the render is",customPage);
   }, [customPage]);
 
   return (

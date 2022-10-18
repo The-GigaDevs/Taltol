@@ -23,7 +23,7 @@ export const fetchQuotesAgainstTag = createAsyncThunk(
     "quotes/fetchQuotesAgainstTag",
     async (tagId) => {
         const result = await getQuotesAgainstTag(tagId);
-        console.log(result, 'tags');
+       
         return result;
     }
 )
@@ -48,7 +48,7 @@ export const fetchQuotesOfCategory = createAsyncThunk(
     "quotes/fetchQuotesOfCategory", 
     async ({id, page}) => {
         const result = await getQuotesOfSingleCategory(id, page);
-        console.log(result, 'category');
+        //console.log(result, 'category');
         return result
     }
 )
@@ -57,7 +57,7 @@ export const fetchQuotesOfAuthorWithPage = createAsyncThunk(
     "quotes/fetchQuotesOfAuthorWithPage", 
     async ({id, page}) => {
         const result = await getAuthorQuotesWithPage(id, page);
-        console.log(result, 'author');
+        //console.log(result, 'author');
         return result
     }
 )
@@ -86,7 +86,7 @@ export const quotesSlice = createSlice({
     reducers: {
         addQuotes: (state, action) => {
             state.quotes = action.payload;
-            // console.log("State of the store",state.quotes);
+            // //console.log("State of the store",state.quotes);
         },
         singleQuote: (state, action) => {
             state.singleQuote = action.payload;
@@ -115,6 +115,9 @@ export const quotesSlice = createSlice({
         },
         [fetchQuotesAgainstTag.rejected] : (state, action) => {
             state.quotesAgainstTag = [];
+        },
+        [fetchQuotesAgainstTag.fulfilled] : (state, action) => {
+            state.quotes = action.payload;
         },
         [fetchQuotesOfCategory.fulfilled] : (state, action) => {
             state.quotes = action.payload;

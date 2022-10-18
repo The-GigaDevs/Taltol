@@ -23,7 +23,7 @@ const AdminHeader = () => {
     } else if(value === "tag") {
     setSelectedTags(selected);
     }
-    console.log(selected);
+    //console.log(selected);
   }
 
 

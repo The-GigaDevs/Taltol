@@ -17,7 +17,7 @@ const UserLikedQuotes = (
 
   useEffect(() => {
       setQuotes(likedQuotes);
-      console.log(likedQuotes);
+      //console.log(likedQuotes);
   }, [ likedQuotes]);
   return (
     <>

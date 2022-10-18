@@ -19,7 +19,7 @@ export const likeAQuote = createAsyncThunk(
     async (id) => {
         //change the state of the quote to liked
         const result = await likeQuote(id);
-        console.log("result of liking a quote is: ", result);
+        //console.log("result of liking a quote is: ", result);
         return result;
     }
 );

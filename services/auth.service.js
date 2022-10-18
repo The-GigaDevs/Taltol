@@ -117,8 +117,8 @@ const getQuotesOfSingleCategory = (id, page) => httpService
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 
-const searchQuotesModal = (authors, tags, categories, search) => httpService
-    .get(`/quotes/?authors=${authors}&tags=${tags}&categories=${categories}&search=${search}`)
+const searchQuotesModal = (authors, tags, categories, search, month= false) => httpService
+    .get(`/quotes/?authors=${authors}&tags=${tags}&categories=${categories}&search=${search}&month=${month}`)
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error?.response))
 

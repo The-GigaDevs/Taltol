@@ -1,6 +1,14 @@
 import authorHeaderDP from '../public/static/author-page-dp.png';
 import SharePage from './SharePage';
 const AuthorHeader = ({ quotes, category, tags }) => {
+
+
+function searchByTag (tag) {
+    console.log(tag);
+    debugger
+  };
+
+
   return (
     <header className="category-header">
       <div className="container">
@@ -31,6 +39,9 @@ const AuthorHeader = ({ quotes, category, tags }) => {
                   <span
                     key={tag?.tagId}
                     className="category-header-desc-list-tag"
+                    onClick={() => { searchByTag(tag) }
+                    }
+                    cursor="pointer"
                   >
                     {' '}
                     {tag?.tag_text},

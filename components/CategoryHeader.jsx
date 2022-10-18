@@ -1,7 +1,20 @@
 import categoryHeaderBG from '../public/static/category-header-bg.png';
 import SharePage from './SharePage';
+import { useDispatch } from 'react-redux';
+import {fetchQuotesAgainstTag} from '../slices/quotes.slice';
+
 const CategoryHeader = ({ quotes, category, tags }) => {
+
+  const dispatch = useDispatch();
+
+  
+  function searchByTag (tag) {
+    dispatch(fetchQuotesAgainstTag(tag?.tagId));
+    console.log(tag);
+  };
+  
   return (
+
     <header className="category-header">
       <div className="container">
         <SharePage place="category" id={category?.id} />
@@ -25,7 +38,7 @@ const CategoryHeader = ({ quotes, category, tags }) => {
               </svg>
               <p className="category-header-desc-list-tags">
                 Most used tags with the {category?.name} quotes
-                {tags?.tags?.map(tag => <span key={tag?.tagId} className="category-header-desc-list-tag"> {tag?.tag_text},</span>)}
+                {tags?.tags?.map(tag => <span cursor="pointer" onClick={() => {searchByTag(tag)}} key={tag?.tagId} className="category-header-desc-list-tag"> {tag?.tag_text},</span>)}
               </p>
             </div>
           </div>
