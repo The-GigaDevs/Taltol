@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from '../services/auth.service'
-const { login, register } = authService;
+const { login, register, me, socialLogin } = authService;
 import {toast}  from 'react-toastify';
 
 const initialState = {
     isAuthenticated: false,
     user: null,
     isSocialLogin: false,
-    newUser: {}
+    newUser: {},
+    accessToken: null,
 }
 
 export const loginUser = createAsyncThunk(
@@ -19,13 +20,14 @@ export const loginUser = createAsyncThunk(
             {
                 success: 'Login Successful!',
                 error: 'Error loggin in user. Check whether the information you provided is correct or not.',
-                pending: 'Loggin in user, Please wait!'
+                pending: 'Logging in user, Please wait!'
             }
         )
-        //console.log(result);
-        if(result?.accessToken && result.status === 200) {
-            localStorage.setItem('token', `Bearer ${result?.accessToken}`)
-        }
+        result.then((data) => {
+            if(data.access) {
+                localStorage.setItem('token', data.access)
+            }
+        })
         return result;
     }
 )
@@ -44,6 +46,40 @@ export const registerUser = createAsyncThunk(
         return result;
     }
 )
+
+export const isUserLoggedIn = createAsyncThunk(
+    'auth/me',
+    () => {
+        try {
+            const result = me();
+            return result.then((data) => data);
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    }
+)
+
+export const socialLoginAction = createAsyncThunk(
+    'auth/social-login',
+    (user) => {
+        const result = toast.promise(
+            socialLogin(user),
+            {
+                success: 'Login Successful!',
+                error: 'Error loggin in user. Check whether the information you provided is correct or not.',
+                pending: 'Loggin in user, Please wait!'
+            }
+        )
+        result.then((data) => {
+            if(data.access) {
+                localStorage.setItem('token', data.access)
+            }
+        })
+        return result;
+    }
+)
+
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -51,23 +87,43 @@ export const authSlice = createSlice({
         addUser: (state, action) => {
             state.user = action.payload
         },
-        authenticateUser: (state, action) => {
-            state.isAuthenticated = true;
-            state.user = action.payload
-        },
-    
+        signOut: (state, action) => {
+            localStorage.removeItem('token');
+            state.user = null;
+            state.isAuthenticated = false;
+            state.isSocialLogin = false;
+        }
     },
     extraReducers : {
         [registerUser.fulfilled] : (state, action) => {
             state.newUser = action.payload;
         },
         [loginUser.fulfilled] : (state, action) => {
-            state.user = action?.payload?.accessToken;
+            state.access = action?.payload?.access;
             state.isAuthenticated = true;
-        }
+        },
+        [isUserLoggedIn.fulfilled] : (state, action) => {
+            state.user = action.payload;
+            state.isAuthenticated = true;
+        },
+        [isUserLoggedIn.rejected] : (state, action) => {
+            state.user = null;
+            state.isAuthenticated = false;
+        },
+        [socialLoginAction.fulfilled] : (state, action) => {
+            state.access = action.payload;
+            state.isAuthenticated = true;
+            state.isSocialLogin = true;
+
+        },
+        [socialLoginAction.rejected] : (state, action) => {
+            state.user = null;
+            state.isAuthenticated = false;
+            state.isSocialLogin = false;
+        },
     }
 })
 
-export const { addUser, authenticateUser } = authSlice.actions
+export const { addUser, signOut } = authSlice.actions
 
 export default authSlice.reducer;

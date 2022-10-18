@@ -11,12 +11,12 @@ const register = (data) => httpService
     .catch(({ error }) => Promise.reject(error))
 
 const me = () => httpService
-    .get('/users/me')
+    .get('/users/me/')
     .then(({ data }) => data)
     .catch((response) => Promise.reject(response))
 
 const socialLogin = (body) => httpService
-    .post('/users/social-login', { ...body })
+    .post('/users/social-login/', { ...body })
     .then(({ data }) => data)
     .catch((response) => Promise.reject(response))
 

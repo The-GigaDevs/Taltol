@@ -6,8 +6,8 @@ import  store  from "../store";
 import { fetchQuotes, addQuotes } from "../slices/quotes.slice";
 import authService  from "../services/auth.service";
 import { useSelector, useDispatch } from "react-redux";
-import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { signOut } from "../slices/auth.slice";
 
 const { searchQuotesModal } = authService;
 
@@ -19,11 +19,9 @@ const Navbar = () => {
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const authRedux = useSelector(state => state.auth);
   const [search, setSearch] = useState("");
-  const session = useSession();
-  //session testing
-  // const { session} = useSession();
+
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -45,14 +43,6 @@ const Navbar = () => {
     dispatch(addQuotes(result));
     setSearch(e.target.value);
   }
-
-  useEffect(() => {
-    //console.log("Session from navbar: ", session);
-
-  }, []);
- 
-
-
 
   async function searchQuotes() {
       if(isOpen){
@@ -139,8 +129,10 @@ const Navbar = () => {
                 <span className="navbar-filters-count">{selectedAuthors.length + selectedCategories.length + selectedTags.length}</span>
               </div>
             </div>
-            {(isAuthenticated || session?.status === 'authenticated') ?
+            {authRedux?.isAuthenticated ?
               <div onClick={() => setIsOpen(!isOpen)} className="navbar-profile">
+                {(authRedux?.isAuthenticated || authRedux?.user?.image_path!== null ) ? <img src={authRedux?.user?.image_path} alt="userImage" /> : (
+                <>
                 <span className="navbar-profile-avatar">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -167,6 +159,8 @@ const Navbar = () => {
                     fill="#333333"
                   />
                 </svg>
+                </>
+                )}
                 <div
                   className={
                     isOpen
@@ -174,9 +168,9 @@ const Navbar = () => {
                       : "navbar-profile-dropdown"
                   }
                 >
-                  <h2 className="navbar-profile-dropdown-name">Atabic Umer</h2>
+                  <h2 className="navbar-profile-dropdown-name">{authRedux?.user?.first_name + ' ' + authRedux?.user?.last_name}</h2>
                   <p className="navbar-profile-dropdown-mail">
-                    atabic14@gmail.com
+                    {authRedux?.user?.email}
                   </p>
                   <Link href="/users">
                     <a className="navbar-profile-dropdown-link">
@@ -197,8 +191,9 @@ const Navbar = () => {
                     </a>
                   </Link>
                   <div
-                    onClick={() => {
-                      signOut({ redirect: false, callbackUrl: '/login' });
+                    onClick={async() => {
+                      await dispatch(signOut());
+                      router.push('/login');
                     }}>
                     <span className="navbar-profile-dropdown-link">
                       <svg
