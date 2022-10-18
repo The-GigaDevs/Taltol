@@ -10,7 +10,6 @@ const CategoryHeader = ({ quotes, category, tags }) => {
   
   function searchByTag (tag) {
     dispatch(fetchQuotesAgainstTag(tag?.tagId));
-    console.log(tag);
   };
   
   return (

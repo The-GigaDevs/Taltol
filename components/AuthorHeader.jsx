@@ -4,8 +4,8 @@ const AuthorHeader = ({ quotes, category, tags }) => {
 
 
 function searchByTag (tag) {
-    console.log(tag);
-    debugger
+    
+    
   };
 
 
