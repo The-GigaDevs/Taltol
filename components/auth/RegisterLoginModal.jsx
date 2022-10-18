@@ -67,6 +67,7 @@ const RegisterLoginModal = ({ providers }) => {
   const registerUserInTaltol = async () => {
     const isValid = validateFields();
     if (isValid) dispatch(registerUser(userRegisterInfo));
+    setEmailBtnActive(true);
   }
   
   return (

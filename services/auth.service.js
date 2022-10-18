@@ -16,7 +16,7 @@ const me = () => httpService
     .catch((response) => Promise.reject(response))
 
 const socialLogin = (body) => httpService
-    .post('/users/social-info', { ...body })
+    .post('/users/social-login', { ...body })
     .then(({ data }) => data)
     .catch((response) => Promise.reject(response))
 
