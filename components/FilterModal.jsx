@@ -112,7 +112,7 @@ const FilterModal = ({
     setSelectedAuthors([]);
     setSelectedTags([]);
     setSelectedCategories([]);
-  };
+  }
 
 
   useEffect(() => {

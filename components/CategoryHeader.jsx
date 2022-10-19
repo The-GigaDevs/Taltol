@@ -1,7 +1,7 @@
-import categoryHeaderBG from '../public/static/category-header-bg.png';
-import SharePage from './SharePage';
-import { useDispatch } from 'react-redux';
-import {fetchQuotesAgainstTag} from '../slices/quotes.slice';
+import categoryHeaderBG from '../public/static/category-header-bg.png'
+import SharePage from './SharePage'
+import { useDispatch } from 'react-redux'
+import {fetchQuotesAgainstTag} from '../slices/quotes.slice'
 
 const CategoryHeader = ({ quotes, category, tags }) => {
 
@@ -10,7 +10,7 @@ const CategoryHeader = ({ quotes, category, tags }) => {
   
   function searchByTag (tag) {
     dispatch(fetchQuotesAgainstTag(tag?.tagId));
-  };
+  }
   
   return (
 

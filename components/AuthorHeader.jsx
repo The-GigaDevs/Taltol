@@ -1,12 +1,10 @@
-import authorHeaderDP from '../public/static/author-page-dp.png';
-import SharePage from './SharePage';
+import authorHeaderDP from '../public/static/author-page-dp.png'
+import SharePage from './SharePage'
+
 const AuthorHeader = ({ quotes, category, tags }) => {
 
 
-function searchByTag (tag) {
-    
-    
-  };
+  function searchByTag(tag) { }
 
 
   return (
