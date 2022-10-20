@@ -26,7 +26,7 @@ const getQuotes = (page, pageSize) => httpService
     .catch(({ error }) => Promise.reject(error))
 
 const getQuote = (id) => httpService
-    .get(`/quotes/${id}`)
+    .get(`/quotes/${id}/?show_tags=true`)
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
