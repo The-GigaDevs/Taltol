@@ -68,7 +68,7 @@ const RestrictiveModal = (props) => {
                         className="filter-modal-footer"
                         style={{ justifyContent: "center" }}
                     >
-                        <Link href="/login">
+                        <Link href="/login" passHref={true}>
                             <button
                                 className="filter-modal-footer-btn"
                                 onClick={() => props.setShowModal(false)}
