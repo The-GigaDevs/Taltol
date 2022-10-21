@@ -25,22 +25,31 @@ const ModalStyles = {
     },
 };
 const Quote = ({ id, url }) => {
+
     const dispatch = useDispatch()
     const isModal = useSelector(state => state.quotes.isModal)
     const singleQuote = useSelector(state => state.quotes.singleQuote)
     const authorQuotes = useSelector(state => state.authors.authorQuotes)
     const tagQuotes = useSelector(state => state.quotes.quotesAgainstTag)
+
+
     useEffect(() => {
-        if (!isModal) {
+        // if (!isModal) {
             dispatch(fetchSingleQuote(id));
-        }
-    }, [dispatch, id, isModal])
+        // }
+    }, [id, isModal])                                                   
+
     useEffect(() => {
-        if(singleQuote) {
-            dispatch(getAllQuotesOfAuthor(singleQuote?.author?.id))
-            dispatch(fetchQuotesAgainstTag(singleQuote?.tags[0]?.tagId))
+        //dispatch get all quotes of author
+        if (singleQuote?.author) {
+            dispatch(getAllQuotesOfAuthor(singleQuote.author.id))
         }
-    }, [dispatch, singleQuote])
+        //dispatch get all quotes of tag
+        if (singleQuote?.tags) {
+            dispatch(fetchQuotesAgainstTag(singleQuote.tags[0].tagId))
+        }
+
+    }, [singleQuote])
 
     return (
         isModal ?

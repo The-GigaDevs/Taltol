@@ -14,6 +14,10 @@ export default function QuoteDP({
   authorQuotes,
   tagQuotes,
 }) {
+
+  useEffect(() => {
+    
+  }, [singleQuote]);
   
   const route = useSelector((state) => state.quotes.route);
   const [showAddCollectionModal, setShowAddCollectionModal] = useState(false);
@@ -176,7 +180,7 @@ export default function QuoteDP({
           <h3 className="quote-body-similar-quotes-title">
             Other similar quotes for&nbsp;
             <span className="quote-body-author-tag current">
-              {singleQuote?.tags[0]?.tag_text}
+              {singleQuote?.tags ? singleQuote.tags[0].tag_text : ""}
             </span>
           </h3>
           <div className="quote-body-similar-quotes-cards">
