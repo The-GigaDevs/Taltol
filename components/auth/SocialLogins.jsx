@@ -10,7 +10,7 @@ import {
   } from 'reactjs-social-login';
 import { socialLoginAction } from "../../slices/auth.slice";
 
-const REDIRECT_URI = process.env.NODE_ENV === 'production' ? 'https://www.taltol.com/login' : 'http://localhost:3000/login'
+const REDIRECT_URI = window.location.href;
 
 const SocialLogins = () => {
   const [user, setUser] = useState('');
