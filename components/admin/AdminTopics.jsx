@@ -18,7 +18,7 @@ const AdminTopics = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchCategories({page: 1, pageSize: 30}));
+    dispatch(fetchCategories({ page: 1, pageSize: 30, isAdmin: true }));
   }, []);
   
   useEffect(() => {

@@ -10,20 +10,27 @@ import { fetchLikedQuotes } from '../slices/likes.slice';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { authenticateUser, isUserLoggedIn } from '../slices/auth.slice';
+import { useRouter } from 'next/router';
 
 const Home = ({ session }) => {
   const dispatch = useDispatch();
   const authRedux = useSelector(state =>  state.auth);
+  const router = useRouter();
 
-  useEffect(() => {
-    dispatch(fetchLikedQuotes());
-  }, [dispatch]);
+  useEffect(()=> {
+    if(authRedux?.user?.email === 'abdulhameid.grandoka@gmail.com') {
+      router.push('/admin/admin-quotes')
+    } else {
+      dispatch(fetchLikedQuotes());
+    }
+  }, [authRedux.user, dispatch])
   
   useEffect(()=> {
     dispatch(isUserLoggedIn());
     
   }, [authRedux?.isAuthenticated])
 
+  
   return (
     <>
       <Head>

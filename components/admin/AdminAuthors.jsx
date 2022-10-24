@@ -9,7 +9,7 @@ const AdminAuthors = () => {
     const dispatch = useDispatch();
     const [totalPages, setTotalPages] = useState(0);
     useEffect(() => {
-        dispatch(fetchAuthors({ page: 1, pageSize: 50 }));
+        dispatch(fetchAuthors({ page: 1, pageSize: 50, isAdmin: true }));
     }
     , []);
     useEffect(() => {

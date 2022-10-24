@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import authService from "../services/auth.service";
 const { getTags, getTagQuotes, getTag } = authService;
 //initialize tags state
@@ -9,7 +10,19 @@ const initialState = {
 export const fetchTags = createAsyncThunk(
     "tags/fetchTags",
     async (page) => {
-        const result = await getTags(page ? page.page : 1, 30);
+        let result = []
+        if(page?.isAdmin) {
+            result = toast.promise(
+                getTags(page ? page.page : 1, 30),
+                {
+                    success:'Tags Fetched!',
+                    error: 'Unable to load tags.',
+                    pending: 'Loading tags'
+                }
+            )
+        } else {
+            result = await getTags(page ? page.page : 1, 30);
+        }
         return result;
     }
 );

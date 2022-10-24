@@ -11,7 +11,7 @@ const AdminTags = () => {
     const tags1 = useSelector(state => state.tags?.tags);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchTags({ page: 1, pageSize: 30 }));
+        dispatch(fetchTags({ page: 1, pageSize: 30, isAdmin: true }));
     }, []);
     useEffect(() => {
         setTags(tags1.results);

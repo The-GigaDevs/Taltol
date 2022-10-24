@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import authService from "../services/auth.service";
 const { getCategories , getCategory, getSingleCategory , getQuotesOfSingleCategory} = authService;
 //initialize categories state
@@ -10,7 +11,14 @@ const initialState = {
 export const fetchSingleCategory = createAsyncThunk(
     "categories/fetchSingleCategory", 
     async (categoryId) => {
-        const result = await getSingleCategory(categoryId);
+        const result = toast.promise(
+            getSingleCategory(categoryId), 
+            {
+                success: 'Category fetched!',
+                error:'Unable to load this category',
+                pending:'Loading category...'
+            }
+        );
         return result
     }
 )
@@ -18,9 +26,21 @@ export const fetchSingleCategory = createAsyncThunk(
 //create async thunk to fetch categories
 export const fetchCategories = createAsyncThunk(
     "categories/fetchCategories",
-    async ({page, pageSize}) => {
+    async ({page, pageSize, isAdmin}) => {
         //call below function only if the state is empty
-        const result = await getCategories(page, pageSize);
+        let result = [];
+        if(isAdmin) {
+             result = toast.promise(
+                getCategories(page, pageSize), 
+                {
+                    success: 'Categories fetched!',
+                    pending:'Loading categories...',
+                    error: 'Unable to load categories.'
+                }
+            );
+        } else {
+            result = await getCategories(page, pageSize);
+        }
         return result;
     }
 )

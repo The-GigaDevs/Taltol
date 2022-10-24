@@ -1,5 +1,6 @@
 //import asyncthunk and createSlice from redux toolkit
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import authService from "../services/auth.service";
 const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage } = authService;
 
@@ -14,7 +15,14 @@ const initialState = {
 export const fetchSingleQuote = createAsyncThunk(
     "quotes/singleQuote",
     async (id) => {
-        const result = await getQuote(id);
+        const result = toast.promise(
+            getQuote(id), 
+            {
+                success:'Single quote fetched!',
+                error:'Unable to load this quote.',
+                pending:'Loading single quote...'
+            }
+        );
         return result;
     }
 )
@@ -31,7 +39,14 @@ export const fetchQuotesAgainstTag = createAsyncThunk(
 export const fetchQuotes = createAsyncThunk(
     "quotes/fetchQuotes",
     async () => {
-        const result = await getQuotes(1, 10);
+        const result = toast.promise(
+            getQuotes(1, 10) ,
+            {
+            pending: 'Loading quotes...',
+            success: 'Quotes Fetched!',
+            error: 'Unable to load quotes.'
+            }
+        );
         return result;
     }
 );
@@ -39,7 +54,14 @@ export const fetchQuotes = createAsyncThunk(
 export const addMoreQuotes = createAsyncThunk(
     "quotes/addMoreQuotes",
     async ({page, pageSize}) => {
-        const result = await getQuotes(page, pageSize);
+        const result = toast.promise(
+             getQuotes(page, pageSize),
+             {
+                // success:''
+                pending:'Loading more quotes...',
+                error: 'Unable to load more quotes.'
+             }
+        );
         return result;
     }
 );

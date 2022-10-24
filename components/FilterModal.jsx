@@ -66,10 +66,12 @@ const FilterModal = ({
     if(!categories1){
       setSelectedCategories(selectedCategoriesProp);
     }
-    dispatch(fetchTags());
-    dispatch(fetchAuthors());
-    dispatch(fetchCategories({ page: 1, pageSize: 30 }));
-  }, []);
+    if(show) {
+      dispatch(fetchTags());
+      dispatch(fetchAuthors());
+      dispatch(fetchCategories({ page: 1, pageSize: 30 }));
+    }
+  }, [show]);
 
 
 

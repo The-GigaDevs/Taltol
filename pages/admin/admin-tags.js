@@ -8,7 +8,7 @@ const Admin = () => {
         <>
         <AdminHeader />
         <AdminTags />
-        <button className="btn btn-primary" onClick={() => router.push('/admin-tags-page')}>Add Tag</button>
+        <button className="btn btn-primary" onClick={() => router.push('/admin/admin-tags-page')}>Add Tag</button>
         </>
     );
     }
