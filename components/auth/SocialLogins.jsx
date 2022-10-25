@@ -34,7 +34,7 @@ const SocialLogins = () => {
       const userObj = { provider, name: `${data.localizedFirstName} ${data.localizedLastName}`, isSocialLogin: true }
       setUser(userObj);
     } else if (provider === 'twitter') {
-      const userObj = { provider, name: data.name, image: data.image, email: data.email, isSocialLogin: true }
+      const userObj = { provider, name: data.name, image: data.profile_image_url, username: data?.username, isSocialLogin: true }
       setUser(userObj);
     }
   }
