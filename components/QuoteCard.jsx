@@ -82,7 +82,12 @@ const QuoteCard = (props) => {
           alt="Author Avatar"
           className="quote-card-author-avatar"
         />
-        <p className="quote-card-author-name">{quote?.author?.name}</p>
+        <p className="quote-card-author-name" onClick={() => {
+          //goto to the author page
+          router.push(
+            `/author/${encodeURIComponent(quote?.author?.id)}`
+          )
+        }}>{quote?.author?.name}</p>
       </div>
       {showModal && <RestrictiveModal showModal = {showModal} setShowModal={setShowModal} />}
     </div>

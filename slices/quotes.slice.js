@@ -66,6 +66,8 @@ export const addMoreQuotes = createAsyncThunk(
     }
 );
 
+
+
 export const fetchQuotesOfCategory = createAsyncThunk(
     "quotes/fetchQuotesOfCategory", 
     async ({id, page}) => {

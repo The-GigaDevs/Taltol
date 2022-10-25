@@ -8,7 +8,9 @@ import authService  from "../services/auth.service";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { signOut } from "../slices/auth.slice";
-
+import _debounce from 'lodash/debounce';
+import { useCallback } from "react";
+import { toast } from "react-toastify";
 const { searchQuotesModal } = authService;
 
 
@@ -38,14 +40,30 @@ const Navbar = () => {
   }
 
   async function handleSearch(e) {
+    
     e.preventDefault();
-    const result = await searchQuotesModal(selectedAuthors, selectedTags ,selectedCategories, search);
-    dispatch(addQuotes(result));
+    
     setSearch(e.target.value);
+    debouncedSearch(e.target.value)
+  }
+
+  const debouncedSearch = useCallback(_debounce(handleDebouncedSearch, 1000), []);
+
+
+  async function handleDebouncedSearch (value) {
+    if(value.length > 1) {
+    const result = await toast.promise( searchQuotesModal(selectedAuthors, selectedTags ,selectedCategories, value),
+    {
+      pending: "Searching...",
+      success: "Search successful",
+      error: "Search failed",
+      });
+    dispatch(addQuotes(result));
+    }
   }
 
   async function searchQuotes() {
-      if(isOpen){
+      if(isOpen || search.length > 1) {
         const results = await searchQuotesModal(selectedAuthors, selectedTags, selectedCategories, search);
         dispatch({type: "quotes/addQuotes", payload: results})
       } 
@@ -79,7 +97,7 @@ const Navbar = () => {
                   type="text"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      searchQuotes();
+                      handleSearch(e);
                     }
                   }}
                   className="navbar-search-field"
