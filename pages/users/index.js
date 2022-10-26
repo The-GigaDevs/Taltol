@@ -1,14 +1,14 @@
 import Head from 'next/head';
-import Navbar from '../components/Navbar';
-import UserHeader from '../components/UserHeader';
-import UserLikedQuotes from '../components/UserLikedQuotes';
-import UserSavedCollection from '../components/UserSavedCollection';
-import UserSavedCollectionQuotes from '../components/UserSavedCollectionQuotes';
+import Navbar from '../../components/Navbar';
+import UserHeader from '../../components/UserHeader';
+import UserLikedQuotes from '../../components/UserLikedQuotes';
+import UserSavedCollection from '../../components/UserSavedCollection';
+import UserSavedCollectionQuotes from '../../components/UserSavedCollectionQuotes';
 import { useState } from 'react';
-import MobileMenu from '../components/MobileMenu';
-import UserCollectionBack from '../components/UserCollectionBack';
-import AddCollectionModal from '../components/AddCollectionModal';
-import CreateCollectionModal from '../components/CreateCollectionModal';
+import MobileMenu from '../../components/MobileMenu';
+import UserCollectionBack from '../../components/UserCollectionBack';
+import AddCollectionModal from '../../components/AddCollectionModal';
+import CreateCollectionModal from '../../components/CreateCollectionModal';
 
 const Users = () => {
   //get the tab state from userheader
@@ -41,7 +41,14 @@ user experience for quotes."
       <Navbar />
       {
         // if the active tab is tab2
-        activeTab === 'tab2' ? <UserCollectionBack showCollection={showCollection} setShowCollection={setShowCollection}/> : ''
+        activeTab === 'tab2' ? (
+          <UserCollectionBack
+            showCollection={showCollection}
+            setShowCollection={setShowCollection}
+          />
+        ) : (
+          ''
+        )
       }
 
       <UserHeader
@@ -52,7 +59,11 @@ user experience for quotes."
       <main className="user-main">
         <div className="container">
           <UserLikedQuotes activeTab={activeTab} />
-          <UserSavedCollection activeTab={activeTab} showCollection={showCollection} setShowCollection={setShowCollection}/>
+          <UserSavedCollection
+            activeTab={activeTab}
+            showCollection={showCollection}
+            setShowCollection={setShowCollection}
+          />
           {/* <AddCollectionModal />
           <CreateCollectionModal /> */}
         </div>

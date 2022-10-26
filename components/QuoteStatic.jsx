@@ -1,8 +1,7 @@
 import randomAuthor from '../public/static/quote-card-author.jpg';
 import { useEffect } from 'react';
 
-const QuoteCard = () => {
-
+const QuoteStatic = () => {
   return (
     <div className="quote-card">
       <div className="quote-card-likes">
@@ -22,7 +21,11 @@ const QuoteCard = () => {
         </span>
         <span className="quote-card-likes-count">1</span>
       </div>
-      <h4 className="quote-card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s</h4>
+      <h4 className="quote-card-text">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industrys standard dummy text ever
+        since the 1500s
+      </h4>
       <div className="quote-card-author">
         <img
           src={randomAuthor.src}
@@ -35,4 +38,4 @@ const QuoteCard = () => {
   );
 };
 
-export default QuoteCard;
+export default QuoteStatic;

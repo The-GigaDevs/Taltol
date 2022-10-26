@@ -1,4 +1,4 @@
-import QuoteStatic from './QuoteStatic';
+import QuoteStatic from '../components/QuoteStatic';
 
 const UserLikedQuotesMobile = () => {
   return (
