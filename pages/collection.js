@@ -11,7 +11,7 @@ import AddCollectionModal from '../components/AddCollectionModal';
 import UserLikedQuotesMobile from '../components/UserLikedQuotesMobile';
 import UserSavedCollectionMobile from '../components/UserSavedCollectionMobile';
 
-const collection = () => {
+const Collection = () => {
   const [showCollection, setShowCollection] = useState(true);
   return (
     <>
@@ -38,4 +38,4 @@ user experience for quotes."
   );
 };
 
-export default collection;
+export default Collection;
