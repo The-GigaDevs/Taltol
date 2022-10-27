@@ -486,7 +486,7 @@ const MoodEmojiMobile = () => {
 
   return (
     <div className="mood-emoji-mobile-data">
-      <div className="mood-emoji-mobile-data-row mood-emoji-mobile-data-row-sm">
+      <div className="mood-emoji-mobile-data-row">
         {emojiData
           .slice(0, showEmoji ? emojiData.length - 3 : 5)
           .map((emoji, index) => (

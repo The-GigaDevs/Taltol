@@ -1,18 +1,17 @@
-import Link from "next/link";
-import { useState, useEffect} from "react";
-import FilterModal from "./FilterModal";
-import { Provider } from "react-redux";
-import  store  from "../store";
-import { fetchQuotes, addQuotes } from "../slices/quotes.slice";
-import authService  from "../services/auth.service";
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
-import { signOut } from "../slices/auth.slice";
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import FilterModal from './FilterModal';
+import { Provider } from 'react-redux';
+import store from '../store';
+import { fetchQuotes, addQuotes } from '../slices/quotes.slice';
+import authService from '../services/auth.service';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { signOut } from '../slices/auth.slice';
 import _debounce from 'lodash/debounce';
-import { useCallback } from "react";
-import { toast } from "react-toastify";
+import { useCallback } from 'react';
+import { toast } from 'react-toastify';
 const { searchQuotesModal } = authService;
-
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,53 +21,64 @@ const Navbar = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const authRedux = useSelector(state => state.auth);
-  const [search, setSearch] = useState("");
-
+  const [search, setSearch] = useState('');
 
   const dispatch = useDispatch();
   const router = useRouter();
 
   function setSelectedCount(value, selected) {
-    if(value === "author") {
-    setSelectedAuthors(selected);
-    } else if(value === "category") {
-    setSelectedCategories(selected);
-    } else if(value === "tag") {
-    setSelectedTags(selected);
+    if (value === 'author') {
+      setSelectedAuthors(selected);
+    } else if (value === 'category') {
+      setSelectedCategories(selected);
+    } else if (value === 'tag') {
+      setSelectedTags(selected);
     }
     //console.log(selected);
   }
 
   async function handleSearch(e) {
-    
     e.preventDefault();
-    
+
     setSearch(e.target.value);
-    debouncedSearch(e.target.value)
+    debouncedSearch(e.target.value);
   }
 
-  const debouncedSearch = useCallback(_debounce(handleDebouncedSearch, 1000), []);
+  const debouncedSearch = useCallback(
+    _debounce(handleDebouncedSearch, 1000),
+    []
+  );
 
-
-  async function handleDebouncedSearch (value) {
-    if(value.length > 1) {
-    const result = await toast.promise( searchQuotesModal(selectedAuthors, selectedTags ,selectedCategories, value),
-    {
-      pending: "Searching...",
-      success: "Search successful",
-      error: "Search failed",
-      });
-    dispatch(addQuotes(result));
+  async function handleDebouncedSearch(value) {
+    if (value.length > 1) {
+      const result = await toast.promise(
+        searchQuotesModal(
+          selectedAuthors,
+          selectedTags,
+          selectedCategories,
+          value
+        ),
+        {
+          pending: 'Searching...',
+          success: 'Search successful',
+          error: 'Search failed',
+        }
+      );
+      dispatch(addQuotes(result));
     }
   }
 
   async function searchQuotes() {
-      if(isOpen || search.length > 1) {
-        const results = await searchQuotesModal(selectedAuthors, selectedTags, selectedCategories, search);
-        dispatch({type: "quotes/addQuotes", payload: results})
-      } 
+    if (isOpen || search.length > 1) {
+      const results = await searchQuotesModal(
+        selectedAuthors,
+        selectedTags,
+        selectedCategories,
+        search
+      );
+      dispatch({ type: 'quotes/addQuotes', payload: results });
+    }
   }
-
 
   return (
     <>
@@ -92,11 +102,10 @@ const Navbar = () => {
                   <path d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"></path>
                 </svg>
                 <input
-                
-                  onChange={(e) => handleSearch(e)}
+                  onChange={e => handleSearch(e)}
                   type="text"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
                       handleSearch(e);
                     }
                   }}
@@ -144,50 +153,70 @@ const Navbar = () => {
                   ></path>
                 </svg>
                 <span className="navbar-filters-text">Filters</span>
-                <span className="navbar-filters-count">{selectedAuthors.length + selectedCategories.length + selectedTags.length}</span>
+                <span className="navbar-filters-count">
+                  {selectedAuthors.length +
+                    selectedCategories.length +
+                    selectedTags.length}
+                </span>
               </div>
             </div>
-            {authRedux?.isAuthenticated ?
-              <div onClick={() => setIsOpen(!isOpen)} className="navbar-profile">
-                {(authRedux?.isAuthenticated && (authRedux?.user?.profile_pic !== null || authRedux?.user?.social_image_url !== null )) ? 
-                  <img src={authRedux?.user?.profile_pic || authRedux?.user?.social_image_url} alt="userImage" /> : (
-                <>
-                <span className="navbar-profile-avatar">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M24 12C24 5.3833 18.6172 0 12 0C5.38281 0 0 5.3833 0 12C0 15.3836 1.41321 18.4387 3.67365 20.6223C3.72656 20.6912 3.78925 20.747 3.86261 20.7941C6.00385 22.7769 8.85828 24 12 24C15.1417 24 17.9962 22.7769 20.1374 20.7941C20.2108 20.747 20.2734 20.6912 20.3264 20.6223C22.5868 18.4387 24 15.3836 24 12ZM12 1.5C17.79 1.5 22.5 6.21045 22.5 12C22.5 14.455 21.6467 16.7108 20.2297 18.5009C19.5792 16.403 17.7221 14.7607 15.2016 14.0051C16.5752 13.011 17.4736 11.4005 17.4736 9.58057C17.4736 6.56641 15.0186 4.11426 12 4.11426C8.98145 4.11426 6.52637 6.56641 6.52637 9.58057C6.52637 11.4005 7.4248 13.011 8.7984 14.0051C6.27789 14.7607 4.42078 16.403 3.77026 18.5009C2.35327 16.7108 1.5 14.455 1.5 12C1.5 6.21045 6.20996 1.5 12 1.5ZM8.02637 9.58057C8.02637 7.39355 9.80859 5.61426 12 5.61426C14.1914 5.61426 15.9736 7.39355 15.9736 9.58057C15.9736 11.7676 14.1914 13.5469 12 13.5469C9.80859 13.5469 8.02637 11.7676 8.02637 9.58057ZM5.03076 19.832C5.25623 17.082 8.17236 15.0469 12 15.0469C15.8276 15.0469 18.7438 17.082 18.9692 19.832C17.1131 21.4855 14.6757 22.5 12 22.5C9.32428 22.5 6.8869 21.4855 5.03076 19.832Z"
-                      fill="#333333"
-                    />
-                  </svg>
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="8"
-                  viewBox="0 0 12 8"
-                  fill="none"
-                >
-                  <path
-                    d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z"
-                    fill="#333333"
+            {authRedux?.isAuthenticated ? (
+              <div
+                onClick={() => setIsOpen(!isOpen)}
+                className="navbar-profile"
+              >
+                {authRedux?.isAuthenticated &&
+                (authRedux?.user?.profile_pic !== null ||
+                  authRedux?.user?.social_image_url !== null) ? (
+                  <img
+                    src={
+                      authRedux?.user?.profile_pic ||
+                      authRedux?.user?.social_image_url
+                    }
+                    alt="userImage"
                   />
-                </svg>
-                </>
+                ) : (
+                  <>
+                    <span className="navbar-profile-avatar">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M24 12C24 5.3833 18.6172 0 12 0C5.38281 0 0 5.3833 0 12C0 15.3836 1.41321 18.4387 3.67365 20.6223C3.72656 20.6912 3.78925 20.747 3.86261 20.7941C6.00385 22.7769 8.85828 24 12 24C15.1417 24 17.9962 22.7769 20.1374 20.7941C20.2108 20.747 20.2734 20.6912 20.3264 20.6223C22.5868 18.4387 24 15.3836 24 12ZM12 1.5C17.79 1.5 22.5 6.21045 22.5 12C22.5 14.455 21.6467 16.7108 20.2297 18.5009C19.5792 16.403 17.7221 14.7607 15.2016 14.0051C16.5752 13.011 17.4736 11.4005 17.4736 9.58057C17.4736 6.56641 15.0186 4.11426 12 4.11426C8.98145 4.11426 6.52637 6.56641 6.52637 9.58057C6.52637 11.4005 7.4248 13.011 8.7984 14.0051C6.27789 14.7607 4.42078 16.403 3.77026 18.5009C2.35327 16.7108 1.5 14.455 1.5 12C1.5 6.21045 6.20996 1.5 12 1.5ZM8.02637 9.58057C8.02637 7.39355 9.80859 5.61426 12 5.61426C14.1914 5.61426 15.9736 7.39355 15.9736 9.58057C15.9736 11.7676 14.1914 13.5469 12 13.5469C9.80859 13.5469 8.02637 11.7676 8.02637 9.58057ZM5.03076 19.832C5.25623 17.082 8.17236 15.0469 12 15.0469C15.8276 15.0469 18.7438 17.082 18.9692 19.832C17.1131 21.4855 14.6757 22.5 12 22.5C9.32428 22.5 6.8869 21.4855 5.03076 19.832Z"
+                          fill="#333333"
+                        />
+                      </svg>
+                    </span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="8"
+                      viewBox="0 0 12 8"
+                      fill="none"
+                    >
+                      <path
+                        d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z"
+                        fill="#333333"
+                      />
+                    </svg>
+                  </>
                 )}
                 <div
                   className={
                     isOpen
-                      ? "navbar-profile-dropdown active"
-                      : "navbar-profile-dropdown"
+                      ? 'navbar-profile-dropdown active'
+                      : 'navbar-profile-dropdown'
                   }
                 >
-                  <h2 className="navbar-profile-dropdown-name">{authRedux?.user?.first_name + ' ' + authRedux?.user?.last_name}</h2>
+                  <h2 className="navbar-profile-dropdown-name">
+                    {authRedux?.user?.first_name +
+                      ' ' +
+                      authRedux?.user?.last_name}
+                  </h2>
                   <p className="navbar-profile-dropdown-mail">
                     {authRedux?.user?.email}
                   </p>
@@ -210,10 +239,11 @@ const Navbar = () => {
                     </a>
                   </Link>
                   <div
-                    onClick={async() => {
+                    onClick={async () => {
                       await dispatch(signOut());
                       router.push('/login');
-                    }}>
+                    }}
+                  >
                     <span className="navbar-profile-dropdown-link">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -233,21 +263,28 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-              :
+            ) : (
               <Link href={'/login'} passHref>
-                <button type="button" className="filter-modal-footer-btn">
-                    Login/Signup
+                <button type="button" className="navbar-login-register-btn">
+                  Login/Signup
                 </button>
               </Link>
-            }
+            )}
           </div>
         </div>
       </nav>
 
-    <Provider store={store}>
-
-        <FilterModal show={show} setShow={setShow} selectedAuthorsProp={selectedAuthors} selectedTagsProp={selectedTags} selectedCategoriesProp={selectedCategories} search={search} setSelectedCount={setSelectedCount}/>
-        </Provider>
+      <Provider store={store}>
+        <FilterModal
+          show={show}
+          setShow={setShow}
+          selectedAuthorsProp={selectedAuthors}
+          selectedTagsProp={selectedTags}
+          selectedCategoriesProp={selectedCategories}
+          search={search}
+          setSelectedCount={setSelectedCount}
+        />
+      </Provider>
     </>
   );
 };

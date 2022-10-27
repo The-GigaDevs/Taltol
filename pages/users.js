@@ -47,10 +47,6 @@ user experience for quotes."
       </Head>
       <MobileMenu />
       <Navbar />
-      {
-        // if the active tab is tab2
-        activeTab === 'tab2' ? <UserCollectionBack showCollection={showCollection} setShowCollection={setShowCollection}/> : ''
-      }
 
       <UserHeader
         handleTab1={handleTab1}
@@ -60,7 +56,11 @@ user experience for quotes."
       <main className="user-main">
         <div className="container">
           <UserLikedQuotes activeTab={activeTab} />
-          <UserSavedCollection activeTab={activeTab} showCollection={showCollection} setShowCollection={setShowCollection}/>
+          <UserSavedCollection
+            activeTab={activeTab}
+            showCollection={showCollection}
+            setShowCollection={setShowCollection}
+          />
           {/* <AddCollectionModal />
           <CreateCollectionModal /> */}
         </div>

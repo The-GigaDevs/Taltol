@@ -1,28 +1,27 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import QuoteCards from "./QuoteCards";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import QuoteCards from './QuoteCards';
+import UserCollectionBack from './UserCollectionBack';
 
-const UserSavedCollectionQuotes = ({show = true}) => {
-
+const UserSavedCollectionQuotes = ({ show = true }) => {
   const [quotes, setQuotes] = useState([]);
 
   const dispatch = useDispatch();
   //get single collection from redux store using selectoe
   const singleCollection = useSelector(
-    (state) => state.collections?.singleCollection
+    state => state.collections?.singleCollection
   );
-
 
   useEffect(() => {
     //get collection from service
     setQuotes(singleCollection);
   }, [singleCollection]);
 
-
   return (
-    quotes &&
-      <section className="user-saved-collection-quotes">    
+    quotes && (
+      <section className="user-saved-collection-quotes">
+        <UserCollectionBack />
         <div className="user-saved-collection-quotes-content">
           <div className="user-saved-collection-quotes-content-info">
             <h3 className="user-saved-collection-quotes-content-info-title">
@@ -69,13 +68,11 @@ const UserSavedCollectionQuotes = ({show = true}) => {
             </div>
           </div>
         </div>
-        
-        <div className="user-saved-collection-quotes-cards">
-          <QuoteCards quotes={quotes?.results} loadMore={false} url={'users'}/>
-        </div>
-        
+
+        <QuoteCards quotes={quotes?.results} loadMore={false} url={'users'} />
       </section>
+    )
   );
 };
 
-export default UserSavedCollectionQuotes
+export default UserSavedCollectionQuotes;
