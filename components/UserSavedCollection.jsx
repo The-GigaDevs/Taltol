@@ -90,7 +90,7 @@ const UserSavedCollection = (
             </p>
           </div>
         </div>
-      )) : <UserSavedCollectionQuotes />}
+      )) : <UserSavedCollectionQuotes  setShowCollection={setShowCollection} showCollection={showCollection}/>}
     </section>
   );
 };
