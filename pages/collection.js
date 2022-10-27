@@ -8,22 +8,11 @@ import { useState } from 'react';
 import MobileMenu from '../components/MobileMenu';
 import UserCollectionBack from '../components/UserCollectionBack';
 import AddCollectionModal from '../components/AddCollectionModal';
-import CreateCollectionModal from '../components/CreateCollectionModal';
+import UserLikedQuotesMobile from '../components/UserLikedQuotesMobile';
+import UserSavedCollectionMobile from '../components/UserSavedCollectionMobile';
 
-const Users = () => {
-  //get the tab state from userheader
-  const [activeTab, setActiveTab] = useState('tab1');
+const collection = () => {
   const [showCollection, setShowCollection] = useState(true);
-  //  Functions to handle Tab Switching
-  const handleTab1 = () => {
-    // update the state to tab1
-    setActiveTab('tab1');
-  };
-  const handleTab2 = () => {
-    // update the state to tab2
-    setActiveTab('tab2');
-  };
-
   return (
     <>
       <Head>
@@ -38,27 +27,15 @@ user experience for quotes."
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <MobileMenu />
-      <Navbar />
 
-      <UserHeader
-        handleTab1={handleTab1}
-        handleTab2={handleTab2}
-        activeTab={activeTab}
-      />
-      <main className="user-main">
-        <div className="container">
-          <UserLikedQuotes activeTab={activeTab} />
-          <UserSavedCollection
-            activeTab={activeTab}
-            showCollection={showCollection}
-            setShowCollection={setShowCollection}
-          />
-          {/* <AddCollectionModal />
-          <CreateCollectionModal /> */}
-        </div>
-      </main>
+      <div className="container">
+        <UserSavedCollectionMobile
+          showCollection={showCollection}
+          setShowCollection={setShowCollection}
+        />
+      </div>
     </>
   );
 };
 
-export default Users;
+export default collection;

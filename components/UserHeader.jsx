@@ -1,4 +1,4 @@
-import randomAuthor from '../public/static/quote-card-author.jpg';
+import randomAuthor from '../public/static/quote-card-author.svg';
 import { useState } from 'react';
 
 const UserHeader = ({ handleTab1, handleTab2, activeTab }) => {

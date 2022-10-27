@@ -1,12 +1,21 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const MobileMenu = () => {
+  const router = useRouter();
+
   return (
     <div className="mobile-menu">
       <div className="container">
         <div className="mobile-menu-content">
           <Link href="/">
-            <a className="mobile-menu-link">
+            <a
+              className={
+                router.pathname == '/'
+                  ? 'mobile-menu-link current'
+                  : 'mobile-menu-link'
+              }
+            >
               <span className="mobile-menu-link-icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -34,8 +43,14 @@ const MobileMenu = () => {
               <span className="mobile-menu-link-text">Home</span>
             </a>
           </Link>
-          <Link href="#browse-topics">
-            <a className="mobile-menu-link">
+          <Link href="/topicbrowse">
+            <a
+              className={
+                router.pathname == '/topicbrowse'
+                  ? 'mobile-menu-link current'
+                  : 'mobile-menu-link'
+              }
+            >
               <span className="mobile-menu-link-icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +85,14 @@ const MobileMenu = () => {
               <span className="mobile-menu-link-text">Topics</span>
             </a>
           </Link>
-          <Link href="/likes">
-            <a className="mobile-menu-link">
+          <Link href="/liked">
+            <a
+              className={
+                router.pathname == '/likes'
+                  ? 'mobile-menu-link current'
+                  : 'mobile-menu-link'
+              }
+            >
               <span className="mobile-menu-link-icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -92,8 +113,14 @@ const MobileMenu = () => {
               <span className="mobile-menu-link-text">Likes</span>
             </a>
           </Link>
-          <Link href="#">
-            <a className="mobile-menu-link">
+          <Link href="/account">
+            <a
+              className={
+                router.pathname == '/account'
+                  ? 'mobile-menu-link current'
+                  : 'mobile-menu-link'
+              }
+            >
               <span className="mobile-menu-link-icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

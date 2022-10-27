@@ -6,9 +6,8 @@ import QuoteCard from './QuoteCard';
 const UserLikedQuotes = (
   { activeTab } //get the active tab from userheader
 ) => {
-
   const dispatch = useDispatch();
-  const { likedQuotes } = useSelector((state) => state.likes);
+  const { likedQuotes } = useSelector(state => state.likes);
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
@@ -16,9 +15,9 @@ const UserLikedQuotes = (
   }, []);
 
   useEffect(() => {
-      setQuotes(likedQuotes);
-      //console.log(likedQuotes);
-  }, [ likedQuotes]);
+    setQuotes(likedQuotes);
+    //console.log(likedQuotes);
+  }, [likedQuotes]);
   return (
     <>
       <section
@@ -28,12 +27,14 @@ const UserLikedQuotes = (
             : 'user-liked-quotes hide'
         }
       >
-      <p className="user-liked-quotes-count">{likedQuotes.count} liked quotes</p>
-        {quotes?.results?.map((quote, index) => (
-          <div key={index} className="user-liked-quotes-content">
-            <QuoteCard key={ index } quote = {quote} url={'users'} />
-          </div>
-      ))}
+        <p className="user-liked-quotes-count">
+          {likedQuotes.count} liked quotes
+        </p>
+        <div className="user-liked-quotes-content">
+          {quotes?.results?.map((quote, index) => (
+            <QuoteCard key={index} quote={quote} url={'users'} />
+          ))}
+        </div>
       </section>
     </>
   );

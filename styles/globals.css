@@ -442,6 +442,27 @@ svg {
   padding: 0 15px;
 }
 
+.navbar-login-register-btn {
+  display: block;
+  width: fit-content;
+  height: 5.5rem;
+  padding: 0 25px;
+  background: var(--clr-pink);
+  border-radius: 5px;
+  border: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr-white);
+  box-shadow: 0 5px 0 #c41b6c;
+  cursor: pointer;
+}
+
+.navbar-login-register-btn:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+
 /* ----------Mood-Emoji---------- */
 .mood-emoji {
   padding-top: 6rem;
@@ -588,9 +609,8 @@ svg {
 .quote-cards {
   margin-top: 2.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   gap: 1.5rem;
-  flex-wrap: wrap;
 }
 
 .quote-card {
@@ -1169,7 +1189,7 @@ svg {
 .quote-body-other-quotes-cards,
 .quote-body-similar-quotes-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   grid-gap: 1.5rem;
   gap: 1.5rem;
   margin-top: 1.5rem;
@@ -1479,20 +1499,15 @@ svg {
   background-color: var(--bg-secondary);
   border: 1px solid #e0e0e0;
   border-radius: 7px;
-  width: 36rem;
+  width: 32rem;
   max-width: 100%;
   margin: 0 auto;
   margin-top: 2.5rem;
 }
 
 .mood-emoji-mobile-data-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.mood-emoji-mobile-data-item {
-  width: 7.12rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
 }
 
 .mood-emoji-mobile-visual {
@@ -1506,6 +1521,18 @@ svg {
   flex: 1 1 3rem;
   cursor: pointer;
   border-bottom: 1px solid #e0e0e0;
+}
+
+.mood-emoji-mobile-visual:nth-child(1) {
+  border-top-left-radius: 7px;
+}
+
+.mood-emoji-mobile-data-item:nth-child(5) .mood-emoji-mobile-visual {
+  border-top-right-radius: 7px;
+}
+
+.mood-emoji-mobile-data-item:last-child .mood-emoji-mobile-visual {
+  border-right: 0;
 }
 
 .mood-emoji-mobile-data-item:nth-child(5) .mood-emoji-mobile-visual,
@@ -1570,6 +1597,14 @@ svg {
   align-items: center;
   flex-direction: column;
   row-gap: 0.5rem;
+}
+
+.mobile-menu-link.current .mobile-menu-link-text {
+  color: var(--clr-pink);
+}
+
+.mobile-menu-link.current .mobile-menu-link-icon > svg path {
+  stroke: var(--clr-pink);
 }
 
 .mobile-menu-link:hover .mobile-menu-link-text {
@@ -1701,7 +1736,7 @@ svg {
 .user-liked-quotes-content {
   margin-top: 2.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   gap: 1.5rem;
 }
 
@@ -1724,8 +1759,9 @@ svg {
 
 .user-saved-collection-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
   gap: 2.5rem;
+  margin-top: 2.5rem;
 }
 
 .user-saved-collection-card {
@@ -1767,7 +1803,6 @@ svg {
 
 .user-saved-collection-quotes {
   font-family: 'Quicksand', sans-serif;
-  padding: 6rem 0;
 }
 
 .user-saved-collection-quotes-content {
@@ -1830,12 +1865,12 @@ svg {
 .user-saved-collection-quotes-cards {
   margin-top: 2.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   gap: 1.5rem;
 }
 
 .user-collection-back {
-  padding-top: 25px;
+  padding-top: 0;
   padding-bottom: 45px;
 }
 
@@ -1964,7 +1999,7 @@ svg {
 
 .add-collection-modal-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
   gap: 1.5rem;
   margin-top: 2.5rem;
 }
@@ -2064,6 +2099,80 @@ svg {
 }
 
 .add-collection-field > input::placeholder {
+  color: var(--clr-gray-light);
+}
+
+/* Mobile-Account */
+.account-mobile {
+  padding: 60px 25px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-mobile-content {
+  flex: 1;
+}
+
+.account-mobile-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.account-mobile-header-avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  object-fit: cover;
+}
+
+.account-mobile-header-info-name {
+  font-family: 'Quicksand';
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 3.1rem;
+  color: var(--clr-gray-dark);
+}
+
+.account-mobile-header-info-date,
+.account-mobile-header-info-email {
+  font-family: 'Quicksand';
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  color: var(--clr-gray-semi);
+  margin-top: 0.5rem;
+}
+
+.account-mobile-body {
+  margin-top: 6rem;
+}
+
+.account-mobile-link {
+  display: block;
+  font-family: 'Quicksand';
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 3.1rem;
+  color: var(--clr-black);
+  margin-bottom: 1.5rem;
+}
+
+.account-mobile-footer {
+  padding-bottom: 60px;
+}
+
+.account-mobile-footer-link {
+  display: flex;
+  align-items: center;
+  column-gap: 0.75rem;
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
   color: var(--clr-gray-light);
 }
 
@@ -2346,7 +2455,7 @@ svg {
 .admin-quotes-cards {
   margin-top: 2.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   gap: 1.5rem;
 }
 
@@ -2769,6 +2878,10 @@ svg {
   .user-liked-quotes-mobile {
     display: none;
   }
+
+  .topic-browse-mobile {
+    display: none;
+  }
 }
 
 @media (max-width: 767px) {
@@ -2829,6 +2942,10 @@ svg {
 
   .navbar-search-field::placeholder {
     color: var(--clr-gray-semi);
+  }
+
+  .navbar-login-register-btn {
+    display: none;
   }
 
   .home-main-content,
@@ -2894,6 +3011,15 @@ svg {
     display: none;
   }
 
+  .topic-browse-mobile {
+    display: block;
+    padding-top: 60px;
+  }
+
+  .topic-browse {
+    display: none;
+  }
+
   /* .user-collection-back {
     display: none;
   }
@@ -2933,14 +3059,9 @@ svg {
     flex-direction: column;
   }
 
-  .topic-browse,
   .home-main-right-content,
   .category-main-right-content {
     width: 100%;
-  }
-
-  .topic-browse {
-    padding-top: 50px;
   }
 
   .picked-select {
@@ -3041,10 +3162,13 @@ svg {
   .navbar-search-group {
     column-gap: 0.85rem;
   }
-}
 
-@media (max-width: 400px) {
-  .mood-emoji-mobile-data-item {
-    width: 6.75rem;
+  .picked-select-btn {
+    font-size: 1.6rem;
+  }
+
+  .picked-select-options-item {
+    font-size: 1.6rem;
+    padding: 9px;
   }
 }

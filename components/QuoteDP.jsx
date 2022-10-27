@@ -1,5 +1,5 @@
 import QuoteCard from './QuoteCard';
-import randomAuthor from '../public/static/quote-card-author.jpg';
+import randomAuthor from '../public/static/quote-card-author.svg';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
@@ -14,12 +14,9 @@ export default function QuoteDP({
   authorQuotes,
   tagQuotes,
 }) {
+  useEffect(() => {}, [singleQuote]);
 
-  useEffect(() => {
-    
-  }, [singleQuote]);
-  
-  const route = useSelector((state) => state.quotes.route);
+  const route = useSelector(state => state.quotes.route);
   const [showAddCollectionModal, setShowAddCollectionModal] = useState(false);
   const [quoteId, setQuoteId] = useState(null);
 
@@ -136,12 +133,17 @@ export default function QuoteDP({
               >
                 <path
                   d="M8 14.9333L6.84 13.8591C2.72 10.0586 0 7.55212 0 4.47593C0 1.96941 1.936 0 4.4 0C5.792 0 7.128 0.659183 8 1.70085C8.872 0.659183 10.208 0 11.6 0C14.064 0 16 1.96941 16 4.47593C16 7.55212 13.28 10.0586 9.16 13.8672L8 14.9333Z"
-                  fill= { singleQuote?.quote_liked ? "#ff3294" : "#BDBDBD"}
+                  fill={singleQuote?.quote_liked ? '#ff3294' : '#BDBDBD'}
                 ></path>
               </svg>
               <span className="quote-body-options-item-name">Like</span>
             </div>
-            <div className="quote-body-options-item" onClick={() => {handleQuoteClick(singleQuote.id)}}>
+            <div
+              className="quote-body-options-item"
+              onClick={() => {
+                handleQuoteClick(singleQuote.id);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="27"
@@ -180,7 +182,7 @@ export default function QuoteDP({
           <h3 className="quote-body-similar-quotes-title">
             Other similar quotes for&nbsp;
             <span className="quote-body-author-tag current">
-              {singleQuote?.tags ? singleQuote.tags[0].tag_text : ""}
+              {singleQuote?.tags ? singleQuote.tags[0].tag_text : ''}
             </span>
           </h3>
           <div className="quote-body-similar-quotes-cards">
@@ -190,9 +192,13 @@ export default function QuoteDP({
           </div>
         </section>
       </div>
-      {showAddCollectionModal && 
-        <AddCollectionModal show={showAddCollectionModal} setShow={setShowAddCollectionModal} quoteId={quoteId}/>
-      }
+      {showAddCollectionModal && (
+        <AddCollectionModal
+          show={showAddCollectionModal}
+          setShow={setShowAddCollectionModal}
+          quoteId={quoteId}
+        />
+      )}
     </div>
   );
 }

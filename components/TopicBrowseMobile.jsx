@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
 import Link from 'next/link';
 
-const TopicBrowse = () => {
+const TopicBrowseMobile = () => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -26,7 +26,7 @@ const TopicBrowse = () => {
   return loading ? (
     'Loading ...'
   ) : (
-    <div className="topic-browse">
+    <div className="topic-browse-mobile">
       <h3 className="topic-browse-title">Browse by topic</h3>
       <ul className="topic-browse-list">
         {categories
@@ -95,4 +95,4 @@ const TopicBrowse = () => {
   );
 };
 
-export default TopicBrowse;
+export default TopicBrowseMobile;
