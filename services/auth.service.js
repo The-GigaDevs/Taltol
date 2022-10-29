@@ -28,8 +28,8 @@ const getQuotes = (page, pageSize) => httpService
     .then(({ data }) => Promise.resolve(data))
     .catch(({ error }) => Promise.reject(error))
 
-const getQuote = (id) => httpService
-    .get(`/quotes/${id}/?show_tags=true`)
+const getQuote = (slug) => httpService
+    .get(`/quotes/${slug}/?show_tags=true`)
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 

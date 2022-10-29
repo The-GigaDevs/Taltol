@@ -59,12 +59,12 @@ const QuoteCard = props => {
         className="quote-card-text"
         onClick={() => {
           if (category) {
-            router.push(`/quote/${encodeURIComponent(quote?.id)}`);
+            router.push(`/quote/${encodeURIComponent(quote?.category?.link_slug+'_'+quote?.author.slug+'_'+ quote?.slug + '_' + 'taltol')}`);
           } else {
             dispatch(toggleModal(true));
             dispatch(changeRoute(url));
             dispatch(singleQuote(quote));
-            router.push(`/quote/${encodeURIComponent(quote?.id)}`, undefined, {
+            router.push(`/quote/${encodeURIComponent(quote?.category?.link_slug+'_'+quote?.author.slug+'_'+ quote?.slug + '_' + 'taltol')}`, undefined, {
               shallow: true,
             });
           }
