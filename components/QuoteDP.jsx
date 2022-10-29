@@ -41,7 +41,7 @@ export default function QuoteDP({
           console.log(error);
         });
     } else {
-      toast.done('Copied to clipboard!');
+      toast.info('Copied to clipboard!');
       return navigator.clipboard.writeText(`${window.location.href}`);
     }
   }
