@@ -88,7 +88,7 @@ const MobileMenu = () => {
           <Link href="/liked">
             <a
               className={
-                router.pathname == '/likes'
+                router.pathname == '/liked'
                   ? 'mobile-menu-link current'
                   : 'mobile-menu-link'
               }

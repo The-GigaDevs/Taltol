@@ -14,7 +14,7 @@ import { authSlice } from '../slices/auth.slice';
 import RestrictiveModal from './auth/RestrictiveModal';
 
 const QuoteCard = props => {
-  const { quote, category, url = 'home' } = props;
+  const { quote, category, url = '' } = props;
   const [isLiked, setIsLiked] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const authRedux = useSelector(state => state.auth);

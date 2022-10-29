@@ -20,10 +20,16 @@ export default function QuoteDP({
   const route = useSelector(state => state.quotes.route);
   const [showAddCollectionModal, setShowAddCollectionModal] = useState(false);
   const [quoteId, setQuoteId] = useState(null);
+  const authRedux = useSelector(state => state.auth);
 
   function handleQuoteClick(id) {
+    if(authRedux.isAuthenticated){
+
     setQuoteId(id);
     setShowAddCollectionModal(true);
+    } else {
+      router.push('/login');
+    }
   }
 
   const shareQuote = () => {
