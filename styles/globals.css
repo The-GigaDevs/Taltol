@@ -604,6 +604,21 @@ svg {
   cursor: pointer;
 }
 
+.home-main-left-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.home-main-left-header-text {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-gray-light);
+}
+
 /* -----------Quote-Card----------- */
 
 .quote-cards {
@@ -2185,6 +2200,7 @@ svg {
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
+  flex-wrap: wrap;
   background-color: var(--bg-primary);
 }
 
@@ -2363,7 +2379,7 @@ svg {
 .admin-main-sort-content {
   display: flex;
   align-items: center;
-  gap: 3.5rem;
+  gap: 2rem 3.5rem;
   flex-wrap: wrap;
 }
 
@@ -2377,20 +2393,15 @@ svg {
 .admin-main-sort-box {
   display: flex;
   align-items: center;
-  flex: 1;
-  background: var(--clr-white);
-  border: 2px solid #e0e0e0;
-  border-radius: 5px;
-  padding: 10px 0;
+  gap: 2.5rem 1.5rem;
+  flex-wrap: wrap;
 }
 
 .admin-main-sort-category {
-  border-right: 1px solid #e0e0e0;
-  padding: 0 17.35px;
-}
-
-.admin-main-sort-category:last-child {
-  border-right: 0;
+  background: var(--clr-white);
+  border: 2px solid #e0e0e0;
+  padding: 10px 17.35px;
+  border-radius: 5px;
 }
 
 .admin-main-sort-category-title {
@@ -2437,10 +2448,15 @@ svg {
 }
 
 /* Admin-Quotes */
+.admin-quotes {
+  padding-bottom: 60px;
+}
+
 .admin-quotes-content {
   padding-top: 8rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 3.5rem;
 }
 
@@ -2463,6 +2479,7 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 2.5rem;
 }
 
@@ -2477,51 +2494,34 @@ svg {
 /* Admin-Pagination */
 
 .admin-pagination {
-  width: 40rem;
+  width: fit-content;
   margin-left: auto;
   margin-top: 5rem;
-  padding-bottom: 5rem;
-}
-
-.admin-pagination-title {
-  font-size: 3rem;
-  line-height: 3.6rem;
-  font-weight: 700;
-  display: flex;
-  justify-content: flex-end;
-  text-align: center;
-  column-gap: 3.5rem;
-  color: var(--clr-gray-dark);
-}
-
-.admin-pagination-title-item {
-  display: flex;
-  column-gap: 1.5rem;
-}
-
-.admin-pagination-title-word {
-  width: 2rem;
-}
-
-.admin-pagination-title-item-color {
-  color: var(--clr-gray-light);
 }
 
 .admin-pagination-count-list {
   display: flex;
   justify-content: flex-end;
-  margin-top: 0.5rem;
-  column-gap: 1.15rem;
+  align-items: center;
+  column-gap: 1.25rem;
 }
 
 .admin-pagination-count-list-no {
   font-size: 1.8rem;
   line-height: 2.3rem;
   font-weight: 400;
-  color: var(--clr-gray-light);
+  color: var(--clr-pink);
   cursor: pointer;
-  width: 2rem;
   text-align: center;
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: var(--bg-secondary);
+}
+
+.admin-pagination-title-dots {
+  color: var(--clr-gray-light);
+  font-size: 2.4rem;
+  margin-top: -0.95rem;
 }
 
 .admin-pagination-count-list-no:hover {
@@ -2833,6 +2833,18 @@ svg {
     font-size: 1.8rem;
     line-height: 2.8rem;
   }
+
+  .admin-role-select {
+    width: 100%;
+  }
+
+  .admin-filter {
+    margin-right: 0.5rem;
+  }
+
+  .admin-search {
+    margin-left: 0.5rem;
+  }
 }
 
 @media (min-height: 800px) {
@@ -3020,6 +3032,15 @@ svg {
     display: none;
   }
 
+  .admin-quotes-right-content .topic-browse {
+    display: block;
+  }
+
+  .admin-quotes-right-content,
+  .admin-quotes-right-content .topic-browse {
+    width: 100%;
+  }
+
   /* .user-collection-back {
     display: none;
   }
@@ -3148,6 +3169,19 @@ svg {
     font-size: 1.8rem;
     line-height: 2.9rem;
   }
+
+  .admin-select {
+    width: 100%;
+  }
+
+  .admin-select-btn {
+    column-gap: 1.5rem;
+  }
+
+  .admin-main-sort-category {
+    border: 0;
+    padding: 0;
+  }
 }
 
 @media (max-width: 450px) {
@@ -3163,12 +3197,21 @@ svg {
     column-gap: 0.85rem;
   }
 
-  .picked-select-btn {
+  .picked-select-btn,
+  .admin-select-btn {
     font-size: 1.6rem;
   }
 
   .picked-select-options-item {
     font-size: 1.6rem;
     padding: 9px;
+  }
+
+  .home-main-left-header {
+    justify-content: center;
+  }
+
+  .home-main-left-header-text {
+    font-size: 1.6rem;
   }
 }
