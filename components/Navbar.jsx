@@ -163,7 +163,7 @@ const Navbar = () => {
             {authRedux?.isAuthenticated ? (
               <div
                 onClick={() => setIsOpen(!isOpen)}
-                className="navbar-profile"
+                className="navbar-profile user-header-avatar"
               >
                 {authRedux?.isAuthenticated &&
                 (authRedux?.user?.profile_pic !== null ||

@@ -1,17 +1,19 @@
-import Head from 'next/head';
-import Navbar from '../components/Navbar';
-import UserHeader from '../components/UserHeader';
-import UserLikedQuotes from '../components/UserLikedQuotes';
-import UserSavedCollection from '../components/UserSavedCollection';
-import UserSavedCollectionQuotes from '../components/UserSavedCollectionQuotes';
-import { useState } from 'react';
-import MobileMenu from '../components/MobileMenu';
-import UserCollectionBack from '../components/UserCollectionBack';
-import AddCollectionModal from '../components/AddCollectionModal';
-import UserLikedQuotesMobile from '../components/UserLikedQuotesMobile';
-import AccountMobile from '../components/accountMobile';
+import Head from "next/head";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const liked = () => {
+// warn: Added .jsx extension, as without this the build was failing
+import AccountMobile from "../components/AccountMobile.jsx";
+import MobileMenu from "../components/MobileMenu.jsx";
+import { isUserLoggedIn } from "../slices/auth.slice.js";
+
+const Liked = () => {
+  const dispatch = useDispatch()
+  const authRedux = useSelector(state => state.auth);
+
+  useEffect(() => {
+    dispatch(isUserLoggedIn());
+  }, [authRedux?.isAuthenticated]);
   return (
     <>
       <Head>
@@ -34,4 +36,4 @@ user experience for quotes."
   );
 };
 
-export default liked;
+export default Liked;

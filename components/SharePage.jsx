@@ -1,9 +1,28 @@
 import Link from "next/link";
 import React from "react";
+import { toast } from "react-toastify";
 
 const SharePage = ({place, id}) => {
   return (
-      <button className="category-header-share-btn" onClick={()=> navigator.clipboard.writeText(`${process.env.NEXTAUTH_URL}/${place}/${id}`)}>
+      <button className="category-header-share-btn" onClick={()=> {
+        if (navigator.share && window.matchMedia("(max-width: 767px)").matches) {
+          navigator
+            .share({
+              url: `${window.location.href}`,
+              title: "Taltol",
+              text: "A quote website",
+            })
+            .then(() => {
+              console.log("Shared YEEEE!!!!!");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          toast.info('Copied to clipboard!');
+          return navigator.clipboard.writeText(`${window.location.href}`);
+        }
+      }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="21"

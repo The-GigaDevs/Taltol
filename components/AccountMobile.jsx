@@ -1,20 +1,30 @@
 import randomAuthor from '../public/static/quote-card-author.svg';
 import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from '../slices/auth.slice';
+import { useRouter } from 'next/router';
 
 const AccountMobile = () => {
+  const user = useSelector(state => state?.auth?.user);
+  const dispatch = useDispatch();
+  const route = useRouter();
   return (
     <div className="account-mobile">
       <div className="account-mobile-content">
         <div className="account-mobile-header">
           <img
-            src={randomAuthor.src}
+            src={
+              user?.profile_pic || user?.social_image_url || randomAuthor.src
+            }
             alt="User Avatar"
             className="account-mobile-header-avatar"
           />
           <div className="account-mobile-header-info">
-            <h2 className="account-mobile-header-info-name">Adam Johns</h2>
-            <p className="account-mobile-header-info-date">Since Feb, 2020</p>
-            <p className="account-mobile-header-info-email">adam@gmail.com</p>
+            <h2 className="account-mobile-header-info-name">{user?.name}</h2>
+            <p className="account-mobile-header-info-date">
+              {user?.date_joined}
+            </p>
+            <p className="account-mobile-header-info-email">{user?.email}</p>
           </div>
         </div>
 
@@ -28,7 +38,10 @@ const AccountMobile = () => {
         </div>
       </div>
       <div className="account-mobile-footer">
-        <Link href="/login">
+        <div onClick={async () => {
+          await dispatch(signOut());
+          route.push('/login')
+        }}>
           <a className="account-mobile-footer-link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +74,7 @@ const AccountMobile = () => {
             </svg>
             Sign out
           </a>
-        </Link>
+        </div>
       </div>
     </div>
   );

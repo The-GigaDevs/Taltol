@@ -69,9 +69,11 @@ export default Quote;
 
 export async function getServerSideProps(ctx) {
     const { params } = ctx;
+    const { id } = params
+    console.log((String(id).split('_'))[2], 'params');
     if (params) {
         return {
-            props: { id: params.id }
+            props: { id: (String(id).split('_'))[2] }
         };
     }
     return null;
