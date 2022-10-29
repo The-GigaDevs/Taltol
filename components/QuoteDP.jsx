@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import AddCollectionModal from './AddCollectionModal';
+import { toast } from 'react-toastify';
 
 export default function QuoteDP({
   singleQuote,
@@ -25,6 +26,25 @@ export default function QuoteDP({
     setShowAddCollectionModal(true);
   }
 
+  const shareQuote = () => {
+    if (navigator.share && window.matchMedia("(max-width: 767px)").matches) {
+      navigator
+        .share({
+          url: `${window.location.href}`,
+          title: "Taltol",
+          text: "A quote website",
+        })
+        .then(() => {
+          console.log("Shared YEEEE!!!!!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      toast.done('Copied to clipboard!');
+      return navigator.clipboard.writeText(`${window.location.href}`);
+    }
+  }
   const router = useRouter();
   return (
     <div className="quote">
@@ -57,9 +77,9 @@ export default function QuoteDP({
       <div className="quote-body">
         <div className="quote-body-heading">
           <span className="quote-body-heading-topic">
-            {singleQuote?.category?.name} quote{' '}
+            {singleQuote?.category?.name} quote{" "}
           </span>
-          from{' '}
+          from{" "}
           <Link
             href={`/author/${encodeURIComponent(singleQuote?.author?.id)}`}
             passHref
@@ -69,8 +89,8 @@ export default function QuoteDP({
             </span>
           </Link>
           <span className="quote-body-heading-start">
-            {' '}
-            {singleQuote?.text}{' '}
+            {" "}
+            {singleQuote?.text}{" "}
           </span>
         </div>
         <div className="quote-body-content">
@@ -93,7 +113,7 @@ export default function QuoteDP({
               {singleQuote?.tags?.length > 0 && (
                 <div className="quote-body-author-tags">
                   Main tags:&nbsp;
-                  {singleQuote?.tags?.map(tag => (
+                  {singleQuote?.tags?.map((tag) => (
                     <>
                       <span className="quote-body-author-tag">
                         {tag?.tag_text}
@@ -108,7 +128,12 @@ export default function QuoteDP({
             </div>
           </div>
           <div className="quote-body-options">
-            <div className="quote-body-options-item">
+            <div
+              className="quote-body-options-item"
+              onClick={() => {
+                shareQuote();
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -133,7 +158,7 @@ export default function QuoteDP({
               >
                 <path
                   d="M8 14.9333L6.84 13.8591C2.72 10.0586 0 7.55212 0 4.47593C0 1.96941 1.936 0 4.4 0C5.792 0 7.128 0.659183 8 1.70085C8.872 0.659183 10.208 0 11.6 0C14.064 0 16 1.96941 16 4.47593C16 7.55212 13.28 10.0586 9.16 13.8672L8 14.9333Z"
-                  fill={singleQuote?.quote_liked ? '#ff3294' : '#BDBDBD'}
+                  fill={singleQuote?.quote_liked ? "#ff3294" : "#BDBDBD"}
                 ></path>
               </svg>
               <span className="quote-body-options-item-name">Like</span>
@@ -172,7 +197,7 @@ export default function QuoteDP({
             </h3>
           </Link>
           <div className="quote-body-other-quotes-cards">
-            {authorQuotes?.results?.map(quote => (
+            {authorQuotes?.results?.map((quote) => (
               <QuoteCard key={quote.id} quote={quote} />
             ))}
           </div>
@@ -182,11 +207,11 @@ export default function QuoteDP({
           <h3 className="quote-body-similar-quotes-title">
             Other similar quotes for&nbsp;
             <span className="quote-body-author-tag current">
-              {singleQuote?.tags ? singleQuote.tags[0].tag_text : ''}
+              {singleQuote?.tags ? singleQuote.tags[0].tag_text : ""}
             </span>
           </h3>
           <div className="quote-body-similar-quotes-cards">
-            {tagQuotes?.results?.map(quote => (
+            {tagQuotes?.results?.map((quote) => (
               <QuoteCard key={quote.id} quote={quote} />
             ))}
           </div>
