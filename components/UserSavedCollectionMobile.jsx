@@ -119,7 +119,7 @@ const UserSavedCollectionMobile = (
           </div>
         </>
       ) : (
-        <UserSavedCollectionQuotes />
+        <UserSavedCollectionQuotes showCollection={showCollection} setShowCollection={setShowCollection}/>
       )}
     </section>
   );

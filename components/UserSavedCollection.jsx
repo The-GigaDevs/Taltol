@@ -96,9 +96,7 @@ const UserSavedCollection = (
             </div>
           ))}
         </div>
-      ) : (
-        <UserSavedCollectionQuotes />
-      )}
+      ): <UserSavedCollectionQuotes  setShowCollection={setShowCollection} showCollection={showCollection}/>}
     </section>
   );
 };

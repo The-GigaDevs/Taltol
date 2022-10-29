@@ -40,7 +40,7 @@ export default function Content() {
         <section className="home-main-left-content">
           <div className="home-main-left-header">
             <PickedSelect />
-            <p className="home-main-left-header-text">857 results</p>
+            <p className="home-main-left-header-text">{quotesReduxState?.count} results</p>
           </div>
           <QuoteCards
             fetchNext={fetchNext}

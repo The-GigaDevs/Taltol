@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import authService from '../services/auth.service';
 import { addQuotes } from '../slices/quotes.slice';
+import { toast } from 'react-toastify';
 
 const { searchQuotesModal } = authService
 
@@ -17,19 +18,38 @@ const PickedSelect = () => {
     switch (selectedOption) {
       
       case 0:
-        results = await searchQuotesModal( "","", "","", true);
+        results = await toast.promise(searchQuotesModal( "","", "","", true),
+        {
+          pending: "Loading... 0",
+          success: "Success",
+          error: "Error",
+          }
+          );
         results = {...results, results: results.results.slice(0, 100)}
         dispatch({type: "quotes/addQuotes", payload: results})
         break;
       case 1:
-        results = await searchQuotesModal( "","", "",   "elon musk");
+        results = await toast.promise(searchQuotesModal( "","", "",   "elon musk"),
+        {
+
+          pending: "Loading...",
+          success: "Success",
+          error: "Error",
+          }
+          );
         // results = results.results.slice(0, 20);
 
       results = {...results, results: results.results.slice(0, 20)}
         dispatch({type: "quotes/addQuotes", payload: results})
         break;
       case 2:
-        results = await searchQuotesModal( "","", "",   "Bill Gates");
+        results = await toast.promise(searchQuotesModal( "","", "",   "Bill Gates"),
+        {
+          pending: "Loading...",
+          success: "Success",
+          error: "Error",
+        }
+        );
         // results = results.results.slice(0, 20);
         
       results = {...results, results: results.results.slice(0, 20)}
@@ -37,7 +57,13 @@ const PickedSelect = () => {
 
         break;
       case 3:
-        results =await searchQuotesModal( "","", "",   "Steve Jobs");
+        results =await toast.promise(searchQuotesModal( "","", "",   "Steve Jobs"),
+        {
+          pending: "Loading...",
+          success: "Success",
+          error: "Error",
+
+        });
 
         results = {...results, results: results.results.slice(0, 20)}
           // results = results.results.slice(0, 20);

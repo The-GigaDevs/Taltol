@@ -14,9 +14,9 @@ const initialState = {
 };
 export const fetchSingleQuote = createAsyncThunk(
     "quotes/singleQuote",
-    async (id) => {
+    async (slug) => {
         const result = toast.promise(
-            getQuote(id), 
+            getQuote(slug), 
             {
                 success:'Single quote fetched!',
                 error:'Unable to load this quote.',

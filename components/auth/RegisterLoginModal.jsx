@@ -67,6 +67,7 @@ const RegisterLoginModal = ({ providers }) => {
     const isValid = validateFields();
     if (isValid) dispatch(registerUser(userRegisterInfo));
     setEmailBtnActive(true);
+    setRegisterBtnActive(false);
   }
   
   return (

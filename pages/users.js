@@ -4,16 +4,20 @@ import UserHeader from '../components/UserHeader';
 import UserLikedQuotes from '../components/UserLikedQuotes';
 import UserSavedCollection from '../components/UserSavedCollection';
 import UserSavedCollectionQuotes from '../components/UserSavedCollectionQuotes';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MobileMenu from '../components/MobileMenu';
 import UserCollectionBack from '../components/UserCollectionBack';
 import AddCollectionModal from '../components/AddCollectionModal';
 import CreateCollectionModal from '../components/CreateCollectionModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { isUserLoggedIn } from '../slices/auth.slice';
 
 const Users = () => {
   //get the tab state from userheader
   const [activeTab, setActiveTab] = useState('tab1');
   const [showCollection, setShowCollection] = useState(true);
+  const dispatch = useDispatch();
+  const authRedux = useSelector(state =>  state.auth);
   //  Functions to handle Tab Switching
   const handleTab1 = () => {
     // update the state to tab1
@@ -24,6 +28,10 @@ const Users = () => {
     setActiveTab('tab2');
   };
 
+  useEffect(()=> {
+    dispatch(isUserLoggedIn());
+    
+  }, [authRedux?.isAuthenticated])
   return (
     <>
       <Head>

@@ -46,7 +46,7 @@ const SocialLogins = () => {
   }, [user])
   return (
     <div className="register-login-modal-socials">
-      <LoginSocialLinkedin
+      {/* <LoginSocialLinkedin
         redirect_uri={REDIRECT_URI}
         scope="r_liteprofile r_emailaddress"
         client_id={process.env.LINKEDIN_CLIENT_ID}
@@ -76,10 +76,11 @@ const SocialLogins = () => {
             Continue with LinkedIn
           </span>
         </div>
-      </LoginSocialLinkedin>
+      </LoginSocialLinkedin> */}
       <LoginSocialGoogle
         client_id={process.env.GOOGLE_CLIENT_ID}
         redirect_uri={REDIRECT_URI}
+        scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
         onResolve={({ provider, data }) => {
           console.log(provider, data, "Google Data");
           handleSocialLogin(provider, data);
@@ -118,7 +119,7 @@ const SocialLogins = () => {
           </span>
         </div>
       </LoginSocialGoogle>
-      <LoginSocialTwitter
+      {/* <LoginSocialTwitter
         redirect_uri={REDIRECT_URI}
         client_id={process.env.TWITTER_CLIENT_ID}
         scope="users.read tweet.read offline.access"
@@ -147,7 +148,7 @@ const SocialLogins = () => {
             Continue with Twitter
           </span>
         </div>
-      </LoginSocialTwitter>
+      </LoginSocialTwitter> */}
       <LoginSocialFacebook
         appId={process.env.FACEBOOK_CLIENT_ID}
         redirect_uri={REDIRECT_URI}

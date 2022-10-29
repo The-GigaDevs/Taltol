@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import QuoteCards from './QuoteCards';
 import UserCollectionBack from './UserCollectionBack';
 
-const UserSavedCollectionQuotes = ({ show = true }) => {
+const UserSavedCollectionQuotes = ({ show = true , showCollection, setShowCollection}) => {
   const [quotes, setQuotes] = useState([]);
 
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const UserSavedCollectionQuotes = ({ show = true }) => {
   return (
     quotes && (
       <section className="user-saved-collection-quotes">
-        <UserCollectionBack />
+        <UserCollectionBack showCollection={showCollection} setShowCollection = {setShowCollection} />
         <div className="user-saved-collection-quotes-content">
           <div className="user-saved-collection-quotes-content-info">
             <h3 className="user-saved-collection-quotes-content-info-title">

@@ -4,12 +4,16 @@ import UserSavedCollection from './UserSavedCollection';
 import { useSelector, useDispatch } from 'react-redux';
 import { addQuoteToCollection, fetchCollections } from '../slices/collection.slice';
 import CreateCollectionModal from './CreateCollectionModal';
+import Router from 'next/router';
 
 const AddCollectionModal = ({show,setShow, quoteId}) => {
 
   //get collections from redux store
   const collections1 = useSelector((state) => state.collections?.collections);
+  const authRedux = useSelector((state) => state.auth);
   const [collections, setCollections] = useState([]);
+  const [selected, setSelected ] = useState(null);
+
   const dispatch = useDispatch();
   const [showCreateCollectionModal, setShowCreateCollectionModal] = useState(false);
 
@@ -17,20 +21,39 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
     //get collections from service
     dispatch(fetchCollections());
   }, [dispatch]);
+  
 
   useEffect(() => {
     //set collections to state
     setCollections(collections1);
     
+    
   }, [collections1]);
 
 
   function closeModal() {
+    dispatch(addQuoteToCollection({collection: selected, quote: quoteId}));
+    
     setShow(false);
   }
 
   function handleShowCreateCollectionModal() {
     setShowCreateCollectionModal(true);
+  }
+
+  function handleClick(){
+    if(authRedux.isAuthenticated){
+      setShow(true);
+    }else{
+      Router.push('/login');
+    }
+  }
+
+  function handledAddClick(collectionId, quoteId) {
+
+    //grey out the collection
+    setSelected(collectionId);  
+
   }
 
   Modal.setAppElement('#__next');
@@ -58,9 +81,7 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
   return (
     <>
       <button
-        onClick={() => {
-          setShow(true);
-        }}
+        onClick={handleClick}
       >
         Show Collection Modal
       </button>
@@ -106,8 +127,8 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
               <input type="text" placeholder="Search for a collection" />
             </div>
             <div className="add-collection-modal-cards">
-              {collections?.results?.map((collection, index) => (
-              <div key={index} className="add-collection-modal-card" onClick={() => dispatch(addQuoteToCollection({ collection: collection.id, quote:  quoteId}))}>
+              {collections.results?.map((collection, index) => (
+              <div key={index} className="add-collection-modal-card" style={{background : collection.id == selected ? "#f896bc" : "white"}} onClick={() => handledAddClick(collection.id, quoteId)}>
                 <h4 className="add-collection-modal-card-title">
                   {collection.name}
                 </h4>

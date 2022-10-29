@@ -1,15 +1,8 @@
-import Head from 'next/head';
-import Navbar from '../components/Navbar';
-import UserHeader from '../components/UserHeader';
-import UserLikedQuotes from '../components/UserLikedQuotes';
-import UserSavedCollection from '../components/UserSavedCollection';
-import UserSavedCollectionQuotes from '../components/UserSavedCollectionQuotes';
-import { useState } from 'react';
-import MobileMenu from '../components/MobileMenu';
-import UserCollectionBack from '../components/UserCollectionBack';
-import AddCollectionModal from '../components/AddCollectionModal';
-import UserLikedQuotesMobile from '../components/UserLikedQuotesMobile';
-import AccountMobile from '../components/accountMobile';
+import Head from "next/head";
+
+// warn: Added .jsx extension, as without this the build was failing
+import AccountMobile from "../components/AccountMobile.jsx";
+import MobileMenu from "../components/MobileMenu.jsx";
 
 const liked = () => {
   return (

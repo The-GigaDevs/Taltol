@@ -14,7 +14,7 @@ import { authSlice } from '../slices/auth.slice';
 import RestrictiveModal from './auth/RestrictiveModal';
 
 const QuoteCard = props => {
-  const { quote, category, url = 'home' } = props;
+  const { quote, category, url = '' } = props;
   const [isLiked, setIsLiked] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const authRedux = useSelector(state => state.auth);
@@ -59,12 +59,12 @@ const QuoteCard = props => {
         className="quote-card-text"
         onClick={() => {
           if (category) {
-            router.push(`/quote/${encodeURIComponent(quote?.id)}`);
+            router.push(`/quote/${encodeURIComponent(quote?.category?.link_slug+'_'+quote?.author.slug+'_'+ quote?.slug + '_' + 'taltol')}`);
           } else {
             dispatch(toggleModal(true));
             dispatch(changeRoute(url));
             dispatch(singleQuote(quote));
-            router.push(`/quote/${encodeURIComponent(quote?.id)}`, undefined, {
+            router.push(`/quote/${encodeURIComponent(quote?.category?.link_slug+'_'+quote?.author.slug+'_'+ quote?.slug + '_' + 'taltol')}`, undefined, {
               shallow: true,
             });
           }
