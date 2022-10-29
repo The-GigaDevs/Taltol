@@ -1,15 +1,15 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
-import collectionService from '../services/collection.service';
-import { useEffect } from 'react';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import collectionService from "../services/collection.service";
+import { useEffect } from "react";
 import {
   fetchCollections,
   getSingleCollection,
-} from '../slices/collection.slice';
+} from "../slices/collection.slice";
 
-import UserSavedCollectionQuotes from './UserSavedCollectionQuotes';
-import UserCollectionBack from './UserCollectionBack';
+import UserSavedCollectionQuotes from "./UserSavedCollectionQuotes";
+import UserCollectionBack from "./UserCollectionBack";
 const UserSavedCollection = (
   { activeTab, showCollection, setShowCollection } // get the active tab from userheader
 ) => {
@@ -19,7 +19,7 @@ const UserSavedCollection = (
   const dispatch = useDispatch();
   //get collections from redux store
   const collections1 = useSelector(
-    state => state.collections.collections.results
+    (state) => state.collections.collections.results
   );
 
   useEffect(() => {
@@ -36,9 +36,9 @@ const UserSavedCollection = (
   return (
     <section
       className={
-        activeTab === 'tab2'
-          ? 'user-saved-collection show'
-          : 'user-saved-collection hide'
+        activeTab === "tab2"
+          ? "user-saved-collection show"
+          : "user-saved-collection hide"
       }
     >
       {showCollection ? (

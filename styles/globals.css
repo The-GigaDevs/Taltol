@@ -463,14 +463,6 @@ svg {
   transform: translateY(5px);
 }
 
-.navbar-profile-avatar-social {
-  width: 5.5rem;
-  height: 5.5rem;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-}
-
 /* ----------Mood-Emoji---------- */
 .mood-emoji {
   padding-top: 6rem;
