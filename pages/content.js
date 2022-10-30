@@ -12,6 +12,7 @@ export default function Content() {
   const [page, setPage] = useState(1);
   const [pageSize, setPagesize] = useState(20);
   const [quotes, setQuotes] = useState([]);
+  const [isPicked, setIsPicked] = useState(false);
 
   const dispatch = useDispatch();
   const quotesReduxState = useSelector(state => state.quotes?.quotes);
@@ -39,7 +40,7 @@ export default function Content() {
       <div className="home-main-content">
         <section className="home-main-left-content">
           <div className="home-main-left-header">
-            <PickedSelect />
+            <PickedSelect picked={isPicked} setPicked={setIsPicked}/>
             <p className="home-main-left-header-text">{quotesReduxState?.count} results</p>
           </div>
           <QuoteCards
@@ -47,6 +48,8 @@ export default function Content() {
             quotes={quotes}
             category={false}
             next={quotesReduxState?.next}
+            picked = {isPicked}
+            
           />
         </section>
         <section className="home-main-right-content">

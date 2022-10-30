@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const { searchQuotesModal } = authService
 
-const PickedSelect = () => {
+const PickedSelect = ({picked, setPicked}) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   let results = [];
@@ -97,6 +97,7 @@ const PickedSelect = () => {
   };
 
   const setSelectedThenCloseDropdown = index => {
+    setPicked(true)
     setSelectedOption(index);
     setIsOptionsOpen(false);
     

@@ -7,7 +7,7 @@ import {
   likeAQuoteInQuotes,
   unlikeAQuoteInQuotes,
 } from '../slices/quotes.slice';
-import { likeAQuote, fetchLikedQuotes } from '../slices/likes.slice';
+import { likeAQuote, fetchLikedQuotes, unlikeAQuote } from '../slices/likes.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { authSlice } from '../slices/auth.slice';
@@ -24,17 +24,20 @@ const QuoteCard = props => {
   function handleLike() {
     //check the isAuthenticated use from auth slice and if it is true, then dispatch the likeAQuote action
     //if it is false, then dispatch the toggleModal action
+    if(url !== 'users'){
+      if (authRedux.isAuthenticated) {
+        dispatch(likeAQuote(quote.id));
+        if (!quote.quote_liked) {
 
-    if (authRedux.isAuthenticated) {
-      dispatch(likeAQuote(quote.id));
-      if (!quote.quote_liked) {
-        dispatch(likeAQuoteInQuotes(quote.id));
+          dispatch(likeAQuoteInQuotes(quote.id));
+        } else {
+          dispatch(unlikeAQuoteInQuotes(quote.id));
+          dispatch(unlikeAQuote(quote.id));
+        }
       } else {
-        dispatch(unlikeAQuoteInQuotes(quote.id));
+        setShowModal(true);
       }
-    } else {
-      setShowModal(true);
-    }
+  }
   }
   return (
     <div className="quote-card">

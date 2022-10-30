@@ -7,7 +7,7 @@ const UserLikedQuotes = (
   { activeTab } //get the active tab from userheader
 ) => {
   const dispatch = useDispatch();
-  const { likedQuotes } = useSelector(state => state.likes);
+  const  {likedQuotes}  = useSelector(state => state.likes);
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import QuoteCard from './QuoteCard';
-const QuoteCards = ({ quotes, fetchNext, category, next , loadMore = true, url="/"}) => {
+const QuoteCards = ({ quotes, fetchNext, category, next , loadMore = true, url="/", picked}) => {
   return (
     <>
       <div className="quote-cards">
@@ -7,7 +7,7 @@ const QuoteCards = ({ quotes, fetchNext, category, next , loadMore = true, url="
           <QuoteCard key={index} quote={quote} category={category} url={url}/>
         ))}
       </div>
-      { loadMore && <div>
+      { loadMore && !picked && <div>
         {next !== null && (
           <button className="load-more-btn" onClick={() => fetchNext()}>
             Load More
