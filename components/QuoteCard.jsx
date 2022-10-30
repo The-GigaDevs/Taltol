@@ -35,7 +35,7 @@ const QuoteCard = props => {
           dispatch(unlikeAQuote(quote.id));
         }
       } else {
-        setShowModal(true);
+        router.push('/login');
       }
   }
   }
@@ -75,7 +75,10 @@ const QuoteCard = props => {
       >
         {quote?.text}
       </h4>
-      <div className="quote-card-author">
+      <div className="quote-card-author" onClick={() => {
+            //goto to the author page
+            router.push(`/author/${encodeURIComponent(quote?.author?.id)}`);
+          }}>
         <img
           src={randomAuthor.src}
           alt="Author Avatar"
@@ -83,10 +86,7 @@ const QuoteCard = props => {
         />
         <p
           className="quote-card-author-name"
-          onClick={() => {
-            //goto to the author page
-            router.push(`/author/${encodeURIComponent(quote?.author?.id)}`);
-          }}
+          
         >
           {quote?.author?.name}
         </p>

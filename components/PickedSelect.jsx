@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import authService from '../services/auth.service';
 import { addQuotes } from '../slices/quotes.slice';
 import { toast } from 'react-toastify';
+import { result } from 'lodash';
 
 const { searchQuotesModal } = authService
 
@@ -25,7 +26,9 @@ const PickedSelect = ({picked, setPicked}) => {
           error: "Error",
           }
           );
-        results = {...results, results: results.results.slice(0, 100)}
+        results.count = 100;
+          results = {...results, results: results.results.slice(0, 100)}
+
         dispatch({type: "quotes/addQuotes", payload: results})
         break;
       case 1:
@@ -37,7 +40,7 @@ const PickedSelect = ({picked, setPicked}) => {
           error: "Error",
           }
           );
-        // results = results.results.slice(0, 20);
+        results.count = 20;
 
       results = {...results, results: results.results.slice(0, 20)}
         dispatch({type: "quotes/addQuotes", payload: results})
@@ -51,7 +54,7 @@ const PickedSelect = ({picked, setPicked}) => {
         }
         );
         // results = results.results.slice(0, 20);
-        
+        result.count = 20;
       results = {...results, results: results.results.slice(0, 20)}
         dispatch({type: "quotes/addQuotes", payload: results})
 
@@ -67,7 +70,9 @@ const PickedSelect = ({picked, setPicked}) => {
 
         results = {...results, results: results.results.slice(0, 20)}
           // results = results.results.slice(0, 20);
+          results.count = 20
           dispatch({type: "quotes/addQuotes", payload: results})
+
           break;
 
       default:
