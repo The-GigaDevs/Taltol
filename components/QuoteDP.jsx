@@ -47,7 +47,7 @@ export default function QuoteDP({
         dispatch(unlikeAQuoteInQuotes(singleQuote.id));
       }
     } else {
-      setShowModal(true);
+      router.push('/login');
     }
   }
 
