@@ -30,7 +30,14 @@ export const fetchSingleQuote = createAsyncThunk(
 export const fetchQuotesAgainstTag = createAsyncThunk(
     "quotes/fetchQuotesAgainstTag",
     async (tagId) => {
-        const result = await getQuotesAgainstTag(tagId);
+        const result = toast.promise( 
+            getQuotesAgainstTag(tagId),
+            {
+                success:'Quotes fetched!',
+                error:'Unable to load quotes.',
+                pending:'Loading quotes...'
+            }
+        );
        
         return result;
     }
@@ -71,8 +78,14 @@ export const addMoreQuotes = createAsyncThunk(
 export const fetchQuotesOfCategory = createAsyncThunk(
     "quotes/fetchQuotesOfCategory", 
     async ({id, page}) => {
-        const result = await getQuotesOfSingleCategory(id, page);
-        //console.log(result, 'category');
+        const result = toast.promise(
+              getQuotesOfSingleCategory(id, page),
+             {
+                success:'Quotes fetched!',
+                error:'Unable to load quotes.',
+                pending:'Loading quotes...'
+             }
+        );
         return result
     }
 )

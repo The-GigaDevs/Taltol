@@ -76,7 +76,7 @@ const getAuthorQuotesWithPage = (id, page) => httpService
     .catch(({ error }) => Promise.reject(error.response))
 
 const getQuotesAgainstTag = (id) => httpService
-    .get(`/quotes?tags=${id}`)
+    .get(`/quotes?tags=${id}&show_tags=true`)
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
@@ -116,7 +116,7 @@ const getSingleAuthor = (id) => httpService
     .catch(({ error }) => Promise.reject(error.response))
 
 const getQuotesOfSingleCategory = (id, page) => httpService
-    .get(`quotes?categories=${id}&page=${page}`)
+    .get(`quotes?categories=${id}&page=${page}&show_tags=true`)
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 

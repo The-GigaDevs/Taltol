@@ -35,9 +35,9 @@ const CategoryHeader = ({ quotes, category, tags }) => {
               >
                 <circle cx="5.5" cy="5.5" r="5.5" fill="#333333"></circle>
               </svg>
-              <p className="category-header-desc-list-tags">
+              <p className="category-header-desc-list-tags" style={{cursor :"pointer"}}>
                 Most used tags with the {category?.name} quotes
-                {tags?.tags?.map(tag => <span cursor="pointer" onClick={() => {searchByTag(tag)}} key={tag?.tagId} className="category-header-desc-list-tag"> {tag?.tag_text},</span>)}
+                {tags?.tags?.slice(0,6).map(tag => <span cursor="pointer" onClick={() => {searchByTag(tag)}} key={tag?.tagId} className="category-header-desc-list-tag"> {tag?.tag_text},</span>)}
               </p>
             </div>
           </div>

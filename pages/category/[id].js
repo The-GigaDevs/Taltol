@@ -10,6 +10,7 @@ import QuoteCards from '../../components/QuoteCards';
 import TopicBrowse from '../../components/TopicBrowse';
 import { fetchSingleCategory } from '../../slices/categories.slice';
 import { fetchQuotesOfCategory } from '../../slices/quotes.slice';
+import { fetchTags } from '../../slices/tags.slice';
 
 const Category = ({ id }) => {
     const dispatch = useDispatch()
@@ -17,6 +18,8 @@ const Category = ({ id }) => {
     const [ tags , setTags] = useState([]);
     const quotesRedux = useSelector(state => state.quotes?.quotes)
     const singleCategoryRedux = useSelector(state => state.categories.singleCategory)
+    const tagsRedux = useSelector(state => state.categories.tags)
+
 
     const fetchNext = () => {
         setPage(page+1);
@@ -32,7 +35,8 @@ const Category = ({ id }) => {
             dispatch(fetchSingleCategory(id));
         }
         dispatch(fetchQuotesOfCategory({id, page}))
-    }, [id, dispatch, page, singleCategoryRedux])
+
+    }, [id, dispatch, page])
 
     return (
         <>

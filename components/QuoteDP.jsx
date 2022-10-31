@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import AddCollectionModal from './AddCollectionModal';
 import { toast } from 'react-toastify';
 import { likeAQuote } from '../slices/likes.slice';
-import { likeAQuoteInQuotes, unlikeAQuoteInQuotes} from '../slices/quotes.slice';
+import { fetchQuotesAgainstTag, likeAQuoteInQuotes, unlikeAQuoteInQuotes} from '../slices/quotes.slice';
 
 export default function QuoteDP({
   singleQuote,
@@ -49,6 +49,11 @@ export default function QuoteDP({
     } else {
       router.push('/login');
     }
+  }
+
+  function searchByTag(id) {
+    dispatch(fetchQuotesAgainstTag(id));
+    router.push('/');
   }
 
   const shareQuote = () => {
@@ -231,7 +236,7 @@ export default function QuoteDP({
         <section className="quote-body-similar-quotes">
           <h3 className="quote-body-similar-quotes-title">
             Other similar quotes for&nbsp;
-            <span className="quote-body-author-tag current">
+            <span className="quote-body-author-tag current" onClick={() => searchByTag(singleQuote.tags[0].tagId)}>
               {singleQuote?.tags ? singleQuote.tags[0].tag_text : ""}
             </span>
           </h3>

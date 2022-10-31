@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addQuoteToCollection, fetchCollections } from '../slices/collection.slice';
 import CreateCollectionModal from './CreateCollectionModal';
 import Router from 'next/router';
+import { toast } from 'react-toastify';
 
 const AddCollectionModal = ({show,setShow, quoteId}) => {
 
@@ -32,6 +33,7 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
 
 
   function closeModal() {
+    toast.info('Quote added to collection');
     dispatch(addQuoteToCollection({collection: selected, quote: quoteId}));
     
     setShow(false);
@@ -128,7 +130,7 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
             </div>
             <div className="add-collection-modal-cards">
               {collections.results?.map((collection, index) => (
-              <div key={index} className="add-collection-modal-card" style={{background : collection.id == selected ? "#f896bc" : "white"}} onClick={() => handledAddClick(collection.id, quoteId)}>
+              <div key={index} className="add-collection-modal-card" style={{background : collection.id == selected ? "#e9e6e6" : "white"}} onClick={() => handledAddClick(collection.id, quoteId)}>
                 <h4 className="add-collection-modal-card-title">
                   {collection.name}
                 </h4>
