@@ -22,7 +22,7 @@ export default function Content({tagName}) {
   //useffect to call fecQuotes
   
   useEffect(() => {
-    if(tagName !== ""){
+    if(tagName == ""){
     
       if(quotesReduxState.length === 0) {
         dispatch(fetchQuotes());
