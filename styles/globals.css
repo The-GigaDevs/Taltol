@@ -65,7 +65,7 @@ svg {
 
 .container {
   max-width: 140rem;
-  width: min(100% - 3.5rem);
+  width: min(100% - 2.5rem);
   margin: 0 auto;
 }
 
@@ -461,6 +461,14 @@ svg {
 .navbar-login-register-btn:active {
   box-shadow: none;
   transform: translateY(5px);
+}
+
+.navbar-profile-avatar-social {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
 }
 
 /* ----------Mood-Emoji---------- */
@@ -1053,7 +1061,7 @@ svg {
 
 .quote-body {
   max-width: 92rem;
-  width: min(100% - 3.5rem);
+  width: min(100% - 2.5rem);
   margin: 0 auto;
   padding-bottom: 55px;
 }
@@ -2541,7 +2549,7 @@ svg {
 
 .admin-form-container {
   max-width: 99.2rem;
-  width: min(100% - 3.5rem);
+  width: min(100% - 2.5rem);
   margin: 0 auto;
 }
 
