@@ -46,11 +46,12 @@ const Quote = ({ id, url }) => {
             dispatch(getAllQuotesOfAuthor(singleQuote.author.id))
         }
         //dispatch get all quotes of tag
-        if (singleQuote?.tags) {
-            dispatch(fetchQuotesAgainstTag(singleQuote.tags[0].tagId))
-        }
+        // if (singleQuote?.tags) {
+        //     dispatch(fetchQuotesAgainstTag(singleQuote.tags[0].tagId))
+        // }
 
     }, [singleQuote])
+
 
     return (
         <>

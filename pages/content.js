@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addMoreQuotes, fetchQuotes } from "../slices/quotes.slice";
 
 
-export default function Content() {
+export default function Content({tagName}) {
   
   // const [quotes, setQuotes] = useState([]);
   const [page, setPage] = useState(1);
@@ -22,10 +22,12 @@ export default function Content() {
   //useffect to call fecQuotes
   
   useEffect(() => {
+    if(tagName == ""){
     
-    if(quotesReduxState.length === 0) {
-      dispatch(fetchQuotes());
-    }
+      if(quotesReduxState.length === 0) {
+        dispatch(fetchQuotes());
+      }
+  }
   }, [dispatch, quotesReduxState]);
 
 
@@ -48,7 +50,7 @@ export default function Content() {
           <div className="home-main-left-header">
             <PickedSelect picked={isPicked} setPicked={setIsPicked} />
             <p className="home-main-left-header-text">
-              {quotesReduxState?.count} results
+              {quotesReduxState?.count} results <b>{tagName ? `for ${tagName}` : ""}</b>
             </p>
           </div>
           <QuoteCards

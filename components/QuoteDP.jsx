@@ -51,9 +51,10 @@ export default function QuoteDP({
     }
   }
 
-  function searchByTag(id) {
+  function searchByTag(id, tagName) {
+
     dispatch(fetchQuotesAgainstTag(id));
-    router.push('/');
+    router.push({pathname: '/', query: {tag: tagName}});
   }
 
   const shareQuote = () => {
@@ -145,7 +146,7 @@ export default function QuoteDP({
                   Main tags:&nbsp;
                   {singleQuote?.tags?.map((tag) => (
                     <>
-                      <span className="quote-body-author-tag">
+                      <span className="quote-body-author-tag" style={{cursor: "pointer"}} onClick={() => searchByTag(tag?.tagId, tag?.tag_text)}>
                         {tag?.tag_text}
                       </span>
                       ,&nbsp;
@@ -236,7 +237,7 @@ export default function QuoteDP({
         <section className="quote-body-similar-quotes">
           <h3 className="quote-body-similar-quotes-title">
             Other similar quotes for&nbsp;
-            <span className="quote-body-author-tag current" onClick={() => searchByTag(singleQuote.tags[0].tagId)}>
+            <span className="quote-body-author-tag current" onClick={() => searchByTag(singleQuote.tags[0].tagId, singleQuote?.tags[0].tag_text)}>
               {singleQuote?.tags ? singleQuote.tags[0].tag_text : ""}
             </span>
           </h3>

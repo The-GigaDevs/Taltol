@@ -32,10 +32,11 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
   }, [collections1]);
 
 
-  function closeModal() {
-    toast.info('Quote added to collection');
-    dispatch(addQuoteToCollection({collection: selected, quote: quoteId}));
-    
+  function closeModal(isCrossed = false) {
+    if(!isCrossed){
+      toast.info('Quote added to collection');
+      dispatch(addQuoteToCollection({collection: selected, quote: quoteId}));
+    }
     setShow(false);
   }
 
@@ -94,7 +95,7 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
       >
         <div className="add-collection-modal">
           <div className="add-collection-modal-header">
-            <span className="add-collection-modal-close" onClick={closeModal}>
+            <span className="add-collection-modal-close" onClick={() => closeModal(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -143,7 +144,7 @@ const AddCollectionModal = ({show,setShow, quoteId}) => {
             </div>
           </div>
           <footer className="add-collection-modal-footer">
-            <button className="add-collection-modal-footer-btn" onClick={closeModal}>Done</button>
+            <button className="add-collection-modal-footer-btn" onClick={() => closeModal(false)}>Done</button>
             <span className="add-collection-modal-footer-create" onClick={() => handleShowCreateCollectionModal()}>
               Create a new collection
             </span>
