@@ -18,36 +18,35 @@ const AdminQuotes = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   //useffect to call fecQuotes
-  
+
   useEffect(() => {
-    if(quotesReduxState?.length === 0 || quotesReduxState?.results?.length === 0) {
+    if (
+      quotesReduxState?.length === 0 ||
+      quotesReduxState?.results?.length === 0
+    ) {
       dispatch(fetchQuotes());
     }
   }, [dispatch, quotesReduxState]);
 
-
-  
   useEffect(() => {
     setQuotes(quotesReduxState.results);
-    if(quotesReduxState.count){
+    if (quotesReduxState.count) {
       CaluclatetotalPages();
     }
-
   }, [quotesReduxState, quotes]);
 
   //function to claculate total pages
   const CaluclatetotalPages = () => {
     let pages = Math.ceil(quotesReduxState.count / 100);
     setTotalPages(pages);
-
   };
 
   function fetchNext(number) {
-    if(number) {
-      dispatch(addMoreQuotes({page: number, pageSize: pageSize}));
+    if (number) {
+      dispatch(addMoreQuotes({ page: number, pageSize: pageSize }));
     } else {
       setPage(page + 1);
-      dispatch(addMoreQuotes({page: page + 1, pageSize: pageSize}));
+      dispatch(addMoreQuotes({ page: page + 1, pageSize: pageSize }));
     }
   }
 
@@ -61,10 +60,20 @@ const AdminQuotes = () => {
               <PickedSelect />
               <SortSelect />
             </div>
-            <div className="admin-quotes-cards">
-              <QuoteCards fetchNext={fetchNext} quotes={quotes} category={false} next ={quotesReduxState?.next} loadMore={false} />
-            </div>
-            <AdminPagination pagesTotal={totalPages} next={quotes?.next} fetchNext={fetchNext} />
+
+            <QuoteCards
+              fetchNext={fetchNext}
+              quotes={quotes}
+              category={false}
+              next={quotesReduxState?.next}
+              loadMore={false}
+            />
+
+            <AdminPagination
+              pagesTotal={totalPages}
+              next={quotes?.next}
+              fetchNext={fetchNext}
+            />
           </section>
           <section className="admin-quotes-right-content">
             <TopicBrowse />

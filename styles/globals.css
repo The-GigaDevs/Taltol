@@ -604,6 +604,21 @@ svg {
   cursor: pointer;
 }
 
+.home-main-left-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.home-main-left-header-text {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-gray-light);
+}
+
 /* -----------Quote-Card----------- */
 
 .quote-cards {
@@ -618,24 +633,6 @@ svg {
   padding: 20px;
   cursor: pointer;
 }
-
-/* Demo Purpose */
-
-/* .quote-cards {
-  margin-top: 2.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.quote-card {
-  width: 25rem;
-  height: 25rem;
-  border: 1px solid #e0e0e0;
-  padding: 15px;
-  cursor: pointer;
-} */
 
 .quote-card-likes {
   display: flex;
@@ -2232,7 +2229,7 @@ svg {
 
 /* ----------Admin-Role-Select--------- */
 .admin-role-select {
-  width: 40rem;
+  width: 32rem;
   background-color: var(--clr-gray-dark);
   color: var(--clr-gray-light);
   font-family: 'Quicksand';
@@ -2363,7 +2360,7 @@ svg {
 .admin-main-sort-content {
   display: flex;
   align-items: center;
-  gap: 3.5rem;
+  gap: 2rem 3.5rem;
   flex-wrap: wrap;
 }
 
@@ -2373,24 +2370,18 @@ svg {
   font-weight: 700;
   line-height: 2.3rem;
 }
-
 .admin-main-sort-box {
   display: flex;
   align-items: center;
-  flex: 1;
-  background: var(--clr-white);
-  border: 2px solid #e0e0e0;
-  border-radius: 5px;
-  padding: 10px 0;
+  gap: 2.5rem 1.5rem;
+  flex-wrap: wrap;
 }
 
 .admin-main-sort-category {
-  border-right: 1px solid #e0e0e0;
-  padding: 0 17.35px;
-}
-
-.admin-main-sort-category:last-child {
-  border-right: 0;
+  background: var(--clr-white);
+  border: 2px solid #e0e0e0;
+  padding: 10px 17.35px;
+  border-radius: 5px;
 }
 
 .admin-main-sort-category-title {
@@ -2437,10 +2428,15 @@ svg {
 }
 
 /* Admin-Quotes */
+.admin-quotes {
+  padding-bottom: 60px;
+}
+
 .admin-quotes-content {
   padding-top: 8rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 3.5rem;
 }
 
@@ -2463,6 +2459,7 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 2.5rem;
 }
 
@@ -2477,57 +2474,39 @@ svg {
 /* Admin-Pagination */
 
 .admin-pagination {
-  width: 40rem;
+  width: fit-content;
   margin-left: auto;
   margin-top: 5rem;
-  padding-bottom: 5rem;
-}
-
-.admin-pagination-title {
-  font-size: 3rem;
-  line-height: 3.6rem;
-  font-weight: 700;
-  display: flex;
-  justify-content: flex-end;
-  text-align: center;
-  column-gap: 3.5rem;
-  color: var(--clr-gray-dark);
-}
-
-.admin-pagination-title-item {
-  display: flex;
-  column-gap: 1.5rem;
-}
-
-.admin-pagination-title-word {
-  width: 2rem;
-}
-
-.admin-pagination-title-item-color {
-  color: var(--clr-gray-light);
 }
 
 .admin-pagination-count-list {
   display: flex;
   justify-content: flex-end;
-  margin-top: 0.5rem;
-  column-gap: 1.15rem;
+  align-items: center;
+  column-gap: 1.25rem;
 }
 
 .admin-pagination-count-list-no {
   font-size: 1.8rem;
   line-height: 2.3rem;
   font-weight: 400;
-  color: var(--clr-gray-light);
+  color: var(--clr-pink);
   cursor: pointer;
-  width: 2rem;
   text-align: center;
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: var(--bg-secondary);
+}
+
+.admin-pagination-title-dots {
+  color: var(--clr-gray-light);
+  font-size: 2.4rem;
+  margin-top: -0.95rem;
 }
 
 .admin-pagination-count-list-no:hover {
   color: var(--clr-black);
 }
-
 .admin-pagination-count-list-no.current {
   color: var(--clr-black);
 }
@@ -2868,6 +2847,23 @@ svg {
   .author-header-dp {
     width: 100%;
   }
+
+  .admin-header {
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+  }
+
+  .admin-role-select {
+    width: 100%;
+  }
+
+  .admin-filter {
+    margin-right: 0.5rem;
+  }
+
+  .admin-search {
+    margin-left: 0.5rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -3065,8 +3061,7 @@ svg {
   }
 
   .picked-select {
-    width: 97%;
-    margin: 0 auto;
+    width: fit-content;
   }
 
   .quote-card-text {
@@ -3132,6 +3127,19 @@ svg {
   .pro-footer-content {
     padding-bottom: 90px;
   }
+
+  .admin-select {
+    width: 100%;
+  }
+
+  .admin-select-btn {
+    column-gap: 1.5rem;
+  }
+
+  .admin-main-sort-category {
+    border: 2px solid #e0e0e0;
+    padding: 5px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -3163,12 +3171,7 @@ svg {
     column-gap: 0.85rem;
   }
 
-  .picked-select-btn {
-    font-size: 1.6rem;
-  }
-
   .picked-select-options-item {
-    font-size: 1.6rem;
     padding: 9px;
   }
 }

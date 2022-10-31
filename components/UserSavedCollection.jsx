@@ -1,15 +1,15 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import collectionService from "../services/collection.service";
-import { useEffect } from "react";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import collectionService from '../services/collection.service';
+import { useEffect } from 'react';
 import {
   fetchCollections,
   getSingleCollection,
-} from "../slices/collection.slice";
+} from '../slices/collection.slice';
 
-import UserSavedCollectionQuotes from "./UserSavedCollectionQuotes";
-import UserCollectionBack from "./UserCollectionBack";
+import UserSavedCollectionQuotes from './UserSavedCollectionQuotes';
+import UserCollectionBack from './UserCollectionBack';
 const UserSavedCollection = (
   { activeTab, showCollection, setShowCollection } // get the active tab from userheader
 ) => {
@@ -19,7 +19,7 @@ const UserSavedCollection = (
   const dispatch = useDispatch();
   //get collections from redux store
   const collections1 = useSelector(
-    (state) => state.collections.collections.results
+    state => state.collections.collections.results
   );
 
   useEffect(() => {
@@ -36,27 +36,27 @@ const UserSavedCollection = (
   return (
     <section
       className={
-        activeTab === "tab2"
-          ? "user-saved-collection show"
-          : "user-saved-collection hide"
+        activeTab === 'tab2'
+          ? 'user-saved-collection show'
+          : 'user-saved-collection hide'
       }
     >
       {showCollection ? (
-        collections?.map((collection, index) => (
-          <div
-            key={index}
-            className="user-saved-collection-cards"
-            onClick={() => {
-              dispatch(
-                getSingleCollection({
-                  id: collection.id,
-                  name: collection.name,
-                })
-              );
-              setShowCollection(!showCollection);
-            }}
-          >
-            <div className="user-saved-collection-card">
+        <div className="user-saved-collection-cards">
+          {collections?.map((collection, index) => (
+            <div
+              key={index}
+              onClick={() => {
+                dispatch(
+                  getSingleCollection({
+                    id: collection.id,
+                    name: collection.name,
+                  })
+                );
+                setShowCollection(!showCollection);
+              }}
+              className="user-saved-collection-card"
+            >
               <div className="user-saved-collection-card-actions">
                 <span className="user-saved-collection-card-actions-btn">
                   <svg
@@ -94,8 +94,8 @@ const UserSavedCollection = (
                 {collection.total_quotes} Quotes
               </p>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       ) : (
         <UserSavedCollectionQuotes
           setShowCollection={setShowCollection}
