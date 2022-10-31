@@ -7,14 +7,14 @@ import {
   likeAQuoteInQuotes,
   unlikeAQuoteInQuotes,
 } from '../slices/quotes.slice';
-import { likeAQuote, fetchLikedQuotes } from '../slices/likes.slice';
+import { likeAQuote, fetchLikedQuotes, unlikeAQuote } from '../slices/likes.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { authSlice } from '../slices/auth.slice';
 import RestrictiveModal from './auth/RestrictiveModal';
 
 const QuoteCard = props => {
-  const { quote, category, url = 'home' } = props;
+  const { quote, category, url = '' } = props;
   const [isLiked, setIsLiked] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const authRedux = useSelector(state => state.auth);
@@ -24,17 +24,20 @@ const QuoteCard = props => {
   function handleLike() {
     //check the isAuthenticated use from auth slice and if it is true, then dispatch the likeAQuote action
     //if it is false, then dispatch the toggleModal action
+    if(url !== 'users'){
+      if (authRedux.isAuthenticated) {
+        dispatch(likeAQuote(quote.id));
+        if (!quote.quote_liked) {
 
-    if (authRedux.isAuthenticated) {
-      dispatch(likeAQuote(quote.id));
-      if (!quote.quote_liked) {
-        dispatch(likeAQuoteInQuotes(quote.id));
+          dispatch(likeAQuoteInQuotes(quote.id));
+        } else {
+          dispatch(unlikeAQuoteInQuotes(quote.id));
+          dispatch(unlikeAQuote(quote.id));
+        }
       } else {
-        dispatch(unlikeAQuoteInQuotes(quote.id));
+        router.push('/login');
       }
-    } else {
-      setShowModal(true);
-    }
+  }
   }
   return (
     <div className="quote-card">
@@ -59,12 +62,12 @@ const QuoteCard = props => {
         className="quote-card-text"
         onClick={() => {
           if (category) {
-            router.push(`/quote/${encodeURIComponent(quote?.category?.link_slug+'_'+quote?.author.slug+'_'+ quote?.slug + '_' + 'taltol')}`);
+            router.push(`/quote/${encodeURIComponent(quote?.category?.link_slug+'-quotes'+'_'+quote?.author.slug+'_'+ quote?.slug)}`);
           } else {
             dispatch(toggleModal(true));
             dispatch(changeRoute(url));
             dispatch(singleQuote(quote));
-            router.push(`/quote/${encodeURIComponent(quote?.category?.link_slug+'_'+quote?.author.slug+'_'+ quote?.slug + '_' + 'taltol')}`, undefined, {
+            router.push(`/quote/${encodeURIComponent(quote?.category?.link_slug+'-quotes'+'_'+quote?.author.slug+'_'+ quote?.slug)}`, undefined, {
               shallow: true,
             });
           }
@@ -72,7 +75,10 @@ const QuoteCard = props => {
       >
         {quote?.text}
       </h4>
-      <div className="quote-card-author">
+      <div className="quote-card-author" onClick={() => {
+            //goto to the author page
+            router.push(`/author/${encodeURIComponent(quote?.author?.id)}`);
+          }}>
         <img
           src={randomAuthor.src}
           alt="Author Avatar"
@@ -80,10 +86,7 @@ const QuoteCard = props => {
         />
         <p
           className="quote-card-author-name"
-          onClick={() => {
-            //goto to the author page
-            router.push(`/author/${encodeURIComponent(quote?.author?.id)}`);
-          }}
+          
         >
           {quote?.author?.name}
         </p>

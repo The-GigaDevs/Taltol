@@ -85,11 +85,11 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="container">
           <div className="navbar-content">
-            <Link href="/" passHref>
+            <div style={{cursor : "pointer"}} onClick={() => { dispatch(fetchQuotes()); router.push('/')}}>
               <a className="navbar-brand">
                 t<span className="navbar-brand-mobile">altol</span>
               </a>
-            </Link>
+            </div>
             <div className="navbar-search">
               <div className="navbar-search-group">
                 <svg
@@ -242,6 +242,7 @@ const Navbar = () => {
                   <div
                     onClick={async () => {
                       await dispatch(signOut());
+                      await dispatch(fetchQuotes());
                       router.push('/login');
                     }}
                   >

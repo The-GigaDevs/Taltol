@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
-const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage } = authService;
+const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage} = authService;
 
 //initialize quotes state
 const initialState = {
@@ -156,14 +156,16 @@ export const quotesSlice = createSlice({
             state.quotes = null;
         },
         [likeAQuoteInQuotes.fulfilled] : (state, action) => {
-            const quote = state.quotes.results.find((quote) => quote.id === action.payload);
+            const quote = state.quotes?.results?.find((quote) => quote.id === action.payload);
             quote.quote_liked = true;
             quote.total_likes += 1;
+            singleQuote.quote_liked = true;
         },
         [unlikeAQuoteInQuotes.fulfilled] : (state, action) => {
-            const quote = state.quotes.results.find((quote) => quote.id === action.payload);
+            const quote = state.quotes?.results?.find((quote) => quote.id === action.payload);
             quote.quote_liked = false;
             quote.total_likes -= 1;
+            singleQuote.quote_liked = false;
         }
     },
 });

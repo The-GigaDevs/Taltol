@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import AddCollectionModal from './AddCollectionModal';
 import { toast } from 'react-toastify';
+import { likeAQuote } from '../slices/likes.slice';
+import { likeAQuoteInQuotes, unlikeAQuoteInQuotes} from '../slices/quotes.slice';
 
 export default function QuoteDP({
   singleQuote,
@@ -20,10 +22,33 @@ export default function QuoteDP({
   const route = useSelector(state => state.quotes.route);
   const [showAddCollectionModal, setShowAddCollectionModal] = useState(false);
   const [quoteId, setQuoteId] = useState(null);
+  const authRedux = useSelector(state => state.auth);
+  dispatch = useDispatch();
 
   function handleQuoteClick(id) {
+    if(authRedux.isAuthenticated){
+
     setQuoteId(id);
     setShowAddCollectionModal(true);
+    } else {
+      router.push('/login');
+    }
+
+  }
+
+  function handleLike () {
+    if (authRedux.isAuthenticated) {
+      dispatch(likeAQuote(singleQuote.id));
+      if (!singleQuote.quote_liked) {
+         
+        
+        dispatch(likeAQuoteInQuotes(singleQuote.id));
+      } else {
+        dispatch(unlikeAQuoteInQuotes(singleQuote.id));
+      }
+    } else {
+      router.push('/login');
+    }
   }
 
   const shareQuote = () => {
@@ -148,7 +173,7 @@ export default function QuoteDP({
               </svg>
               <span className="quote-body-options-item-name">Share</span>
             </div>
-            <div className="quote-body-options-item">
+            <div className="quote-body-options-item" onClick={handleLike}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="23"

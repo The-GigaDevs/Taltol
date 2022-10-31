@@ -52,7 +52,7 @@ const FilterModal = ({
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [searchField, setSearchField] = useState('');
-
+  const [searching, setSearching ] =  useState(false);
   const dispatch = useDispatch();
 
   const authors1 = useSelector(state => state.authors?.authors);
@@ -165,15 +165,17 @@ const FilterModal = ({
       setCount(-1);
       dispatch(fetchQuotes());
     } else {
-      setCount(0);
+      setSearching(true);
       const results = await searchQuotesModal(
         selectedAuthors,
         selectedTags,
         selectedCategories,
         search
       );
+      setCount(results.count);
       dispatch({ type: 'quotes/addQuotes', payload: results });
       setCount(results.count);
+      setSearching(false);
     }
   }
 
@@ -521,9 +523,9 @@ const FilterModal = ({
             >
               {count === -1
                 ? `Show Quotes`
-                : count === 0
+                : searching === true
                 ? 'Loading...'
-                : `Show ${count} Quotes`}
+                : count ? `Show ${count} Quotes` : 'No Quotes Found'}
             </button>
           </footer>
         </div>
