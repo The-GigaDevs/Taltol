@@ -4,6 +4,7 @@ import { fetchQuotesAgainstTag, fetchSingleQuote, toggleModal } from '../../slic
 import Modal from 'react-modal';
 import QuoteDP from '../../components/QuoteDP';
 import { getAllQuotesOfAuthor } from '../../slices/authors.slice';
+import Head from 'next/head';
 Modal.setAppElement("#__next");
 
 const ModalStyles = {
@@ -52,7 +53,15 @@ const Quote = ({ id, url }) => {
     }, [singleQuote])
 
     return (
-        isModal ?
+        <>
+            <Head>
+                <title>{singleQuote?.category?.link_slug + '-quotes' + '_' + singleQuote?.author.slug + '_' + singleQuote?.slug}</title>
+                <meta name="description" content="We love quotes and we want to provide the best user experience for quotes."/>
+                <meta name="keywords" content="quotes, planner, motivation" />
+                <meta name="author" content="Abdul Hameid" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
+            {isModal ?
             <Modal
                 isOpen={isModal}
                 onRequestClose={() => dispatch(toggleModal(false))}
@@ -61,7 +70,8 @@ const Quote = ({ id, url }) => {
                 <QuoteDP singleQuote={singleQuote} isModal={isModal} toggleModal={toggleModal} dispatch={dispatch} authorQuotes={authorQuotes} tagQuotes={tagQuotes} url={'/'} />
 
             </Modal>
-            : <QuoteDP singleQuote={singleQuote} authorQuotes={authorQuotes} tagQuotes={tagQuotes} />
+            : <QuoteDP singleQuote={singleQuote} authorQuotes={authorQuotes} tagQuotes={tagQuotes} />}
+        </>
     );
 };
 
