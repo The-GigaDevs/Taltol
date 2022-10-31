@@ -13,9 +13,12 @@ import { authenticateUser, isUserLoggedIn } from '../slices/auth.slice';
 import { useRouter } from 'next/router';
 
 const Home = ({ session }) => {
+
+  
   const dispatch = useDispatch();
   const authRedux = useSelector(state => state.auth);
   const router = useRouter();
+
 
   useEffect(() => {
     if (authRedux?.user?.email === 'abdulhameid.grandoka@gmail.com') {
@@ -48,7 +51,7 @@ user experience for quotes."
         <MoodEmoji />
 
         <Provider store={store}>
-          <Content />
+          <Content tagName = {router.query.tag || ""}/>
         </Provider>
       </main>
 
