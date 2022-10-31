@@ -40,16 +40,17 @@ export default function Content() {
       <div className="home-main-content">
         <section className="home-main-left-content">
           <div className="home-main-left-header">
-            <PickedSelect picked={isPicked} setPicked={setIsPicked}/>
-            <p className="home-main-left-header-text">{quotesReduxState?.count} results</p>
+            <PickedSelect picked={isPicked} setPicked={setIsPicked} />
+            <p className="home-main-left-header-text">
+              {quotesReduxState?.count} results
+            </p>
           </div>
           <QuoteCards
             fetchNext={fetchNext}
             quotes={quotes}
             category={false}
             next={quotesReduxState?.next}
-            picked = {isPicked}
-            
+            picked={isPicked}
           />
         </section>
         <section className="home-main-right-content">

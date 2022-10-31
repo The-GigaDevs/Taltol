@@ -42,21 +42,21 @@ const UserSavedCollection = (
       }
     >
       {showCollection ? (
-        <div className="user-saved-collection-cards">
-          {collections?.map((collection, index) => (
-            <div
-              key={index}
-              onClick={() => {
-                dispatch(
-                  getSingleCollection({
-                    id: collection.id,
-                    name: collection.name,
-                  })
-                );
-                setShowCollection(!showCollection);
-              }}
-              className="user-saved-collection-card"
-            >
+        collections?.map((collection, index) => (
+          <div
+            key={index}
+            className="user-saved-collection-cards"
+            onClick={() => {
+              dispatch(
+                getSingleCollection({
+                  id: collection.id,
+                  name: collection.name,
+                })
+              );
+              setShowCollection(!showCollection);
+            }}
+          >
+            <div className="user-saved-collection-card">
               <div className="user-saved-collection-card-actions">
                 <span className="user-saved-collection-card-actions-btn">
                   <svg
@@ -94,9 +94,14 @@ const UserSavedCollection = (
                 {collection.total_quotes} Quotes
               </p>
             </div>
-          ))}
-        </div>
-      ): <UserSavedCollectionQuotes  setShowCollection={setShowCollection} showCollection={showCollection}/>}
+          </div>
+        ))
+      ) : (
+        <UserSavedCollectionQuotes
+          setShowCollection={setShowCollection}
+          showCollection={showCollection}
+        />
+      )}
     </section>
   );
 };
