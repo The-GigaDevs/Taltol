@@ -2545,6 +2545,7 @@ svg {
   text-align: center;
   padding: 6px 12px;
   border-radius: 5px;
+  border: 1px solid transparent;
   background-color: var(--bg-secondary);
 }
 
@@ -2555,9 +2556,11 @@ svg {
 }
 
 .admin-pagination-count-list-no:hover {
-  color: var(--clr-black);
+  color: var(--clr-black); 
 }
 .admin-pagination-count-list-no.current {
+  background-color: var(--clr-white);
+  border:1px solid var(--clr-pink);
   color: var(--clr-black);
 }
 

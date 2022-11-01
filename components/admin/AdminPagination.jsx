@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-const AdminPagination = ({ next, fetchNext, pagesTotal }) => {
+const AdminPagination = ({ next, fetchNext, pagesTotal, page }) => {
   const quotes = 'Quotes';
   //make an array of numbers from 1 to the total number of pages
   const pages = Array.from({ length: pagesTotal }, (_, i) => i + 1);
@@ -36,16 +36,16 @@ const AdminPagination = ({ next, fetchNext, pagesTotal }) => {
           <ul className="admin-pagination-count-list">
             {
               //loop over the pages and show the ones fro initialSlice to firstSlice
-              pages.slice(initialSlice, firstSlice).map((page, index) => (
+              pages.slice(initialSlice, firstSlice).map((pageNo, index) => (
                 <li
                   key={index}
-                  className="admin-pagination-count-list-no"
+                  className={page === pageNo ? "admin-pagination-count-list-no current" : "admin-pagination-count-list-no"}
                   onClick={() => {
-                    setActivePage(page);
-                    fetchNext(page);
+                    setActivePage(pageNo);
+                    fetchNext(pageNo);
                   }}
                 >
-                  {page}
+                  {pageNo}
                 </li>
               ))
             }
@@ -55,16 +55,16 @@ const AdminPagination = ({ next, fetchNext, pagesTotal }) => {
             }
             {
               //show the last page
-              pages.slice(secondSlice, lastSlice).map((page, index) => (
+              pages.slice(secondSlice, lastSlice).map((pageNo, index) => (
                 <li
                   key={index}
-                  className="admin-pagination-count-list-no"
+                  className={page === pageNo ? "admin-pagination-count-list-no current" : "admin-pagination-count-list-no"}
                   onClick={() => {
-                    setActivePage(page);
-                    fetchNext(page);
+                    setActivePage(pageNo);
+                    fetchNext(pageNo);
                   }}
                 >
-                  {page}
+                  {pageNo}
                 </li>
               ))
             }
