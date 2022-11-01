@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../../slices/categories.slice';
@@ -44,11 +45,13 @@ const AdminTopics = () => {
     <div className="admin-topics">
       <div className="container">
         <div className="admin-topics-content">
-          <p className="admin-topics-text">857 results</p>
+          <p className="admin-topics-text">{categories?.length} results</p>
           <section className="admin-topics-box">
             <ul className="admin-topic-browse-list">
               {categories?.map((category)=> 
-                <li className="admin-topic-browse-list-item" key={category?.id}> {category?.name}</li>
+                <Link href={`/category/${category?.id}`} passHref key={category?.id}>
+                  <li className="admin-topic-browse-list-item" key={category?.id}> {category?.name}</li>
+                </Link>
               )}
             </ul>
           </section>
