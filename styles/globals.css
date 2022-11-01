@@ -71,7 +71,7 @@ svg {
 
 /* -----------Login-Register-Modal----------- */
 .register-login-modal {
-  width: min(100% - 3.5rem);
+  width: min(100% - 2.5rem);
   margin: 0 auto;
   position: relative;
 }
@@ -273,7 +273,10 @@ svg {
 .navbar {
   background: var(--clr-white);
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.25);
-  padding: 10px 0;
+  height: 9.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .navbar-content {
@@ -381,18 +384,10 @@ svg {
   position: relative;
 }
 
-.navbar-profile > svg {
-  width: 1.2rem;
-}
-
-.navbar-profile-avatar > svg {
-  width: 2.4rem;
-}
-
 .navbar-profile-dropdown {
   padding: 15px 0 7px;
   position: absolute;
-  top: 4rem;
+  top: 5.5rem;
   right: 0;
   z-index: 2;
   background-color: var(--clr-white);
@@ -464,8 +459,8 @@ svg {
 }
 
 .navbar-profile-avatar-social {
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   object-fit: cover;
   object-position: top;
@@ -700,6 +695,10 @@ svg {
   font-size: 1.4rem;
   line-height: 1.8rem;
   color: var(--clr-gray-semi);
+}
+
+.quote-card-author-name:hover {
+  color: var(--clr-pink);
 }
 
 /* ----------Topic-Browse---------- */
@@ -1754,6 +1753,17 @@ svg {
   width: 100%;
 }
 
+.user-saved-collections-text,
+.user-saved-collections-mobile-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.user-saved-collections-mobile-text {
+  margin-top: 3.5rem;
+}
+
 .user-saved-collection.show {
   display: block;
 }
@@ -1901,6 +1911,17 @@ svg {
   display: block;
   padding-top: 60px;
   padding-bottom: 130px;
+}
+
+.user-liked-quotes-text,
+.user-liked-quotes-mobile-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.user-liked-quotes-mobile-text {
+  margin-top: 3.5rem;
 }
 
 .user-liked-quotes-mobile-data {
@@ -2179,6 +2200,27 @@ svg {
   font-size: 1.8rem;
   line-height: 2.2rem;
   color: var(--clr-gray-light);
+}
+
+.account-mobile-no-user-btn {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  padding: 0 25px;
+  background: var(--clr-pink);
+  border-radius: 5px;
+  border: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clr-white);
+  box-shadow: 0 5px 0 #c41b6c;
+  cursor: pointer;
+}
+
+.account-mobile-no-user-btn:active {
+  box-shadow: none;
+  transform: translateY(5px);
 }
 
 /* ++++++++++++++++++++++++++Admin Pages++++++++++++++++++++++++++ */
@@ -3022,6 +3064,15 @@ svg {
 
   .topic-browse {
     display: none;
+  }
+
+  .account-mobile-no-user {
+    width: 100%;
+  }
+
+  .account-mobile {
+    justify-content: center;
+    align-items: center;
   }
 
   /* .user-collection-back {
