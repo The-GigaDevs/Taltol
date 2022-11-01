@@ -37,6 +37,7 @@ const AdminTopics = () => {
     //   setPage(page + 1);
     //   dispatch(fetchCategories({page: page + 1, pageSize: 30}));
     // }
+    setPage(number);
     dispatch(fetchCategories({page: number, pageSize: 30}));
   }
   return (
@@ -51,7 +52,7 @@ const AdminTopics = () => {
               )}
             </ul>
           </section>
-          <AdminPagination pagesTotal={totalPages}  next={categories1.next} fetchNext={fetchNext} />
+          <AdminPagination pagesTotal={totalPages}  next={categories1.next} fetchNext={fetchNext} page={page} />
         </div>
       </div>
     </div>

@@ -30,6 +30,7 @@ const AdminAuthors = () => {
 
     function fetchNext(number) {
         if (number) {
+            setPage(number);
             dispatch(fetchAuthors({ page: number, pageSize: 50 }));
         } else {
             setPage(page + 1);
@@ -48,7 +49,7 @@ const AdminAuthors = () => {
                             )}
                         </ul>
                     </section>
-                    <AdminPagination pagesTotal={totalPages} next={authors1.next} fetchNext={fetchNext} />
+                    <AdminPagination pagesTotal={totalPages} next={authors1.next} fetchNext={fetchNext} page={page} />
                 </div>
             </div>
         </div>

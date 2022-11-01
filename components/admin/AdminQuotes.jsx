@@ -43,6 +43,7 @@ const AdminQuotes = () => {
 
   function fetchNext(number) {
     if (number) {
+      setPage(number);
       dispatch(addMoreQuotes({ page: number, pageSize: pageSize }));
     } else {
       setPage(page + 1);
@@ -73,6 +74,7 @@ const AdminQuotes = () => {
               pagesTotal={totalPages}
               next={quotes?.next}
               fetchNext={fetchNext}
+              page={page}
             />
           </section>
           <section className="admin-quotes-right-content">
