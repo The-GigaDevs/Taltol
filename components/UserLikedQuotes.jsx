@@ -7,7 +7,7 @@ const UserLikedQuotes = (
   { activeTab } //get the active tab from userheader
 ) => {
   const dispatch = useDispatch();
-  const  {likedQuotes}  = useSelector(state => state.likes);
+  const { likedQuotes } = useSelector(state => state.likes);
   const [quotes, setQuotes] = useState([]);
 
   useEffect(() => {
@@ -27,14 +27,20 @@ const UserLikedQuotes = (
             : 'user-liked-quotes hide'
         }
       >
-        <p className="user-liked-quotes-count">
-          {likedQuotes.count} liked quotes
-        </p>
-        <div className="user-liked-quotes-content">
-          {quotes?.results?.map((quote, index) => (
-            <QuoteCard key={index} quote={quote} url={'users'} />
-          ))}
-        </div>
+        {quotes?.results?.length === 0 ? (
+          <p className="user-liked-quotes-text">You have no liked quotes</p>
+        ) : (
+          <>
+            <p className="user-liked-quotes-count">
+              {likedQuotes.count} liked quotes
+            </p>
+            <div className="user-liked-quotes-content">
+              {quotes?.results?.map((quote, index) => (
+                <QuoteCard key={index} quote={quote} url={'users'} />
+              ))}
+            </div>
+          </>
+        )}
       </section>
     </>
   );

@@ -28,6 +28,7 @@ const AdminTags = () => {
     
     function fetchNext(number) {
         if (number) {
+            setPage(number);
             dispatch(fetchTags({ page: number, pageSize: 30 }));
         } else {
             setPage(page + 1);
@@ -46,7 +47,7 @@ const AdminTags = () => {
                             )}
                         </ul>
                     </section>
-                    <AdminPagination pagesTotal={totalPages} next={tags1.next} fetchNext={fetchNext} />
+                    <AdminPagination pagesTotal={totalPages} next={tags1.next} fetchNext={fetchNext} page={page} />
                 </div>
             </div>
         </div>

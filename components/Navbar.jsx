@@ -85,7 +85,13 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="container">
           <div className="navbar-content">
-            <div style={{cursor : "pointer"}} onClick={() => { dispatch(fetchQuotes()); router.push('/')}}>
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                dispatch(fetchQuotes());
+                router.push('/');
+              }}
+            >
               <a className="navbar-brand">
                 t<span className="navbar-brand-mobile">altol</span>
               </a>
@@ -181,8 +187,8 @@ const Navbar = () => {
                     <span className="navbar-profile-avatar">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
+                        width="45"
+                        height="45"
                         viewBox="0 0 24 24"
                         fill="none"
                       >
@@ -194,8 +200,8 @@ const Navbar = () => {
                     </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="8"
+                      width="16"
+                      height="12"
                       viewBox="0 0 12 8"
                       fill="none"
                     >

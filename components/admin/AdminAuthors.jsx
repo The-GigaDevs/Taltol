@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAuthors } from "../../slices/authors.slice";             
@@ -30,6 +31,7 @@ const AdminAuthors = () => {
 
     function fetchNext(number) {
         if (number) {
+            setPage(number);
             dispatch(fetchAuthors({ page: number, pageSize: 50 }));
         } else {
             setPage(page + 1);
@@ -40,15 +42,17 @@ const AdminAuthors = () => {
         <div className="admin-topics">
             <div className="container">
                 <div className="admin-topics-content">
-                    <p className="admin-topics-text">857 results</p>
+                    <p className="admin-topics-text">{authors?.length} results</p>
                     <section className="admin-topics-box">
                         <ul className="admin-topic-browse-list">
                             {authors?.map((author) =>
-                                <li className="admin-topic-browse-list-item" key={author?.id}> {author?.name}</li>
+                                <Link href={`/author/${author?.id}`} key={author?.id} passHref>
+                                    <li className="admin-topic-browse-list-item" key={author?.id}> {author?.name}</li>
+                                </Link>
                             )}
                         </ul>
                     </section>
-                    <AdminPagination pagesTotal={totalPages} next={authors1.next} fetchNext={fetchNext} />
+                    <AdminPagination pagesTotal={totalPages} next={authors1.next} fetchNext={fetchNext} page={page} />
                 </div>
             </div>
         </div>

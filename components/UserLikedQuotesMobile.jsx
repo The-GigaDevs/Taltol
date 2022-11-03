@@ -1,10 +1,33 @@
-import QuoteStatic from './QuoteStatic';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLikedQuotes } from '../slices/likes.slice';
+import QuoteCard from './QuoteCard';
+import { useRouter } from 'next/router';
 
 const UserLikedQuotesMobile = () => {
+  const dispatch = useDispatch();
+  const { likedQuotes } = useSelector(state => state.likes);
+  const [quotes, setQuotes] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    dispatch(fetchLikedQuotes());
+  }, []);
+
+  useEffect(() => {
+    setQuotes(likedQuotes);
+    //console.log(likedQuotes);
+  }, [likedQuotes]);
+
   return (
     <section className="user-liked-quotes-mobile">
       <div className="user-liked-quotes-mobile-data">
-        <span className="user-liked-quotes-mobile-data-back">
+        <span
+          onClick={() => {
+            router.back();
+          }}
+          className="user-liked-quotes-mobile-data-back"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -31,14 +54,17 @@ const UserLikedQuotesMobile = () => {
         <h2 className="user-liked-quotes-mobile-data-title">Liked quotes</h2>
         <span></span>
       </div>
-      <div className="user-liked-quotes-content">
-        <QuoteStatic />
-        <QuoteStatic />
-        <QuoteStatic />
-        <QuoteStatic />
-        <QuoteStatic />
-        <QuoteStatic />
-      </div>
+      {quotes?.results?.length > 0 ? (
+        <p className="user-liked-quotes-mobile-text">
+          You have no liked quotes
+        </p>
+      ) : (
+        <div className="user-liked-quotes-content">
+          {quotes?.results?.map((quote, index) => (
+            <QuoteCard key={index} quote={quote} url={'users'} />
+          ))}
+        </div>
+      )}
     </section>
   );
 };

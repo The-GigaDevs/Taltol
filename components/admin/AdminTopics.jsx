@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../../slices/categories.slice';
@@ -37,21 +38,24 @@ const AdminTopics = () => {
     //   setPage(page + 1);
     //   dispatch(fetchCategories({page: page + 1, pageSize: 30}));
     // }
+    setPage(number);
     dispatch(fetchCategories({page: number, pageSize: 30}));
   }
   return (
     <div className="admin-topics">
       <div className="container">
         <div className="admin-topics-content">
-          <p className="admin-topics-text">857 results</p>
+          <p className="admin-topics-text">{categories?.length} results</p>
           <section className="admin-topics-box">
             <ul className="admin-topic-browse-list">
               {categories?.map((category)=> 
-                <li className="admin-topic-browse-list-item" key={category?.id}> {category?.name}</li>
+                <Link href={`/category/${category?.id}`} passHref key={category?.id}>
+                  <li className="admin-topic-browse-list-item" key={category?.id}> {category?.name}</li>
+                </Link>
               )}
             </ul>
           </section>
-          <AdminPagination pagesTotal={totalPages}  next={categories1.next} fetchNext={fetchNext} />
+          <AdminPagination pagesTotal={totalPages}  next={categories1.next} fetchNext={fetchNext} page={page} />
         </div>
       </div>
     </div>
