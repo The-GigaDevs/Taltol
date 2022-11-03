@@ -169,16 +169,22 @@ export const quotesSlice = createSlice({
             state.quotes = null;
         },
         [likeAQuoteInQuotes.fulfilled] : (state, action) => {
+            if(state.quotes?.results?.length > 0){
             let quote = state.quotes?.results?.find((quote) => quote.id === action.payload);
             quote.quote_liked = true;
             quote.total_likes += 1;
             singleQuote.quote_liked = true;
+            state.quotes.results = [...state.quotes.results, quote];
+            }
         },
         [unlikeAQuoteInQuotes.fulfilled] : (state, action) => {
+            if(state.quotes?.results?.length > 0){
             let quote = state.quotes?.results?.find((quote) => quote.id === action.payload);
             quote.quote_liked = false;
             quote.total_likes -= 1;
             singleQuote.quote_liked = false;
+            state.quotes.results = [...state.quotes.results, quote];
+            }
         }
     },
 });

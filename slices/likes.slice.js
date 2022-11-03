@@ -43,7 +43,7 @@ const likesSlice = createSlice({
             state.likedQuotes = action.payload;
         },
         [unlikeAQuote.fulfilled]: (state, action) => {
-            state.likedQuotes = state.likedQuotes?.results?.filter(quote => quote.id !== action.payload.id);
+            state.likedQuotes.results = state.likedQuotes?.results?.filter(quote => quote.id !== action.payload);
         },
         
        
