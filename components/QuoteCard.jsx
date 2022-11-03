@@ -37,6 +37,18 @@ const QuoteCard = props => {
       } else {
         router.push('/login');
       }
+  }else{
+    if (authRedux.isAuthenticated) {
+      dispatch(likeAQuote(quote.id));
+      if (!quote.quote_liked) {
+        dispatch(likeAQuoteInQuotes(quote.id));
+      } else {
+        dispatch(unlikeAQuoteInQuotes(quote.id));
+        dispatch(unlikeAQuote(quote.id));
+      }
+    } else {
+      router.push('/login');
+    }
   }
   }
   return (

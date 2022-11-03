@@ -28,9 +28,7 @@ export const likeAQuote = createAsyncThunk(
 export const unlikeAQuote = createAsyncThunk(
     "likes/unlikeAQuote",
     async (id) => {
-
-        const result = await likeQuote(id);
-        return result;
+        return id;
     }
 
 );
