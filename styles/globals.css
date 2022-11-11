@@ -2628,6 +2628,7 @@ svg {
 
 .admin-go-back {
   padding: 35px 0 50px;
+  font-family: 'QuickSand', sans-serif;
 }
 
 .admin-go-back-btn {
@@ -3047,6 +3048,14 @@ svg {
   color: var(--clr-gray-semi);
 }
 
+.admin-user-liked-quotes,
+.admin-user-saved-collection-quotes-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
 /* **************************Media Queries************************** */
 
 @media (max-width: 945px) {
@@ -3282,6 +3291,15 @@ svg {
 
   .admin-description-field-editor {
     display: none;
+  }
+
+  .admin-user-header .user-header {
+    display: block;
+    padding: 15px 0 0 0;
+  }
+
+  .admin-user-liked .user-liked-quotes.show {
+    display: block;
   }
 
   /* .user-collection-back {
