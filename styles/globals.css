@@ -2928,6 +2928,125 @@ svg {
   gap: 2.5rem;
 }
 
+.admin-users-header {
+  padding: 40px 0;
+}
+
+.admin-user-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+  gap: 1.5rem;
+}
+
+.admin-users-header .admin-quotes-left-text {
+  margin-bottom: 0;
+}
+
+.admin-users-header-btn {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-pink);
+  cursor: pointer;
+}
+
+.admin-user-card {
+  background: var(--clr-white);
+  border: 1px solid #f2f2f2;
+  border-radius: 7px;
+  font-family: 'Quicksand';
+}
+
+.admin-user-card-header {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.admin-user-card-header-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.admin-user-card-header-info > img {
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.admin-user-card-header-info-name {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--clr-gray-dark);
+}
+
+.admin-user-card-header-info-date {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--clr-gray-semi);
+  line-height: 2rem;
+  margin-top: 0.5rem;
+}
+
+.admin-user-card-header-select {
+  display: block;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 2px solid #bdbdbd;
+  cursor: pointer;
+}
+
+.admin-user-card-header-select.not-active {
+  display: none;
+}
+
+.admin-user-card-header-select-icon-svg {
+  display: none;
+}
+
+.admin-user-card-header-select-icon-svg.active {
+  display: block;
+}
+
+.admin-user-card-body {
+  background: var(--bg-primary);
+  border-radius: 0px 0px 7px 7px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+
+.admin-user-card-body-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.35rem;
+}
+
+.admin-user-card-body-info-digit {
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 3.1rem;
+  color: var(--clr-gray-semi);
+}
+
+.admin-user-card-body-info-char {
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  color: var(--clr-gray-semi);
+}
+
 /* **************************Media Queries************************** */
 
 @media (max-width: 945px) {
