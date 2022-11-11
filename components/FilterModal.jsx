@@ -52,7 +52,7 @@ const FilterModal = ({
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [searchField, setSearchField] = useState('');
-  const [searching, setSearching ] =  useState(false);
+  const [searching, setSearching] = useState(false);
   const dispatch = useDispatch();
 
   const authors1 = useSelector(state => state.authors?.authors);
@@ -60,20 +60,17 @@ const FilterModal = ({
   const tagsRedux = useSelector(state => state.tags?.tags);
 
   useEffect(() => {
-
     setSelectedAuthors(selectedAuthorsProp);
     setSelectedTags(selectedTagsProp);
-    if(!categories1){
+    if (!categories1) {
       setSelectedCategories(selectedCategoriesProp);
     }
-    if(show) {
+    if (show) {
       dispatch(fetchTags());
       dispatch(fetchAuthors());
       dispatch(fetchCategories({ page: 1, pageSize: 30 }));
     }
   }, [show]);
-
-
 
   useEffect(() => {
     //do not call this function if modal is not open
@@ -110,12 +107,11 @@ const FilterModal = ({
     }
   }
 
-  function clearAll () {
+  function clearAll() {
     setSelectedAuthors([]);
     setSelectedTags([]);
     setSelectedCategories([]);
   }
-
 
   useEffect(() => {
     setAuthors(authors1.results);
@@ -123,9 +119,9 @@ const FilterModal = ({
     setTags(tagsRedux.results);
     // debugger
     if (show) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflowY = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflowY = 'auto';
     }
   }, [authors1, tagsRedux, categories1, show]);
 
@@ -514,9 +510,14 @@ const FilterModal = ({
             </div>
           </div>
           <footer className="filter-modal-footer">
-            <span className="filter-modal-footer-clear" onClick={() => {
-              clearAll();
-            }}>Clear All</span>
+            <span
+              className="filter-modal-footer-clear"
+              onClick={() => {
+                clearAll();
+              }}
+            >
+              Clear All
+            </span>
             <button
               className="filter-modal-footer-btn"
               onClick={() => closeModal()}
@@ -525,7 +526,9 @@ const FilterModal = ({
                 ? `Show Quotes`
                 : searching === true
                 ? 'Loading...'
-                : count ? `Show ${count} Quotes` : 'No Quotes Found'}
+                : count
+                ? `Show ${count} Quotes`
+                : 'No Quotes Found'}
             </button>
           </footer>
         </div>

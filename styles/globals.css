@@ -697,7 +697,7 @@ svg {
   color: var(--clr-gray-semi);
 }
 
-.quote-card-author-name:hover {
+.quote-card-author:hover .quote-card-author-name {
   color: var(--clr-pink);
 }
 
@@ -2409,37 +2409,97 @@ svg {
 
 .admin-main-sort-content {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 2rem 3.5rem;
+  gap: 2.5rem;
   flex-wrap: wrap;
 }
 
-.admin-main-sort-title {
-  font-family: 'Quicksand';
+.main-sort-btn {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  background: var(--clr-pink);
+  border-radius: 5px;
+  border: 0;
+  font-family: 'Quicksand', sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
-  line-height: 2.3rem;
+  color: var(--clr-white);
+  box-shadow: 0 5px 0 #c41b6c;
+  cursor: pointer;
+  width: 30rem;
+  margin: 0 auto;
 }
-.admin-main-sort-box {
+
+.main-sort-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #c41b6c;
+}
+
+/* Admin-Select-Modal */
+.admin-select-modal-body {
+  padding: 50px;
+  height: calc(100vh - 55rem);
+  overflow-y: auto;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 2.5rem 1.5rem;
+  width: 100%;
+}
+
+.admin-add-quote-modal-body {
+  padding: 50px;
+  height: calc(100vh - 32rem);
+  overflow-y: auto;
+}
+
+.admin-select-modal-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
   flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  width: 100%;
 }
 
-.admin-main-sort-category {
-  background: var(--clr-white);
-  border: 2px solid #e0e0e0;
-  padding: 10px 17.35px;
-  border-radius: 5px;
+.admin-select-modal-field:last-child {
+  margin-bottom: 0;
 }
 
-.admin-main-sort-category-title {
-  font-size: 1.4rem;
+.admin-select-modal-field > label {
   font-weight: 700;
+  font-size: 1.6rem;
   color: var(--clr-black);
   display: block;
-  margin-bottom: 5px;
+  width: 13rem;
+}
+
+.admin-select-modal-field > input,
+.admin-select-modal-field > textarea {
+  display: block;
+  border: 2px solid #e0e0e0;
+  border-radius: 7px;
+  flex: 1;
+  height: 4.5rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--clr-black);
+  padding: 0 15px;
+  outline-color: var(--clr-black);
+}
+
+.admin-select-modal-field > textarea {
+  height: 35rem;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.admin-select-modal-field > input::placeholder {
+  color: var(--clr-gray-light);
+  font-weight: 500;
 }
 
 /* Admin-topics */
@@ -2556,18 +2616,18 @@ svg {
 }
 
 .admin-pagination-count-list-no:hover {
-  color: var(--clr-black); 
+  color: var(--clr-black);
 }
 .admin-pagination-count-list-no.current {
   background-color: var(--clr-white);
-  border:1px solid var(--clr-pink);
+  border: 1px solid var(--clr-pink);
   color: var(--clr-black);
 }
 
 /* Admin-Go-Back */
 
 .admin-go-back {
-  padding: 25px 0;
+  padding: 35px 0 50px;
 }
 
 .admin-go-back-btn {
@@ -2664,7 +2724,8 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2.5rem;
+  gap: 0 2.5rem;
+  flex-wrap: wrap;
 }
 
 .admin-form-box-fields .admin-form-box-field {
@@ -2693,6 +2754,7 @@ svg {
   top: -12px;
   left: 25px;
   width: 100%;
+  width: calc(100% - 45px);
 }
 
 .admin-description-field-editor {
@@ -2826,12 +2888,15 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 3.5rem 1.5rem;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+  margin-bottom: 5rem;
 }
 
 .admin-avatar-upload {
   display: block;
   width: 20rem;
+  margin: 0 auto;
   cursor: pointer;
   position: relative;
 }
@@ -2853,7 +2918,17 @@ svg {
   width: 5.5rem;
 }
 
-/* Media Queries */
+/* Admin-Users */
+
+.admin-users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+}
+
+/* **************************Media Queries************************** */
 
 @media (max-width: 945px) {
   .category-header-desc-title {
@@ -3078,6 +3153,18 @@ svg {
     align-items: center;
   }
 
+  .admin-select-modal-body {
+    padding: 50px 25px;
+  }
+
+  .admin-add-quote-modal-body {
+    padding: 50px 25px;
+  }
+
+  .admin-description-field-editor {
+    display: none;
+  }
+
   /* .user-collection-back {
     display: none;
   }
@@ -3197,11 +3284,6 @@ svg {
   .admin-select-btn {
     column-gap: 1.5rem;
   }
-
-  .admin-main-sort-category {
-    border: 2px solid #e0e0e0;
-    padding: 5px;
-  }
 }
 
 @media (max-width: 500px) {
@@ -3217,6 +3299,21 @@ svg {
     margin-left: 1.5rem;
     font-size: 1.8rem;
     line-height: 2.9rem;
+  }
+
+  .admin-select-modal-field {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-select-modal-field > input,
+  .admin-select-modal-field > textarea {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .admin-select-modal-field > textarea {
+    height: 25rem;
   }
 }
 
