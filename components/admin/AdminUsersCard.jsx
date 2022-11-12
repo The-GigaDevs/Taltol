@@ -1,17 +1,20 @@
 import React from 'react';
 import randomAuthor from '../..//public/static/quote-card-author.svg';
-const AdminUsersCard = () => {
+const AdminUsersCard = ({user}) => {
   const [isSelect, setIsSelect] = React.useState(false);
 
   return (
     <div className="admin-user-card">
       <div className="admin-user-card-header">
         <div className="admin-user-card-header-info">
-          <img src={randomAuthor.src} alt="User" />
+          {user.profile_pic || user?.social_image_url ?
+           <img src={user.profile_pic || user?.social_image_url} alt="userImage" />
+           :
+           <img src={randomAuthor.src} alt="User" />}
           <div className="admin-user-card-header-info-item">
-            <h3 className="admin-user-card-header-info-name">John Doe</h3>
+            <h3 className="admin-user-card-header-info-name">{user.first_name + ' ' + user?.last_name}</h3>
             <span className="admin-user-card-header-info-date">
-              Since Oct 2022
+              {user.date_joined}
             </span>
           </div>
         </div>

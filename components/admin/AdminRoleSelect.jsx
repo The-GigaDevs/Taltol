@@ -58,9 +58,9 @@ const AdminRoleSelect = () => {
       case 4:
         router.push('/admin/admin-customized');
         break;
-      // case 5:
-      //   router.push('/admin/users');
-      //   break;
+      case 5:
+        router.push('/admin/admin-users');
+        break;
       // case 6:
       //   router.push('/admin/advertisements');
       //   break;

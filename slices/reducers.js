@@ -6,6 +6,7 @@ import categoriesReducer from './categories.slice'
 import tagsReducer from './tags.slice'
 import likesReducer from './likes.slice'
 import collectionsReducer from './collection.slice'
+import adminReducer from './admin.slice'
 export const allReducers = combineReducers({
     auth: authReducer,
     authors: authorsReducer,
@@ -13,5 +14,6 @@ export const allReducers = combineReducers({
     categories : categoriesReducer,
     tags: tagsReducer,
     collections: collectionsReducer,
-    likes: likesReducer
+    likes: likesReducer,
+    admin: adminReducer
 })

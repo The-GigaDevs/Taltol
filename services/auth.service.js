@@ -23,6 +23,11 @@ const socialLogin = (body) => httpService
     .then(({ data }) => data)
     .catch((response) => Promise.reject(response))
 
+const allUsers = () => httpService
+    .get('/users/')
+    .then(({ data }) => data)
+    .catch((response) => Promise.reject(response))
+
 const getQuotes = (page, pageSize) => httpService
     .get(`/quotes?page=${page}&page_size=${pageSize}`)
     .then(({ data }) => Promise.resolve(data))
@@ -148,6 +153,7 @@ const authService = {
     getAuthorQuotesWithPage,
     addAuthor,
     addTopic,
-    socialLogin
+    socialLogin,
+    allUsers
 }
 export default authService;
