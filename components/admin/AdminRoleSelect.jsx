@@ -11,8 +11,8 @@ const AdminRoleSelect = () => {
     'Quotes',
     'Authors',
     'Topics',
-    'Tags',
-    'Customized pages',
+    // 'Tags',
+    // 'Customized pages',
     'Users',
     'Advertisements',
     'Suggestions',
@@ -52,13 +52,13 @@ const AdminRoleSelect = () => {
       case 2:
         router.push('/admin/admin-topics');
         break;
+      // case 3:
+      //   router.push('/admin/admin-tags');
+      //   break;
+      // case 4:
+      //   router.push('/admin/admin-customized');
+      //   break;
       case 3:
-        router.push('/admin/admin-tags');
-        break;
-      case 4:
-        router.push('/admin/admin-customized');
-        break;
-      case 5:
         router.push('/admin/admin-users');
         break;
       // case 6:
