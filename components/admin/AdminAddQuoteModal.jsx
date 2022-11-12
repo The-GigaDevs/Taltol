@@ -1,9 +1,16 @@
 import React, { useEffect } from 'react';
+import { useState } from 'react';
 import Modal from 'react-modal';
 
 Modal.setAppElement('#__next');
 
 export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
+  const [addQuote , setAddQuote ] = useState({
+    text: '',
+    author: '',
+    topic: '',
+  });
+
   const adminSelectModalStyles = {
     content: {
       top: '50%',
@@ -61,17 +68,18 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
         </div>
         <div className="admin-add-quote-modal-body">
           <div className="admin-select-modal-field">
-            <textarea></textarea>
+            <textarea onChange={({target}) => setAddQuote({ ...addQuote, text: target.value})}></textarea>
           </div>
           <div className="admin-select-modal-field">
             <input
               type="text"
               id="secondOption"
               placeholder="Enter Author Name"
+              onChange={({target}) => setAddQuote({ ...addQuote, author: target.value})}
             />
           </div>
           <div className="admin-select-modal-field">
-            <input type="text" id="thirdOption" placeholder="Add a topic" />
+            <input type="text" id="thirdOption" placeholder="Add a topic" onChange={({target}) => setAddQuote({ ...addQuote, topic: target.value})} />
           </div>
           <button className="admin-form-box-btn">
             <svg
