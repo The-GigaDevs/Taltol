@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
-const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage} = authService;
+const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage, addQuote } = authService;
 
 //initialize quotes state
 const initialState = {
@@ -57,6 +57,21 @@ export const fetchQuotes = createAsyncThunk(
         return result;
     }
 );
+
+export const createQuote = createAsyncThunk(
+    'quotes/createQuote',
+    async (body) => {
+        const result = toast.promise(
+            addQuote(body), 
+            {
+                pending: 'Creating your quote...',
+                success: 'Quote Created!',
+                error: 'Unable to create quote.'
+            }
+        )
+        return result;
+    }
+)
 //create async thunk to add more quotes in the store
 export const addMoreQuotes = createAsyncThunk(
     "quotes/addMoreQuotes",
@@ -142,6 +157,9 @@ export const quotesSlice = createSlice({
             state.quotes = action.payload;
         },
         [addMoreQuotes.fulfilled]: (state, action) => {
+            state.quotes.results.push(...action.payload.results);
+        },
+        [createQuote.fulfilled]: (state, action) => {
             state.quotes.results.push(...action.payload.results);
         },
         [fetchSingleQuote.fulfilled]: (state, action) => {

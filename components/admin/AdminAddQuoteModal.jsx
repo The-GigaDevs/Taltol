@@ -1,7 +1,15 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Modal from 'react-modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { authorSearch } from '../../slices/authors.slice';
+import { searchCategory } from '../../slices/categories.slice';
+import { createQuote } from '../../slices/quotes.slice';
+import DynamicDropdown from './DynamicDropdown';
 
+
+Modal.setAppElement('#__next');
 Modal.setAppElement('#__next');
 
 export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
@@ -10,6 +18,33 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
     author: '',
     topic: '',
   });
+  const authorRedux = useSelector(state => state.authors.authors)
+  const categoriesRedux = useSelector(state => state.categories.categories)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (addQuote.author) {
+      dispatch(authorSearch(addQuote.author));
+    } else if(addQuote.topic) {
+      dispatch(searchCategory(addQuote.topic))
+    }
+  }, [addQuote.author, addQuote.topic]);
+
+  const quoteCreation = () => {
+    if(addQuote.text && addQuote.author && addQuote.topic) {
+      dispatch(createQuote({
+        "text": addQuote.text,
+        "author": {
+          "name": addQuote.author
+        },
+        "category": {
+          "name": addQuote.topic
+        }
+      }))
+    } else {
+      toast.error('Please fill in required fields to create a quote')
+    }
+  }
 
   const adminSelectModalStyles = {
     content: {
@@ -68,20 +103,52 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
         </div>
         <div className="admin-add-quote-modal-body">
           <div className="admin-select-modal-field">
-            <textarea onChange={({target}) => setAddQuote({ ...addQuote, text: target.value})}></textarea>
+            <textarea
+              value={addQuote.text}
+              onChange={({ target }) =>
+                setAddQuote({ ...addQuote, text: target.value })
+              }
+            ></textarea>
           </div>
           <div className="admin-select-modal-field">
             <input
               type="text"
               id="secondOption"
+              value={addQuote.author}
               placeholder="Enter Author Name"
-              onChange={({target}) => setAddQuote({ ...addQuote, author: target.value})}
+              onChange={({ target }) =>
+                setAddQuote({ ...addQuote, author: target.value })
+              }
             />
+            <div style={{ display: addQuote.author ? "block" : "none" }}>
+              <DynamicDropdown
+                optionsList={authorRedux?.results}
+                addQuote={addQuote}
+                setAddQuote={setAddQuote}
+                state="authors"
+              />
+            </div>
           </div>
           <div className="admin-select-modal-field">
-            <input type="text" id="thirdOption" placeholder="Add a topic" onChange={({target}) => setAddQuote({ ...addQuote, topic: target.value})} />
+            <input
+              type="text"
+              id="thirdOption"
+              placeholder="Add a topic"
+              value={addQuote.topic}
+              onChange={({ target }) =>
+                setAddQuote({ ...addQuote, topic: target.value })
+              }
+            />
+            <div style={{ display: addQuote.topic ? "block" : "none" }}>
+              <DynamicDropdown
+                optionsList={categoriesRedux?.results}
+                addQuote={addQuote}
+                setAddQuote={setAddQuote}
+                state="topics"
+              />
+            </div>
           </div>
-          <button className="admin-form-box-btn">
+          {/* <button className="admin-form-box-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -95,11 +162,11 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
               ></path>
             </svg>
             Add new topic
-          </button>
+          </button> */}
         </div>
         <div className="filter-modal-footer">
           <span></span>
-          <button className="filter-modal-footer-btn">Add Quotes</button>
+          <button className="filter-modal-footer-btn" onClick={quoteCreation}>Add Quotes</button>
         </div>
       </div>
     </Modal>

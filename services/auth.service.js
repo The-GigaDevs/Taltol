@@ -28,6 +28,11 @@ const allUsers = () => httpService
     .then(({ data }) => data)
     .catch((response) => Promise.reject(response))
 
+const addQuote =(body) => httpService
+    .post(`/quotes/`, body)
+    .then(({ data }) => Promise.resolve(data))
+    .catch(({ error }) => Promise.reject(error))
+
 const getQuotes = (page, pageSize) => httpService
     .get(`/quotes?page=${page}&page_size=${pageSize}`)
     .then(({ data }) => Promise.resolve(data))
@@ -152,6 +157,7 @@ const authService = {
     getSingleAuthor,
     getAuthorQuotesWithPage,
     addAuthor,
+    addQuote,
     addTopic,
     socialLogin,
     allUsers
