@@ -2274,7 +2274,10 @@ svg {
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 1.5rem;
+}
+
+.admin-header .navbar-profile {
+  margin-right: 1rem;
 }
 
 /* ----------Admin-Role-Select--------- */
@@ -2440,7 +2443,6 @@ svg {
 /* Admin-Select-Modal */
 .admin-select-modal-body {
   padding: 50px;
-  height: calc(100vh - 55rem);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -2451,7 +2453,6 @@ svg {
 
 .admin-add-quote-modal-body {
   padding: 50px;
-  height: calc(100vh - 32rem);
   overflow-y: auto;
 }
 
@@ -3113,7 +3114,7 @@ svg {
     width: 100%;
   }
 
-  .admin-filter {
+  .admin-header .navbar-profile {
     margin-right: 0.5rem;
   }
 
@@ -3151,6 +3152,10 @@ svg {
 
   .navbar-profile {
     display: none;
+  }
+
+  .admin-header .navbar-profile {
+    display: flex;
   }
 
   .navbar-content {
@@ -3270,6 +3275,10 @@ svg {
 
   .topic-browse {
     display: none;
+  }
+
+  .admin-quotes .topic-browse {
+    display: block;
   }
 
   .account-mobile-no-user {
@@ -3451,6 +3460,16 @@ svg {
 
   .admin-select-modal-field > textarea {
     height: 25rem;
+  }
+
+  .admin-search {
+    width: 100%;
+    flex: auto;
+    margin: 0 0.5rem;
+  }
+
+  .admin-filter {
+    margin-left: 0.5rem;
   }
 }
 
