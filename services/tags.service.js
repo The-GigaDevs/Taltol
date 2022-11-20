@@ -13,9 +13,15 @@ const createTag = (data) => {
     .catch(({ error }) => Promise.reject(error.response));
 }
 
+const searchTagsByName = (query) => http
+    .get(`/quotes/tags/?text=${query}`)
+    .then(({data})=> data)
+    .catch(({error}) => Promise.reject(error))
+
 const TagService = {
     getTags,
-    createTag
+    createTag,
+    searchTagsByName
 }
 
 export default TagService;

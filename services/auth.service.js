@@ -135,6 +135,17 @@ const searchQuotesModal = (authors, tags, categories, search, month= false) => h
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error?.response))
 
+const getDropdownOptions = () => httpService
+    .get('/quotes/dropdown/')
+    .then(({data}) => data)
+    .error((response) => Promise.reject(response))
+
+const saveDropdownOptions = (data) => httpService
+    .get('/quotes/dropdown/', data)
+    .then(({data}) => data)
+    .error((response) => Promise.reject(response))
+
+
 const authService = {
     login,
     me,
@@ -160,6 +171,8 @@ const authService = {
     addQuote,
     addTopic,
     socialLogin,
-    allUsers
+    allUsers,
+    getDropdownOptions,
+    saveDropdownOptions
 }
 export default authService;

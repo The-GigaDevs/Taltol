@@ -2,10 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from '../services/auth.service'
 
-const { allUsers } = authService;
+const { allUsers, getDropdownOptions, saveDropdownOptions } = authService;
 
 const initialState ={
-    allUsers: []
+    allUsers: [],
+    dropdown: []
 }
 
 export const getAllUsers  = createAsyncThunk(
@@ -22,6 +23,29 @@ export const getAllUsers  = createAsyncThunk(
         return result;
     }
 )
+
+export const fetchDropdownOptions = createAsyncThunk(
+    'admin/dropdown',
+    async () => {
+        const result = await getDropdownOptions();
+        return result;
+    }
+)
+
+export const editDropdownOptions = createAsyncThunk(
+    'admin/editDropdown',
+    (data) => {
+        const result = toast.promise(
+            saveDropdownOptions(data),
+            {
+                success: 'Dynamic dropdown options changed!',
+                pending: 'Changing dropdown options...',
+                error: 'Error!!! Cannot change dropdown opions.'
+            }
+            )
+        return result;
+    }
+)
 export const adminSlice = createSlice({
     name: 'admin',
     initialState,
@@ -34,7 +58,19 @@ export const adminSlice = createSlice({
       },
       [getAllUsers.rejected]: (state, action) =>{
         state.allUsers = [];
-      }
+      },
+      [fetchDropdownOptions.fulfilled]: (state, action) => {
+        state.dropdown = action.payload;
+      },
+      [fetchDropdownOptions.rejected]: (state, action) => {
+        state.dropdown = [];
+      },
+      [editDropdownOptions.fulfilled]: (state, action) => {
+        state.dropdown = action.payload;
+      },
+      [editDropdownOptions.rejected]: (state, action) => {
+        state.dropdown = null;
+      },
     }
 })
 
