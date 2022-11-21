@@ -12,20 +12,26 @@ const DynamicDropdown = ({
   const [selectedOption, setSelectedOption] = useState(0);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
-  //   const [defaultOption, setDefaultOption] = useState(true);
-
-  //   const toggleOptions = () => {
-  //     setIsOptionsOpen(!isOptionsOpen);
-  //   };
-
+  useEffect(()=> {
+    if (quote?.author ==='' && addQuote.author) {
+      setIsOptionsOpen(true);
+    } else if(quote?.author && addQuote.author) {
+      setIsOptionsOpen(false);
+    }  
+  }, [quote.author, addQuote.author])
   useEffect(() => {
-    if (optionsList?.length) setIsOptionsOpen(true);
-  }, [optionsList]);
+    if (quote?.topic ==='' && addQuote.topic) {
+      setIsOptionsOpen(true);
+    } else if(quote?.topic && addQuote.topic) {
+      setIsOptionsOpen(false);
+    }
+   
+  }, [quote.topic, addQuote.topic]);
 
   const setSelectedThenCloseDropdown = (option, index) => {
     setSelectedOption(index);
     setIsOptionsOpen(false);
-    console.log(isOptionsOpen);
+    console.log(isOptionsOpen, 'isOptionsOpen');
     if (state === 'authors') {
       setAddQuote({ ...addQuote, author: option?.name?.replace(/,\s*$/, '') });
       setQuote({ ...quote, author: option?.name?.replace(/,\s*$/, '') });

@@ -159,9 +159,6 @@ export const quotesSlice = createSlice({
         [addMoreQuotes.fulfilled]: (state, action) => {
             state.quotes.results.push(...action.payload.results);
         },
-        [createQuote.fulfilled]: (state, action) => {
-            state.quotes.results.push(...action.payload.results);
-        },
         [fetchSingleQuote.fulfilled]: (state, action) => {
             state.singleQuote = action.payload;
         },

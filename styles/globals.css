@@ -2481,8 +2481,8 @@ svg {
 .admin-add-quote-modal-body {
   padding: 50px;
   overflow-y: auto;
-  max-height: fit-content;
-  /* height: calc(100vh - 250px); */
+  /* max-height: fit-content; */
+  height: calc(100vh - 250px);
 }
 
 .admin-select-modal-field {

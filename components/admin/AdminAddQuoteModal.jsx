@@ -29,7 +29,8 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
   useEffect(() => {
     if (addQuote.author) {
       dispatch(authorSearch(addQuote.author));
-    } else if (addQuote.topic) {
+    } 
+    if (addQuote.topic) {
       dispatch(searchCategory(addQuote.topic));
     }
   }, [addQuote.author, addQuote.topic]);
@@ -39,12 +40,10 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
       dispatch(
         createQuote({
           text: addQuote.text,
-          author: {
-            name: addQuote.author,
-          },
-          category: {
-            name: addQuote.topic,
-          },
+          author: addQuote.author,
+          topics: [
+           addQuote.topic,
+          ],
         })
       );
     } else {
@@ -121,15 +120,19 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
               type="text"
               id="secondOption"
               value={addQuote.author}
-              placeholder="Enter Author Name"
-              onChange={({ target }) =>
-                setAddQuote({ ...addQuote, author: target.value })
+              placeholder="Enter author name"
+              onChange={({ target }) => {
+                if (target.value !== addQuote.author) {
+                  setQuote({...quote, author : ''})
+                } 
+                setAddQuote({ ...addQuote, author: target.value });
+                }
               }
             />
           </div>
           <div
             className={
-              addQuote.author
+              addQuote.author && quote.author === ''
                 ? 'admin-dynamic-dropdown'
                 : 'admin-dynamic-dropdown--hidden'
             }
@@ -148,26 +151,20 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
             <input
               type="text"
               id="thirdOption"
-              placeholder="Add a topic"
+              placeholder="Enter a topic"
               value={addQuote.topic}
-              onChange={({ target }) =>
+              onChange={({ target }) => {
+                if (target.value !== addQuote.topic) {
+                  setQuote({...quote, topic : ''})
+                } 
                 setAddQuote({ ...addQuote, topic: target.value })
               }
+              }
             />
-            {/* <div style={{ display: addQuote.topic ? 'block' : 'none' }}>
-              <DynamicDropdown
-                optionsList={categoriesRedux?.results?.slice(0, 5)}
-                addQuote={addQuote}
-                setAddQuote={setAddQuote}
-                state="topics"
-                isOptionsOpen={isOptionsOpen}
-                setIsOptionsOpen={setIsOptionsOpen}
-              />
-            </div> */}
           </div>
           <div
             className={
-              addQuote.topic
+              addQuote.topic && quote.topic === ''
                 ? 'admin-dynamic-dropdown'
                 : 'admin-dynamic-dropdown--hidden'
             }
