@@ -56,7 +56,7 @@ const AdminQuotes = () => {
       <div className="container">
         <div className="admin-quotes-content">
           <section className="admin-quotes-left-content">
-            <p className="admin-quotes-left-text">857 results</p>
+            <p className="admin-quotes-left-text">{quotesReduxState?.results?.length} results</p>
             <div className="admin-quotes-left-content-grid">
               <PickedSelect />
               <SortSelect />
