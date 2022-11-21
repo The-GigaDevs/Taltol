@@ -43,13 +43,13 @@ const AdminTopics = () => {
   }
   return (
     <div className="admin-topics">
-      <div className="container">
+    <div className="container">
         <div className="admin-topics-content">
           <p className="admin-topics-text">{categories?.length} results</p>
           <section className="admin-topics-box">
             <ul className="admin-topic-browse-list">
               {categories?.map((category)=> 
-                <Link href={`/category/${category?.id}`} passHref key={category?.id}>
+                <Link href="/admin/admin-topics-page" passHref key={category?.id}>
                   <li className="admin-topic-browse-list-item" key={category?.id}> {category?.name}</li>
                 </Link>
               )}

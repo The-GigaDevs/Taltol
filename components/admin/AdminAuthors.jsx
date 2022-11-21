@@ -46,7 +46,7 @@ const AdminAuthors = () => {
                     <section className="admin-topics-box">
                         <ul className="admin-topic-browse-list">
                             {authors?.map((author) =>
-                                <Link href={`/author/${author?.id}`} key={author?.id} passHref>
+                                <Link href="/admin/admin-author-page" key={author?.id} passHref>
                                     <li className="admin-topic-browse-list-item" key={author?.id}> {author?.name}</li>
                                 </Link>
                             )}
