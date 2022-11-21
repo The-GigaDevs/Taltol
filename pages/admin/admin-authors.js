@@ -13,7 +13,7 @@ const Admin = () => {
         <AdminHeader />
         <AdminAuthors />
 
-        <button className="btn btn-primary" onClick={() => router.push('/admin/admin-author-page')}>Add Author</button>
+        <button className="btn btn-primary main-sort-btn" onClick={() => router.push('/admin/admin-author-page')}>Add Author</button>
         </>
     );
     }
