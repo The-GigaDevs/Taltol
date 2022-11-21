@@ -8,43 +8,49 @@ import { searchCategory } from '../../slices/categories.slice';
 import { createQuote } from '../../slices/quotes.slice';
 import DynamicDropdown from './DynamicDropdown';
 
-
-Modal.setAppElement('#__next');
 Modal.setAppElement('#__next');
 
 export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
-  const [addQuote , setAddQuote ] = useState({
+  const [addQuote, setAddQuote] = useState({
     text: '',
     author: '',
     topic: '',
   });
-  const authorRedux = useSelector(state => state.authors.authors)
-  const categoriesRedux = useSelector(state => state.categories.categories)
+  const [quote, setQuote] = useState({
+    text: '',
+    author: '',
+    topic: '',
+  });
+
+  const authorRedux = useSelector(state => state.authors.authors);
+  const categoriesRedux = useSelector(state => state.categories.categories);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (addQuote.author) {
       dispatch(authorSearch(addQuote.author));
-    } else if(addQuote.topic) {
-      dispatch(searchCategory(addQuote.topic))
+    } else if (addQuote.topic) {
+      dispatch(searchCategory(addQuote.topic));
     }
   }, [addQuote.author, addQuote.topic]);
 
   const quoteCreation = () => {
-    if(addQuote.text && addQuote.author && addQuote.topic) {
-      dispatch(createQuote({
-        "text": addQuote.text,
-        "author": {
-          "name": addQuote.author
-        },
-        "category": {
-          "name": addQuote.topic
-        }
-      }))
+    if (addQuote.text && addQuote.author && addQuote.topic) {
+      dispatch(
+        createQuote({
+          text: addQuote.text,
+          author: {
+            name: addQuote.author,
+          },
+          category: {
+            name: addQuote.topic,
+          },
+        })
+      );
     } else {
-      toast.error('Please fill in required fields to create a quote')
+      toast.error('Please fill in required fields to create a quote');
     }
-  }
+  };
 
   const adminSelectModalStyles = {
     content: {
@@ -120,15 +126,24 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
                 setAddQuote({ ...addQuote, author: target.value })
               }
             />
-            <div style={{ display: addQuote.author ? "block" : "none" }}>
-              <DynamicDropdown
-                optionsList={authorRedux?.results}
-                addQuote={addQuote}
-                setAddQuote={setAddQuote}
-                state="authors"
-              />
-            </div>
           </div>
+          <div
+            className={
+              addQuote.author
+                ? 'admin-dynamic-dropdown'
+                : 'admin-dynamic-dropdown--hidden'
+            }
+          >
+            <DynamicDropdown
+              optionsList={authorRedux?.results?.slice(0, 5)}
+              addQuote={addQuote}
+              setAddQuote={setAddQuote}
+              state="authors"
+              quote={quote}
+              setQuote={setQuote}
+            />
+          </div>
+
           <div className="admin-select-modal-field">
             <input
               type="text"
@@ -139,14 +154,32 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
                 setAddQuote({ ...addQuote, topic: target.value })
               }
             />
-            <div style={{ display: addQuote.topic ? "block" : "none" }}>
+            {/* <div style={{ display: addQuote.topic ? 'block' : 'none' }}>
               <DynamicDropdown
-                optionsList={categoriesRedux?.results}
+                optionsList={categoriesRedux?.results?.slice(0, 5)}
                 addQuote={addQuote}
                 setAddQuote={setAddQuote}
                 state="topics"
+                isOptionsOpen={isOptionsOpen}
+                setIsOptionsOpen={setIsOptionsOpen}
               />
-            </div>
+            </div> */}
+          </div>
+          <div
+            className={
+              addQuote.topic
+                ? 'admin-dynamic-dropdown'
+                : 'admin-dynamic-dropdown--hidden'
+            }
+          >
+            <DynamicDropdown
+              optionsList={categoriesRedux?.results?.slice(0, 5)}
+              addQuote={addQuote}
+              setAddQuote={setAddQuote}
+              state="topics"
+              quote={quote}
+              setQuote={setQuote}
+            />
           </div>
           {/* <button className="admin-form-box-btn">
             <svg
@@ -166,7 +199,9 @@ export const AdminAddQuoteModal = ({ addQuotesModal, closeAddQuotesModal }) => {
         </div>
         <div className="filter-modal-footer">
           <span></span>
-          <button className="filter-modal-footer-btn" onClick={quoteCreation}>Add Quotes</button>
+          <button className="filter-modal-footer-btn" onClick={quoteCreation}>
+            Add Quotes
+          </button>
         </div>
       </div>
     </Modal>
