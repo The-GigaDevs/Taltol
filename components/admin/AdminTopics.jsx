@@ -13,13 +13,13 @@ const AdminTopics = () => {
 
    //function to claculate total pages
   const CaluclatetotalPages = () => {
-    let pages = Math.ceil(categories1.count / 30);
+    let pages = Math.ceil(categories1.count / 50);
     setTotalPages(pages);
     
   };
 
   useEffect(() => {
-    dispatch(fetchCategories({ page: 1, pageSize: 30, isAdmin: true }));
+    dispatch(fetchCategories({ page: 1, pageSize: 50, isAdmin: true }));
   }, []);
   
   useEffect(() => {
@@ -39,7 +39,7 @@ const AdminTopics = () => {
     //   dispatch(fetchCategories({page: page + 1, pageSize: 30}));
     // }
     setPage(number);
-    dispatch(fetchCategories({page: number, pageSize: 30}));
+    dispatch(fetchCategories({page: number, pageSize: 50}));
   }
   return (
     <div className="admin-topics">
