@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import authService from '../services/auth.service'
+import authService from '../services/auth.service';
 
 const { allUsers } = authService;
 

@@ -1,13 +1,13 @@
-import QuoteCard from './QuoteCard';
-import randomAuthor from '../public/static/quote-card-author.svg';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import AddCollectionModal from './AddCollectionModal';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import randomAuthor from '../public/static/quote-card-author.svg';
 import { likeAQuote } from '../slices/likes.slice';
-import { fetchQuotesAgainstTag, likeAQuoteInQuotes, unlikeAQuoteInQuotes} from '../slices/quotes.slice';
+import { fetchQuotesAgainstTag, likeAQuoteInQuotes, unlikeAQuoteInQuotes } from '../slices/quotes.slice';
+import AddCollectionModal from './AddCollectionModal';
+import QuoteCard from './QuoteCard';
 
 export default function QuoteDP({
   singleQuote,
@@ -144,7 +144,7 @@ export default function QuoteDP({
               {singleQuote?.tags?.length > 0 && (
                 <div className="quote-body-author-tags">
                   Main tags:&nbsp;
-                  {singleQuote?.tags?.map((tag) => (
+                  {singleQuote?.tags?.slice(0,3).map((tag) => (
                     <>
                       <span className="quote-body-author-tag" style={{cursor: "pointer"}} onClick={() => searchByTag(tag?.tagId, tag?.tag_text)}>
                         {tag?.tag_text}

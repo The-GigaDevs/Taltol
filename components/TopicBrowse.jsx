@@ -1,8 +1,8 @@
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import authService from '../services/auth.service';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
-import Link from 'next/link';
+import TopicsModal from './TopicsModal';
 
 const TopicBrowse = () => {
   const [loading, setLoading] = useState(true);
@@ -30,12 +30,13 @@ const TopicBrowse = () => {
       <h3 className="topic-browse-title">Browse by topic</h3>
       <ul className="topic-browse-list">
         {categories
-          ?.slice(0, !showAll ? 15 : undefined)
+          ?.slice(0, 15)
           .map((category, index) => (
             <Link
               key={index}
               passHref
-              href={`/category/${encodeURIComponent(category.id)}`}
+              href={{ pathname :`/category/${encodeURIComponent(category.id)}`, query :{ name: category.name }}}
+              as={`/category/${encodeURIComponent(category.id)}`}
             >
               <li key={index} className="topic-browse-list-item">
                 {`${category.name} Quotes`}
@@ -67,30 +68,7 @@ const TopicBrowse = () => {
           </span>
         </div>
       )}
-      {showAll && (
-        <div className="filter-modal-filters-showall">
-          <span
-            className="filter-modal-filters-showall-text"
-            onClick={() => setShowAll(false)}
-          >
-            Show Less
-          </span>
-          <span className="filter-modal-filters-showall-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="8"
-              viewBox="0 0 12 8"
-              fill="none"
-            >
-              <path
-                d="M1.41 8L6 3.42L10.59 8L12 6.59L6 0.59L0 6.59L1.41 8Z"
-                fill="#333333"
-              ></path>
-            </svg>
-          </span>
-        </div>
-      )}
+      { showAll && <TopicsModal showModal={showAll} setShowModal={() => setShowAll(false)} categories = {categories}/>}
     </div>
   );
 };

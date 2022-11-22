@@ -1,6 +1,6 @@
 import React from 'react';
 import randomAuthor from '../..//public/static/quote-card-author.svg';
-const AdminUsersCard = ({user}) => {
+const AdminUsersCard = ({user, addToCSV, showDownloadButton}) => {
   const [isSelect, setIsSelect] = React.useState(false);
 
   return (
@@ -21,6 +21,7 @@ const AdminUsersCard = ({user}) => {
         <div
           onClick={() => {
             setIsSelect(!isSelect);
+            addToCSV(user);
           }}
         >
           <div

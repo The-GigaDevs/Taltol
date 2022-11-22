@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 const AdminPagination = ({ next, fetchNext, pagesTotal, page }) => {
   const quotes = 'Quotes';
   //make an array of numbers from 1 to the total number of pages
@@ -17,7 +16,7 @@ const AdminPagination = ({ next, fetchNext, pagesTotal, page }) => {
       setFirstSlice(activePage + 1);
       setSecondSlice(pages.length - 3);
       setLastSlice(pages.length - 1);
-      // debugger
+      // 
     }
   }, [activePage, pages, initialSlice, firstSlice, secondSlice, lastSlice]);
 
