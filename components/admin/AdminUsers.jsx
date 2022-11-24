@@ -15,7 +15,11 @@ const AdminUsers = () => {
   }, [])
 
   function addToCSV(user) {
-    setCsvData([...csvData, user]);
+    if (csvData.includes(user)) {
+      setCsvData(csvData.filter(item => item !== user));
+    } else {
+      setCsvData([...csvData, user]);
+    }
   }
   return (
     <div className="admin-users">
