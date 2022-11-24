@@ -159,7 +159,7 @@ const FilterModal = ({
       selectedCategories?.length === 0
     ) {
       setCount(-1);
-      dispatch(fetchQuotes());
+      dispatch(fetchQuotes({page: 1, pageSize: 10}));
     } else {
       setSearching(true);
       const results = await searchQuotesModal(

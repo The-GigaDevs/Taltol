@@ -48,13 +48,14 @@ const AdminPagination = ({ next, fetchNext, pagesTotal, page }) => {
                 </li>
               ))
             }
+            
             {
               //show the ... if the current page is not the last page
-              <div className="admin-pagination-title-dots">...</div>
+              pages.length > 3 && <div className="admin-pagination-title-dots">...</div>
             }
             {
               //show the last page
-              pages.slice(secondSlice, lastSlice).map((pageNo, index) => (
+              pages.length > 3 &&  pages.slice(secondSlice, lastSlice).map((pageNo, index) => (
                 <li
                   key={index}
                   className={page === pageNo ? "admin-pagination-count-list-no current" : "admin-pagination-count-list-no"}

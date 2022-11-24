@@ -1,5 +1,5 @@
 //import asyncthunk and createSlice from redux toolkit
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
 const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage, addQuote } = authService;
@@ -45,9 +45,9 @@ export const fetchQuotesAgainstTag = createAsyncThunk(
 //create async thunk to fetch quotes
 export const fetchQuotes = createAsyncThunk(
     "quotes/fetchQuotes",
-    async () => {
+    async (details) => {
         const result = toast.promise(
-            getQuotes(1, 10) ,
+            getQuotes(details.page, details.pageSize) ,
             {
             pending: 'Loading quotes...',
             success: 'Quotes Fetched!',
