@@ -1,41 +1,55 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-const DynamicDropdown = ({optionsList, addQuote, setAddQuote, state}) => {
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+const DynamicDropdown = ({
+  optionsList,
+  addQuote,
+  setAddQuote,
+  state,
+  quote,
+  setQuote,
+}) => {
   const [selectedOption, setSelectedOption] = useState(0);
-//   const [defaultOption, setDefaultOption] = useState(true);
-
-//   const toggleOptions = () => {
-//     setIsOptionsOpen(!isOptionsOpen);
-//   };
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   useEffect(()=> {
-    if(optionsList?.length) setIsOptionsOpen(true)
-  }, [optionsList]);
-  
-  const setSelectedThenCloseDropdown = (option,index) => {
+    if (quote?.author ==='' && addQuote.author) {
+      setIsOptionsOpen(true);
+    } else if(quote?.author && addQuote.author) {
+      setIsOptionsOpen(false);
+    }  
+  }, [quote.author, addQuote.author])
+  useEffect(() => {
+    if (quote?.topic ==='' && addQuote.topic) {
+      setIsOptionsOpen(true);
+    } else if(quote?.topic && addQuote.topic) {
+      setIsOptionsOpen(false);
+    }
+   
+  }, [quote.topic, addQuote.topic]);
+
+  const setSelectedThenCloseDropdown = (option, index) => {
     setSelectedOption(index);
     setIsOptionsOpen(false);
-    if(state === 'authors') {
-        setAddQuote({...addQuote, author: option?.name?.replace(/,\s*$/, "") })
+    console.log(isOptionsOpen, 'isOptionsOpen');
+    if (state === 'authors') {
+      setAddQuote({ ...addQuote, author: option?.name?.replace(/,\s*$/, '') });
+      setQuote({ ...quote, author: option?.name?.replace(/,\s*$/, '') });
     } else {
-        setAddQuote({...addQuote, topic: option?.name?.replace(/,\s*$/, "")  })
-
+      setAddQuote({ ...addQuote, topic: option?.name?.replace(/,\s*$/, '') });
+      setQuote({ ...quote, topic: option?.name?.replace(/,\s*$/, '') });
     }
     // setDefaultOption(false);
   };
 
-  const handleKeyDown = index => e => {
-    
-  };
+  const handleKeyDown = index => e => {};
 
-  const handleListKeyDown = e => {
-   
-  };
+  const handleListKeyDown = e => {};
+
+  console.log(isOptionsOpen);
 
   return (
-    <div className="sort-select">
+    <div className={isOptionsOpen ? 'sort-select open' : 'sort-select'}>
       <div className="sort-select-content">
         {/* <button
           type="button"
@@ -71,7 +85,9 @@ const DynamicDropdown = ({optionsList, addQuote, setAddQuote, state}) => {
             isOptionsOpen ? 'sort-select-options show' : 'sort-select-options'
           }
           role="listbox"
-          aria-activedescendant={optionsList?.length ? optionsList[selectedOption] : ''}
+          aria-activedescendant={
+            optionsList?.length ? optionsList[selectedOption] : ''
+          }
           tabIndex={-1}
           onKeyDown={handleListKeyDown}
         >
@@ -85,6 +101,7 @@ const DynamicDropdown = ({optionsList, addQuote, setAddQuote, state}) => {
               onKeyDown={handleKeyDown(index)}
               onClick={() => {
                 setSelectedThenCloseDropdown(option, index);
+                setIsOptionsOpen(false);
               }}
               className="sort-select-options-item"
             >

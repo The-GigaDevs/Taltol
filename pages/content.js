@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PickedSelect from '../components/PickedSelect';
 import QuoteCards from '../components/QuoteCards';
 import TopicBrowse from '../components/TopicBrowse';
-import authService from "../services/auth.service";
-import { useEffect, useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { addMoreQuotes, fetchQuotes } from "../slices/quotes.slice";
 
 
@@ -25,7 +23,7 @@ export default function Content({tagName}) {
     if(tagName == ""){
     
       if(quotesReduxState.length === 0) {
-        dispatch(fetchQuotes());
+        dispatch(fetchQuotes({page: 1, pageSize: 10}));
       }
   }
   }, [dispatch, quotesReduxState]);

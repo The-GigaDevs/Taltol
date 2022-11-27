@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import authService from '../services/auth.service';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAuthors, authorSearch } from '../slices/authors.slice';
-import { fetchTags, searchTag } from '../slices/tags.slice';
+import authService from '../services/auth.service';
+import { authorSearch, fetchAuthors } from '../slices/authors.slice';
 import { fetchCategories, searchCategory } from '../slices/categories.slice';
 import { fetchQuotes } from '../slices/quotes.slice';
+import { fetchTags, searchTag } from '../slices/tags.slice';
 
 const { searchQuotesModal } = authService;
 
@@ -117,7 +117,7 @@ const FilterModal = ({
     setAuthors(authors1.results);
     setCategories(categories1.results);
     setTags(tagsRedux.results);
-    // debugger
+    // 
     if (show) {
       document.body.style.overflowY = 'hidden';
     } else {
@@ -159,7 +159,7 @@ const FilterModal = ({
       selectedCategories?.length === 0
     ) {
       setCount(-1);
-      dispatch(fetchQuotes());
+      dispatch(fetchQuotes({page: 1, pageSize: 10}));
     } else {
       setSearching(true);
       const results = await searchQuotesModal(

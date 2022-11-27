@@ -1,12 +1,22 @@
+import { useEffect, useState } from 'react';
 import AdminHeader from '../../components/admin/AdminHeader';
-import { useState } from 'react';
 import AdminUserHeader from '../../components/admin/AdminUserHeader';
 import AdminUserLiked from '../../components/admin/AdminUserLiked';
 import AdminUserSavedCollection from '../../components/admin/AdminUserSavedCollection';
 
+import { useDispatch } from 'react-redux';
+import { getCollectionsAction } from '../../slices/admin.slice';
+
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('tab1');
   const [showCollection, setShowCollection] = useState(true);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCollectionsAction());
+  }, []);
+
 
   const handleTabLiked = () => {
     setActiveTab('tab1');

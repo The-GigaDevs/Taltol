@@ -13,13 +13,13 @@ const AdminTopics = () => {
 
    //function to claculate total pages
   const CaluclatetotalPages = () => {
-    let pages = Math.ceil(categories1.count / 30);
+    let pages = Math.ceil(categories1.count / 50);
     setTotalPages(pages);
     
   };
 
   useEffect(() => {
-    dispatch(fetchCategories({ page: 1, pageSize: 30, isAdmin: true }));
+    dispatch(fetchCategories({ page: 1, pageSize: 50, isAdmin: true }));
   }, []);
   
   useEffect(() => {
@@ -39,17 +39,17 @@ const AdminTopics = () => {
     //   dispatch(fetchCategories({page: page + 1, pageSize: 30}));
     // }
     setPage(number);
-    dispatch(fetchCategories({page: number, pageSize: 30}));
+    dispatch(fetchCategories({page: number, pageSize: 50}));
   }
   return (
     <div className="admin-topics">
-      <div className="container">
+    <div className="container">
         <div className="admin-topics-content">
           <p className="admin-topics-text">{categories?.length} results</p>
           <section className="admin-topics-box">
             <ul className="admin-topic-browse-list">
               {categories?.map((category)=> 
-                <Link href={`/category/${category?.id}`} passHref key={category?.id}>
+                <Link href="/admin/admin-topics-page" passHref key={category?.id}>
                   <li className="admin-topic-browse-list-item" key={category?.id}> {category?.name}</li>
                 </Link>
               )}

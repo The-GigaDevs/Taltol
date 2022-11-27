@@ -1,10 +1,21 @@
+import { useRouter } from 'next/router';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import randomAuthor from '../..//public/static/quote-card-author.svg';
-const AdminUsersCard = ({user}) => {
+import { selectedUser } from '../../slices/admin.slice';
+const AdminUsersCard = ({user, addToCSV, showDownloadButton}) => {
   const [isSelect, setIsSelect] = React.useState(false);
 
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  function handleUserRouter() {
+    dispatch(selectedUser(user))
+    router.push('/admin/admin-users-page');
+  }
+
   return (
-    <div className="admin-user-card">
+    <div className="admin-user-card" style={{cursor: "pointer"}} onClick={handleUserRouter}>
       <div className="admin-user-card-header">
         <div className="admin-user-card-header-info">
           {user.profile_pic || user?.social_image_url ?
@@ -21,6 +32,7 @@ const AdminUsersCard = ({user}) => {
         <div
           onClick={() => {
             setIsSelect(!isSelect);
+            addToCSV(user);
           }}
         >
           <div

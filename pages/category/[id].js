@@ -1,8 +1,8 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryHeader from '../../components/CategoryHeader';
-import CategoryResults from '../../components/CategoryResults';
 import MobileMenu from '../../components/MobileMenu';
 import Navbar from '../../components/Navbar';
 import ProFooter from '../../components/ProFooter';
@@ -10,9 +10,11 @@ import QuoteCards from '../../components/QuoteCards';
 import TopicBrowse from '../../components/TopicBrowse';
 import { fetchSingleCategory } from '../../slices/categories.slice';
 import { fetchQuotesOfCategory } from '../../slices/quotes.slice';
-import { fetchTags } from '../../slices/tags.slice';
 
 const Category = ({ id }) => {
+
+        const slug = useRouter().query.name?.toLocaleLowerCase();
+
     const dispatch = useDispatch()
     const [ page , setPage] = useState(1);
     const [ tags , setTags] = useState([]);
@@ -32,7 +34,7 @@ const Category = ({ id }) => {
     }, [quotesRedux?.results])
     useEffect(() => {
         if(!singleCategoryRedux || singleCategoryRedux?.id !== id) {
-            dispatch(fetchSingleCategory(id));
+            dispatch(fetchSingleCategory(slug));
         }
         dispatch(fetchQuotesOfCategory({id, page}))
 
@@ -71,6 +73,7 @@ const Category = ({ id }) => {
         </>
     );
 };
+
 
 export default Category;
 

@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import authService from '../services/auth.service';
-import { addQuotes } from '../slices/quotes.slice';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { result } from 'lodash';
+import authService from '../services/auth.service';
 
 const { searchQuotesModal } = authService
 
@@ -54,7 +52,7 @@ const PickedSelect = ({picked, setPicked}) => {
         }
         );
         // results = results.results.slice(0, 20);
-        result.count = 20;
+        results.count = 20;
       results = {...results, results: results.results.slice(0, 20)}
         dispatch({type: "quotes/addQuotes", payload: results})
 

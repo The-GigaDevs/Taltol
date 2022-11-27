@@ -1,16 +1,14 @@
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import FilterModal from './FilterModal';
-import { Provider } from 'react-redux';
-import store from '../store';
-import { fetchQuotes, addQuotes } from '../slices/quotes.slice';
-import authService from '../services/auth.service';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import { signOut } from '../slices/auth.slice';
 import _debounce from 'lodash/debounce';
-import { useCallback } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import authService from '../services/auth.service';
+import { signOut } from '../slices/auth.slice';
+import { addQuotes, fetchQuotes } from '../slices/quotes.slice';
+import store from '../store';
+import FilterModal from './FilterModal';
 const { searchQuotesModal } = authService;
 
 const Navbar = () => {
@@ -88,7 +86,7 @@ const Navbar = () => {
             <div
               style={{ cursor: 'pointer' }}
               onClick={() => {
-                dispatch(fetchQuotes());
+                dispatch(fetchQuotes({page: 1, pageSize: 10}));
                 router.push('/');
               }}
             >
@@ -248,7 +246,7 @@ const Navbar = () => {
                   <div
                     onClick={async () => {
                       await dispatch(signOut());
-                      await dispatch(fetchQuotes());
+                      await dispatch(fetchQuotes({page: 1, pageSize: 10}));
                       router.push('/login');
                     }}
                   >

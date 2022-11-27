@@ -11,7 +11,7 @@ const Admin = () => {
     <>
       <AdminHeader />
       <AdminTopics />
-      <button onClick={() => { router.push('/admin/admin-topics-page') }}>Add Topic</button>
+      <button className='main-sort-btn' onClick={() => { router.push('/admin/admin-topics-page') }}>Add Topic</button>
     </>
   );
 };
