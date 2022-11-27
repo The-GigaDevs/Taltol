@@ -141,7 +141,7 @@ const getDropdownOptions = () => httpService
     .error((response) => Promise.reject(response))
 
 const saveDropdownOptions = (data) => httpService
-    .get('/quotes/dropdown/', data)
+    .post('/quotes/dropdown/', data)
     .then(({data}) => data)
     .error((response) => Promise.reject(response))
 

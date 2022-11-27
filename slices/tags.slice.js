@@ -38,7 +38,7 @@ export const searchTag = createAsyncThunk(
 );
 
 export const searchTagByName = createAsyncThunk(
-    searchTagsByName(),
+    "tags/searchTagByName",
     async (query) => {
         const result = await searchTagsByName(query);
         return result;
