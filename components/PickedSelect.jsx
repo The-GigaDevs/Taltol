@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import authService from '../services/auth.service';
 
@@ -8,6 +8,8 @@ const { searchQuotesModal } = authService
 const PickedSelect = ({picked, setPicked}) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [optionsList, setOptionList] = useState([]);
+  const dropdown = useSelector(state => state.admin.dropdown);
   let results = [];
   const dispatch = useDispatch();
 
@@ -86,14 +88,11 @@ const PickedSelect = ({picked, setPicked}) => {
   
   }, [selectedOption]);
 
-
-
-  const optionsList = [
-    'Top 100 picked quotes this month',
-    'Top 20 picked quotes for Elon Musk',
-    'Top 20 picked quotes for Bill Gates',
-    'Top 20 picked quotes for Steve Jobs',
-  ];
+  useEffect(()=> {
+    if(dropdown.length !== 0) {
+      setOptionList(dropdown)
+    } 
+  }, [dropdown]);
 
   const toggleOptions = () => {
     setIsOptionsOpen(!isOptionsOpen);
@@ -201,7 +200,7 @@ const PickedSelect = ({picked, setPicked}) => {
               }}
               className="picked-select-options-item"
             >
-              {option}
+              {option} Quotes
             </li>
           ))}
         </ul>
