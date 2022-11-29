@@ -3,27 +3,33 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import randomAuthor from '../..//public/static/quote-card-author.svg';
 import { selectedUser } from '../../slices/admin.slice';
-const AdminUsersCard = ({user, addToCSV, showDownloadButton}) => {
+const AdminUsersCard = ({ user, addToCSV, showDownloadButton }) => {
   const [isSelect, setIsSelect] = React.useState(false);
 
   const router = useRouter();
   const dispatch = useDispatch();
 
   function handleUserRouter() {
-    dispatch(selectedUser(user))
+    dispatch(selectedUser(user));
     router.push('/admin/admin-users-page');
   }
 
   return (
-    <div className="admin-user-card" style={{cursor: "pointer"}} onClick={handleUserRouter}>
+    <div className="admin-user-card">
       <div className="admin-user-card-header">
-        <div className="admin-user-card-header-info">
-          {user.profile_pic || user?.social_image_url ?
-           <img src={user.profile_pic || user?.social_image_url} alt="userImage" />
-           :
-           <img src={randomAuthor.src} alt="User" />}
+        <div className="admin-user-card-header-info" onClick={handleUserRouter}>
+          {user.profile_pic || user?.social_image_url ? (
+            <img
+              src={user.profile_pic || user?.social_image_url}
+              alt="userImage"
+            />
+          ) : (
+            <img src={randomAuthor.src} alt="User" />
+          )}
           <div className="admin-user-card-header-info-item">
-            <h3 className="admin-user-card-header-info-name">{user.first_name + ' ' + user?.last_name}</h3>
+            <h3 className="admin-user-card-header-info-name">
+              {user.first_name + ' ' + user?.last_name}
+            </h3>
             <span className="admin-user-card-header-info-date">
               {user.date_joined}
             </span>

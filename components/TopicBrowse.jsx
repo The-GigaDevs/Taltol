@@ -23,26 +23,35 @@ const TopicBrowse = () => {
     setLoading(false);
   }, [categories, categories1]);
 
+  useEffect(() => {
+    if (showAll) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [showAll]);
+
   return loading ? (
     'Loading ...'
   ) : (
     <div className="topic-browse">
       <h3 className="topic-browse-title">Browse by topic</h3>
       <ul className="topic-browse-list">
-        {categories
-          ?.slice(0, 15)
-          .map((category, index) => (
-            <Link
-              key={index}
-              passHref
-              href={{ pathname :`/category/${encodeURIComponent(category.id)}`, query :{ name: category.name }}}
-              as={`/category/${encodeURIComponent(category.id)}`}
-            >
-              <li key={index} className="topic-browse-list-item">
-                {`${category.name} Quotes`}
-              </li>
-            </Link>
-          ))}
+        {categories?.slice(0, 15).map((category, index) => (
+          <Link
+            key={index}
+            passHref
+            href={{
+              pathname: `/category/${encodeURIComponent(category.id)}`,
+              query: { name: category.name },
+            }}
+            as={`/category/${encodeURIComponent(category.id)}`}
+          >
+            <li key={index} className="topic-browse-list-item">
+              {`${category.name} Quotes`}
+            </li>
+          </Link>
+        ))}
       </ul>
       {!showAll && (
         <div className="filter-modal-filters-showall">
@@ -68,7 +77,13 @@ const TopicBrowse = () => {
           </span>
         </div>
       )}
-      { showAll && <TopicsModal showModal={showAll} setShowModal={() => setShowAll(false)} categories = {categories}/>}
+      {showAll && (
+        <TopicsModal
+          showModal={showAll}
+          setShowModal={() => setShowAll(false)}
+          categories={categories}
+        />
+      )}
     </div>
   );
 };

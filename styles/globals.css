@@ -2951,6 +2951,10 @@ svg {
 
 /* Admin-Users */
 
+.admin-users {
+  padding-bottom: 60px;
+}
+
 .admin-users-header {
   display: flex;
   justify-content: space-between;
@@ -2966,7 +2970,7 @@ svg {
 .admin-user-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
-  gap: 1.5rem;
+  gap: 2.5rem;
 }
 
 .admin-users-header .admin-quotes-left-text {
@@ -2999,6 +3003,7 @@ svg {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  cursor: pointer;
 }
 
 .admin-user-card-header-info > img {
@@ -3084,6 +3089,20 @@ svg {
   grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   gap: 1.5rem;
   margin-top: 2.5rem;
+}
+
+/* Admin-Topics-Modal */
+
+.topic-modal-browse-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(23rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 25px;
+  padding: 25px;
+}
+
+.topic-modal-browse-list .topic-browse-list-item {
+  margin-bottom: 0;
 }
 
 /* **************************Media Queries************************** */
