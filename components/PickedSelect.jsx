@@ -90,7 +90,7 @@ const PickedSelect = ({picked, setPicked}) => {
 
   useEffect(()=> {
     if(dropdown.length !== 0) {
-      setOptionList(dropdown)
+      setOptionList(Object.values(dropdown))
     } 
   }, [dropdown]);
 

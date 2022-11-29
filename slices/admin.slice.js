@@ -43,7 +43,6 @@ export const fetchDropdownOptions = createAsyncThunk(
     'admin/dropdown',
     async () => {
         const result = await getDropdownOptions();
-        console.log(result, 'dropdown options')
         return result;
     }
 )
@@ -86,6 +85,7 @@ export const adminSlice = createSlice({
       state.allUsers = [];
     },
     [fetchDropdownOptions.fulfilled]: (state, action) => {
+      delete action.payload['id']
       state.dropdown = action.payload;
     },
     [fetchDropdownOptions.rejected]: (state, action) => {
