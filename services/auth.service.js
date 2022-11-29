@@ -138,12 +138,12 @@ const searchQuotesModal = (authors, tags, categories, search, month= false) => h
 const getDropdownOptions = () => httpService
     .get('/quotes/dropdown/')
     .then(({data}) => data)
-    .error((response) => Promise.reject(response))
+    .catch(({error}) => Promise.reject(error))
 
 const saveDropdownOptions = (data) => httpService
     .post('/quotes/dropdown/', data)
-    .then(({data}) => data)
-    .error((response) => Promise.reject(response))
+    .then(({data}) => Promise.resolve(data))
+    .catch((response) => Promise.reject(response))
 
 
 const authService = {

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import authService from '../services/auth.service'
+import authService from '../services/auth.service.js'
 import collectionService from "../services/collection.service";
 
 const { allUsers, getDropdownOptions, saveDropdownOptions } = authService;
@@ -43,6 +43,7 @@ export const fetchDropdownOptions = createAsyncThunk(
     'admin/dropdown',
     async () => {
         const result = await getDropdownOptions();
+        console.log(result, 'dropdown options')
         return result;
     }
 )
