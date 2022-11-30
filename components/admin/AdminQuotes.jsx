@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { isUserLoggedIn } from '../../slices/auth.slice';
 import { fetchQuotes } from '../../slices/quotes.slice';
 import PickedSelect from '../PickedSelect';
 import QuoteCards from '../QuoteCards';
@@ -11,13 +12,17 @@ const AdminQuotes = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPagesize] = useState(50);
   const [quotes, setQuotes] = useState([]);
+  const authRedux = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
   const quotesReduxState = useSelector(state => state.quotes?.quotes);
   const [totalPages, setTotalPages] = useState(0);
 
+  useEffect(() => {
+    dispatch(isUserLoggedIn());
+  }, [authRedux?.isAuthenticated]);
+  
   //useffect to call fecQuotes
-
   useEffect(() => {
    
       dispatch(fetchQuotes({page: 1, pageSize: 50}));

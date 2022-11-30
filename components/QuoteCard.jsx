@@ -6,12 +6,14 @@ import {
   changeRoute,
   likeAQuoteInQuotes,
   unlikeAQuoteInQuotes,
+  deleteQuoteFromDB
 } from '../slices/quotes.slice';
 import { likeAQuote, fetchLikedQuotes, unlikeAQuote } from '../slices/likes.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { authSlice } from '../slices/auth.slice';
 import RestrictiveModal from './auth/RestrictiveModal';
+import { toast } from 'react-toastify';
 
 const QuoteCard = props => {
   const { quote, category, url = '' } = props;
@@ -51,8 +53,16 @@ const QuoteCard = props => {
     }
   }
   }
+
+  const deleteQuote =() => {
+    if(confirm('Are you sure you want to delete this quote?')) {
+      dispatch(deleteQuoteFromDB(quote.slug));
+    }
+    // dispatch(deleteQuoteFromDB(quote.slug))
+  }
   return (
     <div className="quote-card">
+      <button onClick={deleteQuote}>Delete</button>
       <div className="quote-card-likes">
         <span className="quote-card-likes-icon" onClick={handleLike}>
           <svg

@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
-const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage, addQuote } = authService;
+const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage, addQuote, deleteQuote } = authService;
 
 //initialize quotes state
 const initialState = {
@@ -131,6 +131,20 @@ export const unlikeAQuoteInQuotes = createAsyncThunk(
 
 );
 
+export const deleteQuoteFromDB = createAsyncThunk(
+    'quote/deleteQuote',
+    (slug) => {
+        const result = toast.promise(
+            deleteQuote(slug),
+            {
+                success: 'Quote deleted!',
+                pending: 'Deleting quote...',
+                error: 'Unable to delet quote.'
+            }
+        )
+        return slug;
+    }
+)
 //create quotes slice
 export const quotesSlice = createSlice({
     name: "quotes",
@@ -182,6 +196,9 @@ export const quotesSlice = createSlice({
         },
         [fetchQuotesOfAuthorWithPage.rejected] : (state, action) => {
             state.quotes = null;
+        },
+        [deleteQuoteFromDB.fulfilled] : (state, action) => {
+            state.quotes.results.filter((quote) =>  quote.slug !== action.payload.slug)
         },
         [likeAQuoteInQuotes.fulfilled] : (state, action) => {
             if(state.quotes?.results?.length > 0){

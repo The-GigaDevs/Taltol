@@ -62,6 +62,10 @@ const addAuthor = (data) => httpService
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
+const deleteQuote= (slug) => httpService
+    .delete(`/quotes/${slug}/`)
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error}) => Promise.reject(error))
 
 //write a get request to get quotes in a catgory
 const getQuotesByCategory = (category, page, pageSize) => httpService
@@ -153,6 +157,7 @@ const authService = {
     getQuotes,
     getQuote,
     updateQuote,
+    deleteQuote,
     getAuthors,
     getQuotesByCategory,
     getCategories,
