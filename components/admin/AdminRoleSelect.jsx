@@ -20,7 +20,6 @@ const AdminRoleSelect = () => {
   ];
   useEffect(() => {
     //console.log('Rendering AdminRoleSelect');
-
     //extract the role from the router.asPath separated by - and use second part as selectedOption
     const role = router.asPath.split('-')[1];
     if (role !== 'customized') {
@@ -29,6 +28,9 @@ const AdminRoleSelect = () => {
     }
     if(role === 'customized'){
       setSelectedOption(4);
+    }
+    if(role === 'author'){
+      setSelectedOption(1);
     }
     
   }, []);
