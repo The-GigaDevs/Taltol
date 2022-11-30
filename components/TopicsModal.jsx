@@ -1,6 +1,9 @@
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import { useDispatch } from 'react-redux';
+import { fetchCategories } from '../slices/categories.slice';
+import AdminPagination from './admin/AdminPagination';
 
 Modal.setAppElement('#__next');
 const RestrictiveModalStyles = {
@@ -25,6 +28,26 @@ const RestrictiveModalStyles = {
 };
 
 const TopicsModal = props => {
+
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const dispatch = useDispatch();
+
+  function CaluclatetotalPages() {
+    let pages = Math.ceil(props.count / 50);
+    setTotalPages(pages);
+  }
+
+  function fetchNext(number) {
+    setPage(number);
+    dispatch(fetchCategories({ page: number, pageSize: 50 }));
+  }
+
+  useEffect(() => {
+    CaluclatetotalPages();
+  })
+
   return (
     <>
       <Modal
@@ -83,6 +106,7 @@ const TopicsModal = props => {
             })}
           </div>
         </div>
+        <AdminPagination pagesTotal={totalPages} next={props.categories.next} fetchNext={fetchNext} page={page}/>
       </Modal>
     </>
   );

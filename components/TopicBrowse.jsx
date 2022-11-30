@@ -31,6 +31,12 @@ const TopicBrowse = () => {
     }
   }, [showAll]);
 
+
+  function handleShowAll() {
+    dispatch(fetchCategories({ page: 1, pageSize: "" }));
+    setShowAll(true);
+  }
+
   return loading ? (
     'Loading ...'
   ) : (
@@ -57,7 +63,7 @@ const TopicBrowse = () => {
         <div className="filter-modal-filters-showall">
           <span
             className="filter-modal-filters-showall-text"
-            onClick={() => setShowAll(true)}
+            onClick={handleShowAll}
           >
             Show All
           </span>
@@ -82,6 +88,7 @@ const TopicBrowse = () => {
           showModal={showAll}
           setShowModal={() => setShowAll(false)}
           categories={categories}
+          count = {categories1.count}
         />
       )}
     </div>
