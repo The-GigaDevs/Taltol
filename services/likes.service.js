@@ -18,11 +18,17 @@ const unlikeQuote = (id) =>
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response));
 
+const getLikedQuotesOfUserService =  (userId) =>
+  httpService
+    .get(`quotes/liked/${userId}`)
+    .then(({ data }) => data)
+    .catch(({ error }) => Promise.reject(error.response));
 
 const likesService = {
     getLikedQuotes,
     likeQuote,
-    unlikeQuote
+    unlikeQuote,
+    getLikedQuotesOfUserService
 };
 
 export default likesService;

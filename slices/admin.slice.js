@@ -2,12 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
 import collectionService from "../services/collection.service";
+import likesService from "../services/likes.service";
 const { allUsers } = authService;
-const {  getCollections} = collectionService;
+const {  getCollectionOfUser } = collectionService;
+const { getLikedQuotesOfUserService } = likesService
 const initialState = {
   allUsers: [],
   selectedUser: null,
-  selectedUserLiked: null,
+  selectedUserLikedQuotes: null,
     selectedUserSavedCollection: null,
 };
 
@@ -25,9 +27,9 @@ export const selectedUser = createAsyncThunk("admin/selectedUser", (user) => {
 });
 
 export const getCollectionsAction = createAsyncThunk(
-    "admin/getCollections",
-    () => {
-        const result = toast.promise(getCollections(), {
+    "admin/getCollectionsAction",
+    (userID) => {
+        const result = toast.promise(getCollectionOfUser(userID), {
             success: "Collections fetched!",
             pending: "Getting all collections...",
             error: "Unable to get collections.",
@@ -36,6 +38,17 @@ export const getCollectionsAction = createAsyncThunk(
     }
 );
 
+export const getLikedQuotesOfUser = createAsyncThunk(
+    "admin/getLikedQuotesOfUser",
+    (userId) => {
+        const result = toast.promise(getLikedQuotesOfUserService(userId), {
+            success: "Liked quotes fetched for user!",
+            pending: "Getting all liked quotes...", 
+            error: "Unable to get liked quotes.",
+        });
+        return result;
+    }
+);
         
 
 export const adminSlice = createSlice({
@@ -54,7 +67,10 @@ export const adminSlice = createSlice({
     },
     [getCollectionsAction.fulfilled]: (state, action) => {
         state.selectedUserSavedCollection = action.payload;
-    }
+    },
+    [getLikedQuotesOfUser.fulfilled]: (state, action) => {
+        state.selectedUserLikedQuotes = action.payload;
+    },
   },
 });
 

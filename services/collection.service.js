@@ -10,6 +10,11 @@ const getCollections = () => httpService.
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
+const getCollectionOfUser = (userId) => httpService.
+    get(`quotes/saved-collections/${userId}/of-user/`)
+    .then(({ data }) => data)
+    .catch(({ error }) => Promise.reject(error.response))
+
 const getSingleCollection = (id) => httpService.
     get(`quotes/?collections=${id}`)
     .then(({ data }) => data)
@@ -26,8 +31,9 @@ const createCollection = (name) => httpService.
     saveInCollection,
     getCollections,
     getSingleCollection,
-    createCollection
-    
+    createCollection,
+    getCollectionOfUser
+
 }
 
 export default collectionService

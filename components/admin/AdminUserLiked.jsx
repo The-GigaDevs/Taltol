@@ -1,7 +1,24 @@
-import React from 'react';
-import QuoteStatic from '../QuoteStatic';
-
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLikedQuotesOfUser } from '../../slices/admin.slice';
+import QuoteCard from '../QuoteCard';
 const AdminUserLiked = ({ activeTab }) => {
+
+  const [likedQuotes, setLikedQuotes] = useState([]);
+  const dispatch = useDispatch();
+
+  const selectedUserRedux = useSelector(state => state?.admin?.selectedUser);
+  const likedQuotesRedux = useSelector(state => state?.admin?.selectedUserLikedQuotes);
+  useEffect(()=> {
+    dispatch(getLikedQuotesOfUser(selectedUserRedux?.id))
+  } ,[])
+ 
+ 
+  useEffect(() => {
+    setLikedQuotes(likedQuotesRedux)
+  }, [likedQuotesRedux])
+ 
+
   return (
     <div className="admin-user-liked">
       <section
@@ -11,13 +28,11 @@ const AdminUserLiked = ({ activeTab }) => {
             : 'user-liked-quotes hide'
         }
       >
-        <p className="user-liked-quotes-count">7 liked quotes</p>
+        <p className="user-liked-quotes-count">{likedQuotes?.count} liked quotes</p>
         <div className="admin-user-liked-quotes">
-          <QuoteStatic />
-          <QuoteStatic />
-          <QuoteStatic />
-          <QuoteStatic />
-          <QuoteStatic />
+          {likedQuotes?.results?.map((quote, index) => (
+            <QuoteCard key={index} quote={quote} />
+          ))}
         </div>
       </section>
     </div>
