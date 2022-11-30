@@ -15,7 +15,6 @@ const AdminUserSavedCollection = ({
 
   useEffect(() => {
     setCollections(collectionRedux);
-    console.log(collectionRedux)
   }, [collectionRedux]);
 
 
