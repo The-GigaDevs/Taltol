@@ -198,7 +198,7 @@ export const quotesSlice = createSlice({
             state.quotes = null;
         },
         [deleteQuoteFromDB.fulfilled] : (state, action) => {
-            state.quotes.results.filter((quote) =>  quote.slug !== action.payload.slug)
+            state.quotes.results = state.quotes.results.filter((quote) => quote.slug !== action.payload)
         },
         [likeAQuoteInQuotes.fulfilled] : (state, action) => {
             if(state.quotes?.results?.length > 0){

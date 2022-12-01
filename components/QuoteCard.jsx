@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { authSlice } from '../slices/auth.slice';
 import RestrictiveModal from './auth/RestrictiveModal';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 const QuoteCard = props => {
   const { quote, category, url = '' } = props;
@@ -22,6 +23,7 @@ const QuoteCard = props => {
   const authRedux = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   function handleLike() {
     //check the isAuthenticated use from auth slice and if it is true, then dispatch the likeAQuote action
@@ -30,7 +32,6 @@ const QuoteCard = props => {
       if (authRedux.isAuthenticated) {
         dispatch(likeAQuote(quote.id));
         if (!quote.quote_liked) {
-
           dispatch(likeAQuoteInQuotes(quote.id));
         } else {
           dispatch(unlikeAQuoteInQuotes(quote.id));
@@ -54,6 +55,12 @@ const QuoteCard = props => {
   }
   }
 
+  useEffect(()=> {
+    if (authRedux?.user?.email === 'abdulhameid.grandoka@gmail.com') {
+      setIsAdmin(true);
+    }
+  }, []);
+  
   const deleteQuote =() => {
     if(confirm('Are you sure you want to delete this quote?')) {
       dispatch(deleteQuoteFromDB(quote.slug));
@@ -62,7 +69,7 @@ const QuoteCard = props => {
   }
   return (
     <div className="quote-card">
-      <button onClick={deleteQuote}>Delete</button>
+      {isAdmin && <button onClick={deleteQuote}>Delete</button>}
       <div className="quote-card-likes">
         <span className="quote-card-likes-icon" onClick={handleLike}>
           <svg
