@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../../slices/categories.slice';
 import AdminPagination from './AdminPagination';
+
 const AdminTopics = () => {
   const [categories, setCategories] = useState([]);
   const [page, setPage] = useState(1);
@@ -49,7 +50,7 @@ const AdminTopics = () => {
           <section className="admin-topics-box">
             <ul className="admin-topic-browse-list">
               {categories?.map((category)=> 
-                <Link href="/admin/admin-topics-page" passHref key={category?.id}>
+                <Link href={{pathname: "/admin/admin-topics-page", query:{category: category.id} }} as={'/admin/admin-topics-page'} passHref key={category?.id}>
                   <li className="admin-topic-browse-list-item" key={category?.id}> {category?.name}</li>
                 </Link>
               )}

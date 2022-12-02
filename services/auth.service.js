@@ -1,6 +1,5 @@
 import httpService from "./http.sevice";
 //import toast
-import { toast } from 'react-toastify';
 
 
 const login = (email, password) => httpService
@@ -105,6 +104,11 @@ const getAuthor = (name) => httpService
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error.response))
 
+const updateCategory = (id, data) => httpService
+    .put(`/quotes/categories/${id}/`, data)
+    .then(({ data }) => data)
+    .catch(({ error }) => Promise.reject(error?.response))
+
 const getCategory = (name) => httpService
     .get(`/quotes/categories/?name=${name}`)
     .then(({data}) => data)
@@ -160,6 +164,7 @@ const authService = {
     addQuote,
     addTopic,
     socialLogin,
-    allUsers
+    allUsers,
+    updateCategory,
 }
 export default authService;

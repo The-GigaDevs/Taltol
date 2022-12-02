@@ -238,7 +238,7 @@ export default function QuoteDP({
           <h3 className="quote-body-similar-quotes-title">
             Other similar quotes for&nbsp;
             <span className="quote-body-author-tag current" onClick={() => searchByTag(singleQuote.tags[0].tagId, singleQuote?.tags[0].tag_text)}>
-              {singleQuote?.tags ? singleQuote.tags[0].tag_text : ""}
+              {singleQuote?.tags ? singleQuote?.tags[0]?.tag_text : ""}
             </span>
           </h3>
           <div className="quote-body-similar-quotes-cards">

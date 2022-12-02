@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
 const { getCategories , getCategory, getSingleCategory , getQuotesOfSingleCategory} = authService;
@@ -52,6 +52,8 @@ export const searchCategory = createAsyncThunk(
         return result;
     }
 )
+
+
 
 
 //create categories slice
