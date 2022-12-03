@@ -11,7 +11,7 @@ const { addTopic } = authService
 
 const AdminForm = () => {
   const router = useRouter();
-  const [topics, setTopics] = useState({title: 'test name', page_description: '', page_url: '', source: '', quote_urls: []});
+  const [topics, setTopics] = useState({title: '', page_description: '', page_url: '', source: '', quote_urls: []});
   const [queryId, setQueryId] = useState(null);
 
 
@@ -21,16 +21,17 @@ const AdminForm = () => {
 
   useEffect(() => {
     if(router.query.category) {
+      
     dispatch(fetchSingleCategory(router.query.category))
     }
   },[])
 
   useEffect(() => {
     //find the category from the categories array if there is a cateogry id in the query
-    if (router.query.category) {
+    // if (router.query.category) {
       setTopics({...categories, title: categories?.name})
-    }
-  }, []);
+    // }
+  }, [categories]);
 
  
 

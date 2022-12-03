@@ -1,25 +1,32 @@
-import randomAuthor from '../public/static/quote-card-author.svg';
 import { useRouter } from 'next/router';
-import {
-  singleQuote,
-  toggleModal,
-  changeRoute,
-  likeAQuoteInQuotes,
-  unlikeAQuoteInQuotes,
-} from '../slices/quotes.slice';
-import { likeAQuote, fetchLikedQuotes, unlikeAQuote } from '../slices/likes.slice';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { authSlice } from '../slices/auth.slice';
+import randomAuthor from '../public/static/quote-card-author.svg';
+import { likeAQuote, unlikeAQuote } from '../slices/likes.slice';
+import {
+  changeRoute,
+  likeAQuoteInQuotes, singleQuote,
+  toggleModal, unlikeAQuoteInQuotes
+} from '../slices/quotes.slice';
 import RestrictiveModal from './auth/RestrictiveModal';
 
 const QuoteCard = props => {
   const { quote, category, url = '' } = props;
   const [isLiked, setIsLiked] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const authRedux = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
+
+
+  useEffect(() => {
+    //check if the url contains admin string in it
+    if(router.asPath.includes('admin')){
+      //if it does, then set the isLiked state to true
+      setIsAdmin(true);
+    }
+  }, [])
 
   function handleLike() {
     //check the isAuthenticated use from auth slice and if it is true, then dispatch the likeAQuote action
@@ -88,8 +95,12 @@ const QuoteCard = props => {
         {quote?.text}
       </h4>
       <div className="quote-card-author" onClick={() => {
+          if(isAdmin){
+            router.push({ pathname : '/admin/admin-author-page', query : { author : quote?.author.id }}, '/admin/admin-author-page')
+          }else {
             //goto to the author page
             router.push(`/author/${encodeURIComponent(quote?.author?.id)}`);
+          }
           }}>
         <img
           src={randomAuthor.src}

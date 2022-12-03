@@ -1,36 +1,42 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import authService from '../../services/auth.service';
+import { fetchSingleAuthor } from '../../slices/authors.slice';
 import AdminAuthorDescriptionAvatar from './AdminAuthorDescriptionAvatar';
 import AdminGoBack from './AdminGoBack';
-const { addAuthor } = authService
+const { addAuthor , updateAuthor} = authService
 
 const AdminAuthorForm = () => {
   const router = useRouter();
   const [author, setAuthor] = useState({title: '', page_description: '', page_url: '',image_path: '', quote_urls: []});
-
-
-  function addANewQuote(event) {
-    //prevent the page from reloading
-    event.preventDefault();
-    //add a new quote to the array
-    setAuthor({...author, quote_urls: [...author.quote_urls, ""]});
-  }
   
-  function removeQuote(event, index) {
-    //prevent the page from reloading
-    event.preventDefault();
-    //remove the quote from the array
-    const newQuotes = author.quote_urls.filter((i, ind) => ind !== index);
-    //update the state
-    setAuthor((prevState) => {
-      return {...prevState, quote_urls: newQuotes}});
-  }
+  
+  const dispatch = useDispatch();
+  const authorRedux = useSelector(state => state.authors?.singleAuthor);
+
+  useEffect(() => {
+    if(router.query.author){
+      dispatch(fetchSingleAuthor(router.query.author));
+    }
+  }, []);
+
+  useEffect(() => {
+    if(authorRedux){
+      setAuthor({author, title: authorRedux?.name});
+    }
+  }, [authorRedux])
 
   function handleSubmit(event) {
     //prevent the page from reloading
     event.preventDefault();
     //send the data to the server
+
+    //send a put request if there is a query author in the url  
+    if(router.query.author){
+      updateAuthor(authorRedux?.id, author);
+    } else {
+
     addAuthor(author)
       .then((response) => {
         //redirect to the admin page
@@ -39,7 +45,8 @@ const AdminAuthorForm = () => {
       .catch((error) => {
         //console.log(error);
       });
-  }
+
+        }    }
   useEffect(() => {
     // //console.log("authors after the render is",author);
   }, [author]);

@@ -55,6 +55,11 @@ const getAuthors = (page, pageSize) => httpService
     .catch(({ error }) => Promise.reject(error))
 
 
+const updateAuthor = (id, data) => httpService
+    .put(`/quotes/authors/${id}/`, data)
+    .then(({ data }) => data)
+    .catch(({ error }) => Promise.reject(error?.response))
+
 //write a post request to add an author
 const addAuthor = (data) => httpService
     .post('/quotes/authors/', data)
@@ -166,5 +171,6 @@ const authService = {
     socialLogin,
     allUsers,
     updateCategory,
+    updateAuthor
 }
 export default authService;

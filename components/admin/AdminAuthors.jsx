@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthors } from "../../slices/authors.slice";             
+import { fetchAuthors } from "../../slices/authors.slice";
 import AdminPagination from "./AdminPagination";
 const AdminAuthors = () => {
     const [authors, setAuthors] = useState([]);
@@ -46,7 +46,7 @@ const AdminAuthors = () => {
                     <section className="admin-topics-box">
                         <ul className="admin-topic-browse-list">
                             {authors?.map((author) =>
-                                <Link href="/admin/admin-author-page" key={author?.id} passHref>
+                                <Link href={{ pathname : "/admin/admin-author-page", query: {author : author?.id} }} key={author?.id} passHref>
                                     <li className="admin-topic-browse-list-item" key={author?.id}> {author?.name}</li>
                                 </Link>
                             )}

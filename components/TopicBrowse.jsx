@@ -48,10 +48,10 @@ const TopicBrowse = () => {
             key={index}
             passHref
             href={{
-              pathname: `/category/${encodeURIComponent(category.id)}`,
-              query: { name: category.name },
+              pathname: `/admin/admin-topics-page`,
+              query: { category: category.id },
             }}
-            as={`/category/${encodeURIComponent(category.id)}`}
+            as={`/admin/admin-topics-page`}
           >
             <li key={index} className="topic-browse-list-item">
               {`${category.name} Quotes`}

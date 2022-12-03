@@ -89,10 +89,10 @@ const TopicsModal = props => {
                   key={category.id}
                   passHref
                   href={{
-                    pathname: `/category/${encodeURIComponent(category.id)}`,
-                    query: { name: category.name },
+                    pathname: `/admin/admin-topics-page`,
+                    query: { category: category.id },
                   }}
-                  as={`/category/${encodeURIComponent(category.id)}`}
+                  as={`/admin/admin-topics-page`}
                 >
                   <div
                     key={index}
