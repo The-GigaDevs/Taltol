@@ -13,80 +13,80 @@ const PickedSelect = ({picked, setPicked}) => {
   let results = [];
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function dropDrownSearch(){
+  // useEffect(() => {
+  //   async function dropDrownSearch(){
     
-    switch (selectedOption) {
+  //   switch (selectedOption) {
       
-      case 0:
-        results = await toast.promise(searchQuotesModal( "","", "","", true),
-        {
-          pending: "Loading... 0",
-          success: "Success",
-          error: "Error",
-          }
-          );
-        results.count = 100;
-          results = {...results, results: results.results.slice(0, 100)}
+  //     case 0:
+  //       results = await toast.promise(searchQuotesModal( "","", "","", true),
+  //       {
+  //         pending: "Loading... 0",
+  //         success: "Success",
+  //         error: "Error",
+  //         }
+  //         );
+  //       results.count = 100;
+  //         results = {...results, results: results.results.slice(0, 100)}
 
-        dispatch({type: "quotes/addQuotes", payload: results})
-        break;
-      case 1:
-        results = await toast.promise(searchQuotesModal( "","", "",   "elon musk"),
-        {
+  //       dispatch({type: "quotes/addQuotes", payload: results})
+  //       break;
+  //     case 1:
+  //       results = await toast.promise(searchQuotesModal( "","", "",   "elon musk"),
+  //       {
 
-          pending: "Loading...",
-          success: "Success",
-          error: "Error",
-          }
-          );
-        results.count = 20;
+  //         pending: "Loading...",
+  //         success: "Success",
+  //         error: "Error",
+  //         }
+  //         );
+  //       results.count = 20;
 
-      results = {...results, results: results.results.slice(0, 20)}
-        dispatch({type: "quotes/addQuotes", payload: results})
-        break;
-      case 2:
-        results = await toast.promise(searchQuotesModal( "","", "",   "Bill Gates"),
-        {
-          pending: "Loading...",
-          success: "Success",
-          error: "Error",
-        }
-        );
-        // results = results.results.slice(0, 20);
-        results.count = 20;
-      results = {...results, results: results.results.slice(0, 20)}
-        dispatch({type: "quotes/addQuotes", payload: results})
+  //     results = {...results, results: results.results.slice(0, 20)}
+  //       dispatch({type: "quotes/addQuotes", payload: results})
+  //       break;
+  //     case 2:
+  //       results = await toast.promise(searchQuotesModal( "","", "",   "Bill Gates"),
+  //       {
+  //         pending: "Loading...",
+  //         success: "Success",
+  //         error: "Error",
+  //       }
+  //       );
+  //       // results = results.results.slice(0, 20);
+  //       results.count = 20;
+  //     results = {...results, results: results.results.slice(0, 20)}
+  //       dispatch({type: "quotes/addQuotes", payload: results})
 
-        break;
-      case 3:
-        results =await toast.promise(searchQuotesModal( "","", "",   "Steve Jobs"),
-        {
-          pending: "Loading...",
-          success: "Success",
-          error: "Error",
+  //       break;
+  //     case 3:
+  //       results =await toast.promise(searchQuotesModal( "","", "",   "Steve Jobs"),
+  //       {
+  //         pending: "Loading...",
+  //         success: "Success",
+  //         error: "Error",
 
-        });
+  //       });
 
-        results = {...results, results: results.results.slice(0, 20)}
-          // results = results.results.slice(0, 20);
-          results.count = 20
-          dispatch({type: "quotes/addQuotes", payload: results})
+  //       results = {...results, results: results.results.slice(0, 20)}
+  //         // results = results.results.slice(0, 20);
+  //         results.count = 20
+  //         dispatch({type: "quotes/addQuotes", payload: results})
 
-          break;
+  //         break;
 
-      default:
-        setSelectedOption(0)
-        break;
-    }
+  //     default:
+  //       setSelectedOption(0)
+  //       break;
+  //   }
     
-  }
-  //do not call the function if the component is rendered for the first time
-    if(selectedOption !== null){
-      dropDrownSearch();
-    }
+  // }
+  // //do not call the function if the component is rendered for the first time
+  //   if(selectedOption !== null){
+  //     dropDrownSearch();
+  //   }
   
-  }, [selectedOption]);
+  // }, [selectedOption]);
 
   useEffect(()=> {
     if(dropdown.length !== 0) {
@@ -98,8 +98,8 @@ const PickedSelect = ({picked, setPicked}) => {
     setIsOptionsOpen(!isOptionsOpen);
   };
 
-  const setSelectedThenCloseDropdown = index => {
-    setPicked(true)
+  const setSelectedThenCloseDropdown = (option, index) => {
+    setPicked(option)
     setSelectedOption(index);
     setIsOptionsOpen(false);
     
@@ -153,7 +153,7 @@ const PickedSelect = ({picked, setPicked}) => {
           onClick={toggleOptions}
           onKeyDown={handleListKeyDown}
         >
-          { selectedOption ? optionsList[selectedOption] : optionsList[0] }
+          { selectedOption ? optionsList[selectedOption] : optionsList[0] } Quotes
           <span
             className={
               isOptionsOpen
@@ -196,7 +196,7 @@ const PickedSelect = ({picked, setPicked}) => {
               tabIndex={0}
               onKeyDown={handleKeyDown(index)}
               onClick={() => {
-                setSelectedThenCloseDropdown(index);
+                setSelectedThenCloseDropdown(option, index);
               }}
               className="picked-select-options-item"
             >

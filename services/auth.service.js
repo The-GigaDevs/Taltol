@@ -149,6 +149,11 @@ const saveDropdownOptions = (data) => httpService
     .then(({data}) => Promise.resolve(data))
     .catch((response) => Promise.reject(response))
 
+const getDropdownQuotes = (topic, author, tag, page, pageSize) => httpService
+    .get(`/quotes/?${topic ? `category_name=${topic}` : ''}?${author ? `author_name=${author}` : ''}?${tag ? `tag_name=${tag}` : ''}&page=${page}&page_size=${pageSize}`)
+    .then(({data}) => Promise.resolve(data))
+    .catch((response) => Promise.reject(response))
+
 
 const authService = {
     login,
@@ -178,6 +183,7 @@ const authService = {
     socialLogin,
     allUsers,
     getDropdownOptions,
-    saveDropdownOptions
+    saveDropdownOptions,
+    getDropdownQuotes
 }
 export default authService;

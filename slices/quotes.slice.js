@@ -2,7 +2,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
-const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage, addQuote, deleteQuote } = authService;
+const { getQuotes, getQuote, getQuotesAgainstTag, getQuotesOfSingleCategory, getAuthorQuotesWithPage, addQuote, deleteQuote, getDropdownQuotes } = authService;
 
 //initialize quotes state
 const initialState = {
@@ -145,6 +145,21 @@ export const deleteQuoteFromDB = createAsyncThunk(
         return slug;
     }
 )
+
+export const getDropdownQuotesFromDB = createAsyncThunk(
+    'quote/getDropdownQuotes',
+    async ({ topic, author, tag, page, pageSize }) => {
+        const result = toast.promise(
+            getDropdownQuotes(topic, author, tag, page, pageSize) ,
+            {
+            pending: 'Loading quotes...',
+            success: 'Quotes Fetched!',
+            error: 'Unable to load quotes.'
+            }
+        );
+        return result;
+    }
+)
 //create quotes slice
 export const quotesSlice = createSlice({
     name: "quotes",
@@ -168,6 +183,9 @@ export const quotesSlice = createSlice({
     },
     extraReducers: {
         [fetchQuotes.fulfilled]: (state, action) => {
+            state.quotes = action.payload;
+        },
+        [getDropdownQuotesFromDB.fulfilled]: (state, action) => {
             state.quotes = action.payload;
         },
         [addMoreQuotes.fulfilled]: (state, action) => {
