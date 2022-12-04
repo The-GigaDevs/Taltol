@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
+import TagService from "../services/tags.service";
 const { getTags, getTagQuotes, getTag } = authService;
+const { searchTagsByName } = TagService
 //initialize tags state
 const initialState = {
     tags: [],
@@ -34,6 +36,14 @@ export const searchTag = createAsyncThunk(
         return result;
     }
 );
+
+export const searchTagByName = createAsyncThunk(
+    "tags/searchTagByName",
+    async (query) => {
+        const result = await searchTagsByName(query);
+        return result;
+    }
+)
 //create tags slice
 export const tagsSlice = createSlice({
     name: "tags",
@@ -50,6 +60,9 @@ export const tagsSlice = createSlice({
         [searchTag.fulfilled]: (state, action) => {
             state.tags = action.payload;
             //console.log("State of the quotes" , current(state));
+        },
+        [searchTagByName.fulfilled]: (state, action) => {
+            state.tags = action.payload;
         }
     },
 });

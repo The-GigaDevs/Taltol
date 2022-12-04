@@ -5,5 +5,6 @@
     "@next/next/no-img-element": "off",
     "no-unused-vars": "off",
     "react-hooks/exhaustive-deps": "off"
-  }
+  },
+  "globals": {"Promise": true}
 }
