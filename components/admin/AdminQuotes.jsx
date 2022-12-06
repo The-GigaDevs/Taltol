@@ -9,13 +9,12 @@ import SortSelect from '../SortSelect';
 import TopicBrowse from '../TopicBrowse';
 import AdminPagination from './AdminPagination';
 
-const AdminQuotes = () => {
+const AdminQuotes = ({ picked, setIsPicked }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPagesize] = useState(50);
   const [quotes, setQuotes] = useState([]);
   const authRedux = useSelector(state => state.auth);
 
-  const [picked, setIsPicked] = useState(false);
   const dispatch = useDispatch();
   const quotesReduxState = useSelector(state => state.quotes?.quotes);
   const dropdown = useSelector(state => state.admin.dropdown);

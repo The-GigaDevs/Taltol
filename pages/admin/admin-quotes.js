@@ -1,13 +1,16 @@
+import { useState } from 'react';
 import AdminHeader from '../../components/admin/AdminHeader';
 import AdminMainSort from '../../components/admin/AdminMainSort';
 import AdminQuotes from '../../components/admin/AdminQuotes';
 
 const Admin = () => {
+  const [picked, setIsPicked] = useState(false);
+
   return (
     <>
-      <AdminHeader />
+      <AdminHeader picked={picked} />
       <AdminMainSort />
-      <AdminQuotes />
+      <AdminQuotes picked={picked} setIsPicked={setIsPicked} />
     </>
   );
 };
