@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import authService from '../../services/auth.service';
 import AdminRoleSelect from './AdminRoleSelect';
 import filterModal from '../FilterModal';
 import FilterModal from '../FilterModal';
 import Link from 'next/link';
+import { authorSearch, fetchAuthors } from '../../slices/authors.slice';
+import { fetchCategories, searchCategory } from '../../slices/categories.slice';
+import { useEffect } from 'react';
+import { getDropdownQuotesFromDB } from '../../slices/quotes.slice';
 
 const { searchQuotesModal } = authService;
-const AdminHeader = () => {
+const AdminHeader = ({picked = false}) => {
   const [searchText, setSearchText] = useState('');
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState('');
@@ -15,6 +19,10 @@ const AdminHeader = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const quotes = useSelector(state => state.quotes.quotes)
+  const dropdown = useSelector(state => state.admin.dropdown);
+
 
   function setSelectedCount(value, selected) {
     if (value === 'author') {
@@ -29,11 +37,29 @@ const AdminHeader = () => {
 
   const dispatch = useDispatch();
 
+  useEffect(()=> {
+    if(window.location.pathname.includes('authors') && searchText === ''){
+      dispatch(fetchAuthors({ page: 1, pageSize: 50, isAdmin: true }))
+    } else if(window.location.pathname.includes('topics') && searchText === '') {
+      dispatch(fetchCategories({ page: 1, pageSize: 50, isAdmin: true }))
+    } else if(window.location.pathname.includes('quotes') && searchText === '') {
+      if (picked === dropdown.topic) {
+        dispatch(getDropdownQuotesFromDB({ topic: dropdown.topic, author: '', tag: '', page: 1, pageSize: 50 }))
+      } else if (picked === dropdown.author) {
+        dispatch(getDropdownQuotesFromDB({ topic: '', author: dropdown.author, tag: '',page: 1, pageSize: 50 }))
+      } else if (picked === dropdown.tag) {
+        dispatch(getDropdownQuotesFromDB({ topic: '', author: '', tag: dropdown.tag, page: 1, pageSize: 50 }))
+      }
+    }
+  }, [searchText])
   async function fetchQuotes(slug) {
-    if (slug) {
+    if (slug && window.location.pathname.includes('quotes')) {
       const results = await searchQuotesModal('', '', '', slug);
       dispatch({ type: 'quotes/addQuotes', payload: results });
-      setSearchText('');
+    } else if (slug && window.location.pathname.includes('authors')) {
+      dispatch(authorSearch(slug));
+    } else if (slug && window.location.pathname.includes('topics')) {
+      dispatch(searchCategory(slug))
     }
   }
   return (

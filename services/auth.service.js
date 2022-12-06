@@ -66,6 +66,10 @@ const addAuthor = (data) => httpService
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
+const deleteQuote= (slug) => httpService
+    .delete(`/quotes/${slug}/`)
+    .then(({data}) => Promise.resolve(data))
+    .catch(({error}) => Promise.reject(error))
 
 //write a get request to get quotes in a catgory
 const getQuotesByCategory = (category, page, pageSize) => httpService
@@ -144,6 +148,22 @@ const searchQuotesModal = (authors, tags, categories, search, month= false) => h
     .then(({data}) => data)
     .catch(({error})=> Promise.reject(error?.response))
 
+const getDropdownOptions = () => httpService
+    .get('/quotes/dropdown/')
+    .then(({data}) => data)
+    .catch(({error}) => Promise.reject(error))
+
+const saveDropdownOptions = (data) => httpService
+    .post('/quotes/dropdown/', data)
+    .then(({data}) => Promise.resolve(data))
+    .catch((response) => Promise.reject(response))
+
+const getDropdownQuotes = (topic, author, tag, page, pageSize) => httpService
+    .get(`/quotes/?${topic ? `category_name=${topic}` : ''}?${author ? `author_name=${author}` : ''}?${tag ? `tag_name=${tag}` : ''}&page=${page}&page_size=${pageSize}`)
+    .then(({data}) => Promise.resolve(data))
+    .catch((response) => Promise.reject(response))
+
+
 const authService = {
     login,
     me,
@@ -151,6 +171,7 @@ const authService = {
     getQuotes,
     getQuote,
     updateQuote,
+    deleteQuote,
     getAuthors,
     getQuotesByCategory,
     getCategories,
@@ -171,6 +192,9 @@ const authService = {
     socialLogin,
     allUsers,
     updateCategory,
-    updateAuthor
+    updateAuthor,
+    getDropdownOptions,
+    saveDropdownOptions,
+    getDropdownQuotes
 }
 export default authService;

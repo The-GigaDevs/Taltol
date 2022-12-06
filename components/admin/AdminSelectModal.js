@@ -1,10 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Modal from 'react-modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { editDropdownOptions, fetchDropdownOptions } from '../../slices/admin.slice';
+import { authorSearch } from '../../slices/authors.slice';
+import { searchCategory } from '../../slices/categories.slice';
+import { searchTagByName } from '../../slices/tags.slice';
+import PureDynamicDropdown from '../PureDynamicDropdown';
 
 Modal.setAppElement('#__next');
 
 const AdminSelectModal = ({ modalIsOpen, closeModal }) => {
+  const [dynamicDropdown, setDynamicDropdown] = useState({
+    default: '',
+    second: '' ,
+    third: '',
+  });
+  const [selectedTopic, setSelectedTopic] = useState('')
+  const [selectedAuthor, setSelectedAuthor] = useState('')
+  const [selectedTag, setSelectedTag] = useState('')
+  const dispatch = useDispatch();
+  const dbDynamicDropdown =  useSelector(state =>  state?.admin?.dropdown);
+  const topics =  useSelector(state =>  state?.categories?.categories);
+  const authors =  useSelector(state =>  state?.authors?.authors);
+  const tags =  useSelector(state =>  state?.tags?.tags);
+
+  const saveDynamicDropdownOptions =() => {
+      const data = {
+        "topic": selectedTopic.name,
+        "author": selectedAuthor.name,
+        "tag": selectedTag.text
+      }
+      dispatch(editDropdownOptions(data));
+  }
+
+
+  useEffect(()=> {
+    if(dynamicDropdown.default) {
+      dispatch(searchCategory(dynamicDropdown.default));
+    }  
+    if(dynamicDropdown.second) {
+      dispatch(authorSearch(dynamicDropdown.second));
+    } 
+     if(dynamicDropdown.third) {
+      dispatch(searchTagByName(dynamicDropdown.third));
+    }
+  }, [dynamicDropdown]);
+  
+  useEffect(()=> {
+    if(dbDynamicDropdown?.length === 0) {
+      dispatch(fetchDropdownOptions());
+    } else {
+      setDynamicDropdown({ default: dbDynamicDropdown.topic, second: dbDynamicDropdown.author, third: dbDynamicDropdown.tag })
+    }
+  }, [])
+
+
+  useEffect(() => {
+    if (selectedTopic && selectedTopic !== dynamicDropdown.default) {
+      setDynamicDropdown({ ...dynamicDropdown, default: selectedTopic.name })
+    }
+    if (selectedAuthor && selectedAuthor !== dynamicDropdown.second) {
+      setDynamicDropdown({ ...dynamicDropdown, second: selectedAuthor.name })
+    }
+    if (selectedTag && selectedTag !== dynamicDropdown.third) {
+      setDynamicDropdown({ ...dynamicDropdown, third: selectedTag.text })
+    }
+  }, [selectedTopic, selectedAuthor, selectedTag]);
+
   const adminSelectModalStyles = {
     content: {
       top: '50%',
@@ -34,7 +97,7 @@ const AdminSelectModal = ({ modalIsOpen, closeModal }) => {
       document.body.style.overflowY = 'auto';
     }
   }, [modalIsOpen]);
-
+  
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -62,21 +125,63 @@ const AdminSelectModal = ({ modalIsOpen, closeModal }) => {
         </div>
         <div className="admin-select-modal-body">
           <div className="admin-select-modal-field">
-            <label htmlFor="default">Default:</label>
-            <input type="text" id="default" />
+            <label htmlFor="default">Default: (Topic)</label>
+            <input type="text" id="default" value={dynamicDropdown.default} onChange={({ target }) => {
+              if (dynamicDropdown.default !== selectedTopic) {
+                setSelectedTopic('')
+              }
+              setDynamicDropdown({ ...dynamicDropdown, default: target.value })
+            }} />
+          </div>
+          <div
+            className={
+              dynamicDropdown.default && selectedTopic === ''
+                ? 'admin-dynamic-dropdown'
+                : 'admin-dynamic-dropdown--hidden'
+            }
+          >
+            <PureDynamicDropdown optionsList={topics?.results?.slice(0, 5)} setSelectedToState={setSelectedTopic} />
           </div>
           <div className="admin-select-modal-field">
-            <label htmlFor="secondOption">Second Option:</label>
-            <input type="text" id="secondOption" />
+            <label htmlFor="secondOption">Second Option: (Author)</label>
+            <input type="text" id="secondOption" value={dynamicDropdown.second} onChange={({ target }) => {
+              if (dynamicDropdown.second !== selectedAuthor) {
+                setSelectedAuthor('')
+              }
+              setDynamicDropdown({ ...dynamicDropdown, second: target.value })
+            }} />
+          </div>
+          <div
+            className={
+              dynamicDropdown.second && selectedAuthor === ''
+                ? 'admin-dynamic-dropdown'
+                : 'admin-dynamic-dropdown--hidden'
+            }
+          >
+            <PureDynamicDropdown optionsList={authors?.results?.slice(0, 5)} setSelectedToState={setSelectedAuthor} />
           </div>
           <div className="admin-select-modal-field">
-            <label htmlFor="thirdOption">Third Option:</label>
-            <input type="text" id="thirdOption" />
+            <label htmlFor="thirdOption">Third Option: (Tag)</label>
+            <input type="text" id="thirdOption" value={dynamicDropdown.third} onChange={({ target }) => {
+              if (dynamicDropdown.third !== selectedTag) {
+                setSelectedTag('')
+              }
+              setDynamicDropdown({ ...dynamicDropdown, third: target.value })
+            }} />
+          </div>
+          <div
+            className={
+              dynamicDropdown.third && selectedTag === ''
+                ? 'admin-dynamic-dropdown'
+                : 'admin-dynamic-dropdown--hidden'
+            }
+          >
+            <PureDynamicDropdown optionsList={tags?.results?.slice(0, 5)} setSelectedToState={setSelectedTag} />
           </div>
         </div>
         <div className="filter-modal-footer">
-          <span className="filter-modal-footer-clear">Clear All</span>
-          <button className="filter-modal-footer-btn">Save Options</button>
+          <span className="filter-modal-footer-clear" onClick={() => setDynamicDropdown({ default: '', second: '', third: '' })}>Clear All</span>
+          <button className="filter-modal-footer-btn" onClick={()=> saveDynamicDropdownOptions() }>Save Options</button>
         </div>
       </div>
     </Modal>

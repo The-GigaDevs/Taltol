@@ -1,27 +1,49 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchQuotes } from '../../slices/quotes.slice';
+import { fetchDropdownOptions } from '../../slices/admin.slice';
+import { isUserLoggedIn } from '../../slices/auth.slice';
+import { fetchQuotes, getDropdownQuotesFromDB } from '../../slices/quotes.slice';
 import PickedSelect from '../PickedSelect';
 import QuoteCards from '../QuoteCards';
 import SortSelect from '../SortSelect';
 import TopicBrowse from '../TopicBrowse';
 import AdminPagination from './AdminPagination';
 
-const AdminQuotes = () => {
+const AdminQuotes = ({ picked, setIsPicked }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPagesize] = useState(50);
   const [quotes, setQuotes] = useState([]);
+  const authRedux = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
   const quotesReduxState = useSelector(state => state.quotes?.quotes);
+  const dropdown = useSelector(state => state.admin.dropdown);
   const [totalPages, setTotalPages] = useState(0);
 
+  useEffect(() => {
+    dispatch(isUserLoggedIn());
+  }, [authRedux?.isAuthenticated]);
+  
   //useffect to call fecQuotes
+  useEffect(() => {
+    
+      if (dropdown?.length === 0) {
+        dispatch(fetchDropdownOptions());
+      }
+      if (dropdown.topic) {
+        setIsPicked(dropdown.topic);
+      }
+  }, [dispatch, dropdown]);
 
   useEffect(() => {
-   
-      dispatch(fetchQuotes({page: 1, pageSize: 50}));
-  }, []);
+    if (quotesReduxState.length === 0 && picked === dropdown.topic) {
+      dispatch(getDropdownQuotesFromDB({ topic: dropdown.topic, author: '', tag: '', page, pageSize }))
+    } else if (picked === dropdown.author) {
+      dispatch(getDropdownQuotesFromDB({ topic: '', author: dropdown.author, tag: '', page, pageSize }))
+    } else if (picked === dropdown.tag) {
+      dispatch(getDropdownQuotesFromDB({ topic: '', author: '', tag: dropdown.tag, page, pageSize }))
+    }
+  }, [picked]);
 
   useEffect(() => {
     setQuotes(quotesReduxState.results);
@@ -51,9 +73,11 @@ const AdminQuotes = () => {
       <div className="container">
         <div className="admin-quotes-content">
           <section className="admin-quotes-left-content">
-            <p className="admin-quotes-left-text">{quotesReduxState?.results?.length} results</p>
+            <p className="admin-quotes-left-text">
+              {quotesReduxState?.results?.length} results
+            </p>
             <div className="admin-quotes-left-content-grid">
-              <PickedSelect />
+              <PickedSelect picked={picked} setPicked={setIsPicked} />
               <SortSelect />
             </div>
 

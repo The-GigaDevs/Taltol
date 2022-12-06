@@ -1,14 +1,17 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import {
+  singleQuote,
+  toggleModal,
+  changeRoute,
+  likeAQuoteInQuotes,
+  unlikeAQuoteInQuotes,
+  deleteQuoteFromDB
+} from '../slices/quotes.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import randomAuthor from '../public/static/quote-card-author.svg';
 import { likeAQuote, unlikeAQuote } from '../slices/likes.slice';
-import {
-  changeRoute,
-  likeAQuoteInQuotes, singleQuote,
-  toggleModal, unlikeAQuoteInQuotes
-} from '../slices/quotes.slice';
 import RestrictiveModal from './auth/RestrictiveModal';
+import { useEffect, useState } from 'react';
 
 const QuoteCard = props => {
   const { quote, category, url = '' } = props;
@@ -35,7 +38,6 @@ const QuoteCard = props => {
       if (authRedux.isAuthenticated) {
         dispatch(likeAQuote(quote.id));
         if (!quote.quote_liked) {
-
           dispatch(likeAQuoteInQuotes(quote.id));
         } else {
           dispatch(unlikeAQuoteInQuotes(quote.id));
@@ -58,8 +60,22 @@ const QuoteCard = props => {
     }
   }
   }
+
+  useEffect(()=> {
+    if (authRedux?.user?.email === 'abdulhameid.grandoka@gmail.com') {
+      setIsAdmin(true);
+    }
+  }, []);
+  
+  const deleteQuote =() => {
+    if(confirm('Are you sure you want to delete this quote?')) {
+      dispatch(deleteQuoteFromDB(quote.slug));
+    }
+    // dispatch(deleteQuoteFromDB(quote.slug))
+  }
   return (
     <div className="quote-card">
+      {isAdmin && <button onClick={deleteQuote}>Delete</button>}
       <div className="quote-card-likes">
         <span className="quote-card-likes-icon" onClick={handleLike}>
           <svg
