@@ -13,7 +13,7 @@ export default function Content({tagName}) {
   const [page, setPage] = useState(1);
   const [pageSize, setPagesize] = useState(20);
   const [quotes, setQuotes] = useState([]);
-  const [isPicked, setIsPicked] = useState(false);
+  const [picked, setIsPicked] = useState(false);
   const [user, setUser] = useState(true);
 
   const dispatch = useDispatch();
