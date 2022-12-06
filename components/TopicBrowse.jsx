@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
 import TopicsModal from './TopicsModal';
 
-const TopicBrowse = () => {
+const TopicBrowse = ({user}) => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -48,10 +48,10 @@ const TopicBrowse = () => {
             key={index}
             passHref
             href={{
-              pathname: `/admin/admin-topics-page`,
-              query: { category: category.id },
+              pathname: user ? `/category/${encodeURIComponent(category.id)}` :`/admin/admin-topics-page`,
+              query: { category: category.id, name: category.link_slug },
             }}
-            as={`/admin/admin-topics-page`}
+            as={user ? `/category/${encodeURIComponent(category.id)}` :`/admin/admin-topics-page`}
           >
             <li key={index} className="topic-browse-list-item">
               {`${category.name} Quotes`}

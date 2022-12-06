@@ -103,7 +103,7 @@ const QuoteCard = props => {
           }
           }}>
         <img
-          src={randomAuthor.src}
+          src={ quote?.author.image_path ? quote?.author.image_path : randomAuthor.src}
           alt="Author Avatar"
           className="quote-card-author-avatar"
         />

@@ -1,7 +1,10 @@
-import authorHeaderDP from '../public/static/author-page-dp.png'
-import SharePage from './SharePage'
+import { useSelector } from 'react-redux';
+import authorHeaderDP from '../public/static/author-page-dp.png';
+import SharePage from './SharePage';
 
 const AuthorHeader = ({ quotes, category, tags }) => {
+
+  const author = useSelector(state => state.authors?.singleAuthor);
 
 
   function searchByTag(tag) { }
@@ -49,7 +52,7 @@ const AuthorHeader = ({ quotes, category, tags }) => {
             </div>
           </div>
           <div className="author-header-dp">
-            <img src={authorHeaderDP.src} alt="Author Avatar" />
+            <img src={author ? author.image_path ? author.image_path : authorHeaderDP.src : authorHeaderDP.src} alt="Author Avatar" />
           </div>
         </div>
       </div>

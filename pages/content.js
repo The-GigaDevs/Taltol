@@ -13,6 +13,7 @@ export default function Content({tagName}) {
   const [pageSize, setPagesize] = useState(20);
   const [quotes, setQuotes] = useState([]);
   const [isPicked, setIsPicked] = useState(false);
+  const [user, setUser] = useState(true);
 
   const dispatch = useDispatch();
   const quotesReduxState = useSelector(state => state.quotes?.quotes);
@@ -60,7 +61,7 @@ export default function Content({tagName}) {
           />
         </section>
         <section className="home-main-right-content">
-          <TopicBrowse />
+          <TopicBrowse user={user} />
         </section>
       </div>
     </div>

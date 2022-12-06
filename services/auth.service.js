@@ -56,7 +56,7 @@ const getAuthors = (page, pageSize) => httpService
 
 
 const updateAuthor = (id, data) => httpService
-    .put(`/quotes/authors/${id}/`, data)
+    .put(`/quotes/authors/${id}/`, data, {headers: {'Content-Type': 'multipart/form-data'}})
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error?.response))
 

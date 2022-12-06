@@ -64,7 +64,7 @@ const Category = ({ id }) => {
                             <QuoteCards quotes={quotesRedux?.results} fetchNext={fetchNext} category={true} next={quotesRedux?.next} />
                         </section>
                         <section className="category-main-right-content">
-                            <TopicBrowse />
+                            <TopicBrowse user={true}/>
                         </section>
                     </div>
                 </div>

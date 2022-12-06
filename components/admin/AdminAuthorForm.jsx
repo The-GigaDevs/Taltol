@@ -9,7 +9,7 @@ const { addAuthor , updateAuthor} = authService
 
 const AdminAuthorForm = () => {
   const router = useRouter();
-  const [author, setAuthor] = useState({title: '', page_description: '', page_url: '',image_path: '', quote_urls: []});
+  const [author, setAuthor] = useState({title: '', page_description: '', page_url: '',image_path: ''});
   
   
   const dispatch = useDispatch();
@@ -23,21 +23,26 @@ const AdminAuthorForm = () => {
 
   useEffect(() => {
     if(authorRedux){
-      setAuthor({author, title: authorRedux?.name});
+      setAuthor(prevState => ({...prevState, ['title'] : authorRedux.name}));
     }
   }, [authorRedux])
 
   function handleSubmit(event) {
+    let formData = new FormData();
+    formData.append('title', author.title);
+    formData.append('page_description', author.page_description);
+    formData.append('page_url', author.page_url);
+    formData.append('image_path', author.image_path);
     //prevent the page from reloading
     event.preventDefault();
     //send the data to the server
 
     //send a put request if there is a query author in the url  
     if(router.query.author){
-      updateAuthor(authorRedux?.id, author);
+      updateAuthor(authorRedux?.slug, formData);
     } else {
 
-    addAuthor(author)
+    addAuthor(formData)
       .then((response) => {
         //redirect to the admin page
         router.back();
@@ -59,9 +64,9 @@ const AdminAuthorForm = () => {
         <form className="admin-form-box">
           <div className="admin-form-box-field admin-form-box-field--flex">
             <span className="admin-form-box-field-label">Author Page URL</span>
-            <input type="text" 
+            <input type="text" name='page_url'
               value={author.page_url}
-              onChange={(e) => setAuthor({...author, page_url: e.target.value})}
+              onChange={(e) => setAuthor(prevState => ({...prevState, [e.target.name] : e.target.value}))}
             />
             <span className="admin-form-box-field-edit">
               <svg
@@ -83,16 +88,16 @@ const AdminAuthorForm = () => {
               <span className="admin-form-box-field-label">
                 Author Page Title
               </span>
-              <input type="text" 
+              <input type="text" name='title'
                 value={author.title}
-                onChange={(e) => setAuthor({...author, title: e.target.value})}
+                onChange={(e) => setAuthor(prevState => ({...prevState, [e.target.name] : e.target.value}))}
               />
             </div>
             <div className="admin-form-box-field ">
               <span className="admin-form-box-field-label">Video URL</span>
-              <input type="text"  
+              <input type="text" name='video_url'
                 value={author.video_url}
-                onChange={(e) => setAuthor({...author, video_url: e.target.value})}
+                onChange={(e) => setAuthor(prevState => ({...prevState, [e.target.name]: e.target.value}))}
 
               />
             </div>
