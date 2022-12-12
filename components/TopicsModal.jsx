@@ -15,7 +15,6 @@ const RestrictiveModalStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     width: '95%',
-    height: '95%',
     borderRadius: '10px',
     backgroundColor: '#fff',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
@@ -28,7 +27,6 @@ const RestrictiveModalStyles = {
 };
 
 const TopicsModal = props => {
-
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -46,7 +44,8 @@ const TopicsModal = props => {
 
   useEffect(() => {
     CaluclatetotalPages();
-  })
+    document.body.style.overflow = 'hidden';
+  });
 
   return (
     <>
@@ -55,10 +54,10 @@ const TopicsModal = props => {
         onRequestClose={() => props.setShowModal}
         style={RestrictiveModalStyles}
       >
-        <div className="filter-modal">
-          <div className="filter-modal-header">
+        <div className="topic-modal">
+          <div className="topic-modal-header">
             <span
-              className="filter-modal-close"
+              className="topic-modal-close"
               onClick={() => props.setShowModal(false)}
             >
               <svg
@@ -78,35 +77,44 @@ const TopicsModal = props => {
                 />
               </svg>
             </span>
-            <h3 className="filter-modal-header-title">All Topics</h3>
+            <h3 className="topic-modal-header-title">All Topics</h3>
             <span></span>
           </div>
 
-          <div className="topic-modal-browse-list">
-            {props.categories?.map((category, index) => {
-              return (
-                <Link
-                  key={category.id}
-                  passHref
-                  href={{
-                    pathname: `/admin/admin-topics-page`,
-                    query: { category: category.id },
-                  }}
-                  as={`/admin/admin-topics-page`}
-                >
-                  <div
-                    key={index}
-                    className="topic-browse-list-item"
-                    onClick={props.setShowModal}
+          <div className="topic-modal-body">
+            <div className="topic-modal-browse-list">
+              {props.categories?.map((category, index) => {
+                return (
+                  <Link
+                    key={category.id}
+                    passHref
+                    href={{
+                      pathname: `/admin/admin-topics-page`,
+                      query: { category: category.id },
+                    }}
+                    as={`/admin/admin-topics-page`}
                   >
-                    {`${category.name} Quotes`}
-                  </div>
-                </Link>
-              );
-            })}
+                    <div
+                      key={index}
+                      className="topic-browse-list-item"
+                      onClick={props.setShowModal}
+                    >
+                      {`${category.name} Quotes`}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+          <div className="topic-modal-footer">
+            <AdminPagination
+              pagesTotal={totalPages}
+              next={props.categories.next}
+              fetchNext={fetchNext}
+              page={page}
+            />
           </div>
         </div>
-        <AdminPagination pagesTotal={totalPages} next={props.categories.next} fetchNext={fetchNext} page={page}/>
       </Modal>
     </>
   );

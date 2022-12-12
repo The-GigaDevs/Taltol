@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import authService from '../../services/auth.service';
 import AdminRoleSelect from './AdminRoleSelect';
@@ -9,9 +10,10 @@ import { authorSearch, fetchAuthors } from '../../slices/authors.slice';
 import { fetchCategories, searchCategory } from '../../slices/categories.slice';
 import { useEffect } from 'react';
 import { getDropdownQuotesFromDB } from '../../slices/quotes.slice';
+import { signOut } from '../../slices/auth.slice';
 
 const { searchQuotesModal } = authService;
-const AdminHeader = ({picked = false}) => {
+const AdminHeader = ({ picked = false }) => {
   const [searchText, setSearchText] = useState('');
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState('');
@@ -19,10 +21,10 @@ const AdminHeader = ({picked = false}) => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-
-  const quotes = useSelector(state => state.quotes.quotes)
+  const authRedux = useSelector(state => state.auth);
+  const router = useRouter();
+  const quotes = useSelector(state => state.quotes.quotes);
   const dropdown = useSelector(state => state.admin.dropdown);
-
 
   function setSelectedCount(value, selected) {
     if (value === 'author') {
@@ -37,21 +39,51 @@ const AdminHeader = ({picked = false}) => {
 
   const dispatch = useDispatch();
 
-  useEffect(()=> {
-    if(window.location.pathname.includes('authors') && searchText === ''){
-      dispatch(fetchAuthors({ page: 1, pageSize: 50, isAdmin: true }))
-    } else if(window.location.pathname.includes('topics') && searchText === '') {
-      dispatch(fetchCategories({ page: 1, pageSize: 50, isAdmin: true }))
-    } else if(window.location.pathname.includes('quotes') && searchText === '') {
+  useEffect(() => {
+    if (window.location.pathname.includes('authors') && searchText === '') {
+      dispatch(fetchAuthors({ page: 1, pageSize: 50, isAdmin: true }));
+    } else if (
+      window.location.pathname.includes('topics') &&
+      searchText === ''
+    ) {
+      dispatch(fetchCategories({ page: 1, pageSize: 50, isAdmin: true }));
+    } else if (
+      window.location.pathname.includes('quotes') &&
+      searchText === ''
+    ) {
       if (picked === dropdown.topic) {
-        dispatch(getDropdownQuotesFromDB({ topic: dropdown.topic, author: '', tag: '', page: 1, pageSize: 50 }))
+        dispatch(
+          getDropdownQuotesFromDB({
+            topic: dropdown.topic,
+            author: '',
+            tag: '',
+            page: 1,
+            pageSize: 50,
+          })
+        );
       } else if (picked === dropdown.author) {
-        dispatch(getDropdownQuotesFromDB({ topic: '', author: dropdown.author, tag: '',page: 1, pageSize: 50 }))
+        dispatch(
+          getDropdownQuotesFromDB({
+            topic: '',
+            author: dropdown.author,
+            tag: '',
+            page: 1,
+            pageSize: 50,
+          })
+        );
       } else if (picked === dropdown.tag) {
-        dispatch(getDropdownQuotesFromDB({ topic: '', author: '', tag: dropdown.tag, page: 1, pageSize: 50 }))
+        dispatch(
+          getDropdownQuotesFromDB({
+            topic: '',
+            author: '',
+            tag: dropdown.tag,
+            page: 1,
+            pageSize: 50,
+          })
+        );
       }
     }
-  }, [searchText])
+  }, [searchText]);
   async function fetchQuotes(slug) {
     if (slug && window.location.pathname.includes('quotes')) {
       const results = await searchQuotesModal('', '', '', slug);
@@ -59,7 +91,7 @@ const AdminHeader = ({picked = false}) => {
     } else if (slug && window.location.pathname.includes('authors')) {
       dispatch(authorSearch(slug));
     } else if (slug && window.location.pathname.includes('topics')) {
-      dispatch(searchCategory(slug))
+      dispatch(searchCategory(slug));
     }
   }
   return (
@@ -107,84 +139,96 @@ const AdminHeader = ({picked = false}) => {
           />
         </svg>
       </div>
-      <div className="navbar-profile" onClick={() => setIsOpen(!isOpen)}>
-        <span className="navbar-profile-avatar">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="38"
-            height="38"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M24 12C24 5.3833 18.6172 0 12 0C5.38281 0 0 5.3833 0 12C0 15.3836 1.41321 18.4387 3.67365 20.6223C3.72656 20.6912 3.78925 20.747 3.86261 20.7941C6.00385 22.7769 8.85828 24 12 24C15.1417 24 17.9962 22.7769 20.1374 20.7941C20.2108 20.747 20.2734 20.6912 20.3264 20.6223C22.5868 18.4387 24 15.3836 24 12ZM12 1.5C17.79 1.5 22.5 6.21045 22.5 12C22.5 14.455 21.6467 16.7108 20.2297 18.5009C19.5792 16.403 17.7221 14.7607 15.2016 14.0051C16.5752 13.011 17.4736 11.4005 17.4736 9.58057C17.4736 6.56641 15.0186 4.11426 12 4.11426C8.98145 4.11426 6.52637 6.56641 6.52637 9.58057C6.52637 11.4005 7.4248 13.011 8.7984 14.0051C6.27789 14.7607 4.42078 16.403 3.77026 18.5009C2.35327 16.7108 1.5 14.455 1.5 12C1.5 6.21045 6.20996 1.5 12 1.5ZM8.02637 9.58057C8.02637 7.39355 9.80859 5.61426 12 5.61426C14.1914 5.61426 15.9736 7.39355 15.9736 9.58057C15.9736 11.7676 14.1914 13.5469 12 13.5469C9.80859 13.5469 8.02637 11.7676 8.02637 9.58057ZM5.03076 19.832C5.25623 17.082 8.17236 15.0469 12 15.0469C15.8276 15.0469 18.7438 17.082 18.9692 19.832C17.1131 21.4855 14.6757 22.5 12 22.5C9.32428 22.5 6.8869 21.4855 5.03076 19.832Z"
-              fill="#333333"
+      {authRedux?.isAuthenticated ? (
+        <div onClick={() => setIsOpen(!isOpen)} className="navbar-profile ">
+          {authRedux?.isAuthenticated &&
+          (authRedux?.user?.profile_pic !== null ||
+            authRedux?.user?.social_image_url !== null) ? (
+            <img
+              src={
+                authRedux?.user?.profile_pic ||
+                authRedux?.user?.social_image_url
+              }
+              alt="userImage"
+              className="navbar-profile-avatar-social"
             />
-          </svg>
-        </span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="12"
-          viewBox="0 0 12 8"
-          fill="none"
-        >
-          <path
-            d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z"
-            fill="#333333"
-          />
-        </svg>
+          ) : (
+            <>
+              <span className="navbar-profile-avatar">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="45"
+                  height="45"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M24 12C24 5.3833 18.6172 0 12 0C5.38281 0 0 5.3833 0 12C0 15.3836 1.41321 18.4387 3.67365 20.6223C3.72656 20.6912 3.78925 20.747 3.86261 20.7941C6.00385 22.7769 8.85828 24 12 24C15.1417 24 17.9962 22.7769 20.1374 20.7941C20.2108 20.747 20.2734 20.6912 20.3264 20.6223C22.5868 18.4387 24 15.3836 24 12ZM12 1.5C17.79 1.5 22.5 6.21045 22.5 12C22.5 14.455 21.6467 16.7108 20.2297 18.5009C19.5792 16.403 17.7221 14.7607 15.2016 14.0051C16.5752 13.011 17.4736 11.4005 17.4736 9.58057C17.4736 6.56641 15.0186 4.11426 12 4.11426C8.98145 4.11426 6.52637 6.56641 6.52637 9.58057C6.52637 11.4005 7.4248 13.011 8.7984 14.0051C6.27789 14.7607 4.42078 16.403 3.77026 18.5009C2.35327 16.7108 1.5 14.455 1.5 12C1.5 6.21045 6.20996 1.5 12 1.5ZM8.02637 9.58057C8.02637 7.39355 9.80859 5.61426 12 5.61426C14.1914 5.61426 15.9736 7.39355 15.9736 9.58057C15.9736 11.7676 14.1914 13.5469 12 13.5469C9.80859 13.5469 8.02637 11.7676 8.02637 9.58057ZM5.03076 19.832C5.25623 17.082 8.17236 15.0469 12 15.0469C15.8276 15.0469 18.7438 17.082 18.9692 19.832C17.1131 21.4855 14.6757 22.5 12 22.5C9.32428 22.5 6.8869 21.4855 5.03076 19.832Z"
+                    fill="#333333"
+                  />
+                </svg>
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="12"
+                viewBox="0 0 12 8"
+                fill="none"
+              >
+                <path
+                  d="M10.59 0L6 4.58L1.41 0L0 1.41L6 7.41L12 1.41L10.59 0Z"
+                  fill="#333333"
+                />
+              </svg>
+            </>
+          )}
+          <div
+            className={
+              isOpen
+                ? 'navbar-profile-dropdown active'
+                : 'navbar-profile-dropdown'
+            }
+          >
+            <h2 className="navbar-profile-dropdown-name">
+              {authRedux?.user?.first_name + ' ' + authRedux?.user?.last_name}
+            </h2>
+            <p className="navbar-profile-dropdown-mail">
+              {authRedux?.user?.email}
+            </p>
 
-        <div
-          className={
-            isOpen
-              ? 'navbar-profile-dropdown active'
-              : 'navbar-profile-dropdown'
-          }
-        >
-          <h2 className="navbar-profile-dropdown-name">Hassan Hafeez</h2>
-          <p className="navbar-profile-dropdown-mail">
-            hhhassanhafeez@gmail.com
-          </p>
-          <Link href="/users">
-            <a className="navbar-profile-dropdown-link">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                ></path>
-              </svg>
-              Collections
-            </a>
-          </Link>
-          <div>
-            <span className="navbar-profile-dropdown-link">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                ></path>
-              </svg>
-              Log Out
-            </span>
+            <div
+              onClick={async () => {
+                await dispatch(signOut());
+                await dispatch(fetchQuotes({ page: 1, pageSize: 10 }));
+                router.push('/login');
+              }}
+            >
+              <span className="navbar-profile-dropdown-link">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  ></path>
+                </svg>
+                Log Out
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-
+      ) : (
+        <Link href={'/login'} passHref>
+          <button type="button" className="navbar-login-register-btn">
+            Login/Signup
+          </button>
+        </Link>
+      )}
       <FilterModal
         show={show}
         setShow={setShow}
