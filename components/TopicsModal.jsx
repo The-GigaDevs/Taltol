@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
-import AdminPagination from './admin/AdminPagination';
 
 Modal.setAppElement('#__next');
 const RestrictiveModalStyles = {
@@ -15,7 +14,6 @@ const RestrictiveModalStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     width: '95%',
-    height: '95%',
     borderRadius: '10px',
     backgroundColor: '#fff',
     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
@@ -28,7 +26,6 @@ const RestrictiveModalStyles = {
 };
 
 const TopicsModal = props => {
-
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -46,7 +43,8 @@ const TopicsModal = props => {
 
   useEffect(() => {
     CaluclatetotalPages();
-  })
+    document.body.style.overflow = 'hidden';
+  });
 
   return (
     <>
@@ -55,10 +53,10 @@ const TopicsModal = props => {
         onRequestClose={() => props.setShowModal}
         style={RestrictiveModalStyles}
       >
-        <div className="filter-modal">
-          <div className="filter-modal-header">
+        <div className="topic-modal">
+          <div className="topic-modal-header">
             <span
-              className="filter-modal-close"
+              className="topic-modal-close"
               onClick={() => props.setShowModal(false)}
             >
               <svg
@@ -78,7 +76,7 @@ const TopicsModal = props => {
                 />
               </svg>
             </span>
-            <h3 className="filter-modal-header-title">All Topics</h3>
+            <h3 className="topic-modal-header-title">All Topics</h3>
             <span></span>
           </div>
 
@@ -108,7 +106,6 @@ const TopicsModal = props => {
             })}
           </div>
         </div>
-        <AdminPagination pagesTotal={totalPages} next={props.categories.next} fetchNext={fetchNext} page={page}/>
       </Modal>
     </>
   );

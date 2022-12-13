@@ -159,7 +159,15 @@ const saveDropdownOptions = (data) => httpService
     .catch((response) => Promise.reject(response))
 
 const getDropdownQuotes = (topic, author, tag, page, pageSize) => httpService
-    .get(`/quotes/?${topic ? `category_name=${topic}` : ''}?${author ? `author_name=${author}` : ''}?${tag ? `tag_name=${tag}` : ''}&page=${page}&page_size=${pageSize}`)
+    .get(`/quotes/`, {
+        params: {
+            category_name: topic || "",
+            author_name: author || "",
+            tag_name: tag || "",
+            page,
+            page_size: pageSize,
+        }
+    })
     .then(({data}) => Promise.resolve(data))
     .catch((response) => Promise.reject(response))
 
