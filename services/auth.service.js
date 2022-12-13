@@ -89,7 +89,7 @@ const getAuthorQuotes = (id) => httpService
     .catch(({ error }) => Promise.reject(error.response))
 
 const getAuthorQuotesWithPage = (id, page) => httpService
-    .get(`/quotes?authors=${id}&page=${page}`)
+    .get(`/quotes`, {params: {authors: id, page: page, show_tags: true}})
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 

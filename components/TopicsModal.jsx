@@ -86,21 +86,23 @@ const TopicsModal = props => {
             {props.categories?.map((category, index) => {
               return (
                 <Link
-                  key={category.id}
+                  key={index}
                   passHref
                   href={{
-                    pathname: `/admin/admin-topics-page`,
-                    query: { category: category.id },
+                    pathname: props.pathname
+                      ? `/category/${encodeURIComponent(category.id)}`
+                      : `/admin/admin-topics-page`,
+                    query: { category: category.id, name: category.link_slug },
                   }}
-                  as={`/admin/admin-topics-page`}
+                  as={
+                    props.pathname
+                      ? `/category/${encodeURIComponent(category.id)}`
+                      : `/admin/admin-topics-page`
+                  }
                 >
-                  <div
-                    key={index}
-                    className="topic-browse-list-item"
-                    onClick={props.setShowModal}
-                  >
+                  <li key={index} className="topic-browse-list-item">
                     {`${category.name} Quotes`}
-                  </div>
+                  </li>
                 </Link>
               );
             })}

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import authorHeaderDP from '../public/static/author-page-dp.png';
 import SharePage from './SharePage';
@@ -5,7 +6,8 @@ import SharePage from './SharePage';
 const AuthorHeader = ({ quotes, category, tags }) => {
 
   const author = useSelector(state => state.authors?.singleAuthor);
-
+  useEffect(() => {
+  }, [tags])
 
   function searchByTag(tag) { }
 
@@ -36,7 +38,7 @@ const AuthorHeader = ({ quotes, category, tags }) => {
               </svg>
               <p className="category-header-desc-list-tags">
                 Most used tags with the {category?.name} quotes
-                {tags?.tags?.map(tag => (
+                {tags && tags?.map(tag => (
                   <span
                     key={tag?.tagId}
                     className="category-header-desc-list-tag"

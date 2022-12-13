@@ -2,8 +2,6 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthorHeader from '../../components/AuthorHeader';
-import CategoryHeader from '../../components/CategoryHeader';
-import CategoryResults from '../../components/CategoryResults';
 import MobileMenu from '../../components/MobileMenu';
 import Navbar from '../../components/Navbar';
 import ProFooter from '../../components/ProFooter';
@@ -25,15 +23,17 @@ const Author = ({ id }) => {
 
   useEffect(() => {
     if (quotesRedux?.results) {
-      setTags(quotesRedux?.results[0]);
+      setTags(quotesRedux?.results[0]?.tags);
+
     }
   }, [quotesRedux?.results]);
+  
   useEffect(() => {
     if (!singleAuthorRedux || singleAuthorRedux?.id !== id) {
       dispatch(fetchSingleAuthor(id));
     }
     dispatch(fetchQuotesOfAuthorWithPage({ id, page }));
-  }, [id, dispatch, page, singleAuthorRedux]);
+  }, [id, page ]);
 
   return (
     <>
@@ -68,7 +68,7 @@ const Author = ({ id }) => {
               />
             </section>
             <section className="category-main-right-content">
-              <TopicBrowse />
+              <TopicBrowse user={true}/>
             </section>
           </div>
         </div>

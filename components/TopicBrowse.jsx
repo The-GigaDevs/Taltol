@@ -89,6 +89,7 @@ const TopicBrowse = ({user}) => {
           setShowModal={() => setShowAll(false)}
           categories={categories}
           count = {categories1.count}
+          pathname = {true}
         />
       )}
     </div>
