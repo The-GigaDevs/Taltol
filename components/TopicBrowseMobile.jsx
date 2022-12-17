@@ -1,8 +1,8 @@
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import authService from '../services/auth.service';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
-import Link from 'next/link';
+import TopicsModal from './TopicsModal';
 
 const TopicBrowseMobile = () => {
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ const TopicBrowseMobile = () => {
       <h3 className="topic-browse-title">Browse by topic</h3>
       <ul className="topic-browse-list">
         {categories
-          ?.slice(0, !showAll ? 15 : undefined)
+          ?.slice(0, 15)
           .map((category, index) => (
             <Link
               key={index}
@@ -91,6 +91,15 @@ const TopicBrowseMobile = () => {
           </span>
         </div>
       )}
+      {showAll && (
+        <TopicsModal 
+        showModal={showAll}
+        setShowModal={() => setShowAll(false)}
+        categories={categories}
+        count = {categories1.count}
+        pathname = {true}
+        />
+        )}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { fetchCategories } from '../slices/categories.slice';
+import AdminPagination from './admin/AdminPagination';
 
 Modal.setAppElement('#__next');
 const RestrictiveModalStyles = {
@@ -106,6 +107,7 @@ const TopicsModal = props => {
             })}
           </div>
         </div>
+        <AdminPagination pagesTotal={totalPages} next={props.categories.next} fetchNext={fetchNext} page={page}/>
       </Modal>
     </>
   );

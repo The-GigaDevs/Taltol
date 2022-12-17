@@ -1,8 +1,8 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLikedQuotes } from '../slices/likes.slice';
 import QuoteCard from './QuoteCard';
-import { useRouter } from 'next/router';
 
 const UserLikedQuotesMobile = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,12 @@ const UserLikedQuotesMobile = () => {
   const [quotes, setQuotes] = useState([]);
   const router = useRouter();
 
+  const authRedux = useSelector((state) => state.auth);
+
   useEffect(() => {
+    if(authRedux.isAuthenticated === false){
+      router.push('/login');
+    }
     dispatch(fetchLikedQuotes());
   }, []);
 

@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import authorHeaderDP from '../public/static/author-page-dp.png';
+import { fetchQuotesAgainstTag } from '../slices/quotes.slice';
 import SharePage from './SharePage';
-
 const AuthorHeader = ({ quotes, category, tags }) => {
 
+  const dispatch = useDispatch();
   const author = useSelector(state => state.authors?.singleAuthor);
   useEffect(() => {
   }, [tags])
 
-  function searchByTag(tag) { }
+  function searchByTag(tag) { 
+    
+    dispatch(fetchQuotesAgainstTag(tag?.tagId));
+   }
 
 
   return (
