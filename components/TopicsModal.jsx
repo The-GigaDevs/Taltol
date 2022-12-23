@@ -81,40 +81,33 @@ const TopicsModal = props => {
             <span></span>
           </div>
 
-          <div className="topic-modal-body">
-            <div className="topic-modal-browse-list">
-              {props.categories?.map((category, index) => {
-                return (
-                  <Link
-                    key={category.id}
-                    passHref
-                    href={{
-                      pathname: `/admin/admin-topics-page`,
-                      query: { category: category.id },
-                    }}
-                    as={`/admin/admin-topics-page`}
-                  >
-                    <div
-                      key={index}
-                      className="topic-browse-list-item"
-                      onClick={props.setShowModal}
-                    >
-                      {`${category.name} Quotes`}
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-          <div className="topic-modal-footer">
-            <AdminPagination
-              pagesTotal={totalPages}
-              next={props.categories.next}
-              fetchNext={fetchNext}
-              page={page}
-            />
+          <div className="topic-modal-browse-list">
+            {props.categories?.map((category, index) => {
+              return (
+                <Link
+                  key={index}
+                  passHref
+                  href={{
+                    pathname: props.pathname
+                      ? `/category/${encodeURIComponent(category.id)}`
+                      : `/admin/admin-topics-page`,
+                    query: { category: category.id, name: category.link_slug },
+                  }}
+                  as={
+                    props.pathname
+                      ? `/category/${encodeURIComponent(category.id)}`
+                      : `/admin/admin-topics-page`
+                  }
+                >
+                  <li key={index} className="topic-browse-list-item">
+                    {`${category.name} Quotes`}
+                  </li>
+                </Link>
+              );
+            })}
           </div>
         </div>
+        <AdminPagination pagesTotal={totalPages} next={props.categories.next} fetchNext={fetchNext} page={page}/>
       </Modal>
     </>
   );

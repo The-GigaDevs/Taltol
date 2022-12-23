@@ -33,7 +33,7 @@ export default function Content({tagName}) {
   }, [dispatch, dropdown]);
 
   useEffect(() => {
-    if (quotesReduxState.length === 0 || picked === dropdown.topic) {
+    if (quotesReduxState.length === 0 && picked === dropdown.topic) {
       dispatch(getDropdownQuotesFromDB({ topic: dropdown.topic, author: '', tag: '', page, pageSize }))
     } else if (picked === dropdown.author) {
       dispatch(getDropdownQuotesFromDB({ topic: '', author: dropdown.author, tag: '', page, pageSize }))

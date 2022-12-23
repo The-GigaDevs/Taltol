@@ -1,13 +1,19 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import authorHeaderDP from '../public/static/author-page-dp.png';
+import { fetchQuotesAgainstTag } from '../slices/quotes.slice';
 import SharePage from './SharePage';
-
 const AuthorHeader = ({ quotes, category, tags }) => {
 
+  const dispatch = useDispatch();
   const author = useSelector(state => state.authors?.singleAuthor);
+  useEffect(() => {
+  }, [tags])
 
-
-  function searchByTag(tag) { }
+  function searchByTag(tag) { 
+    
+    dispatch(fetchQuotesAgainstTag(tag?.tagId));
+   }
 
 
   return (
@@ -36,7 +42,7 @@ const AuthorHeader = ({ quotes, category, tags }) => {
               </svg>
               <p className="category-header-desc-list-tags">
                 Most used tags with the {category?.name} quotes
-                {tags?.tags?.map(tag => (
+                {tags && tags?.map(tag => (
                   <span
                     key={tag?.tagId}
                     className="category-header-desc-list-tag"
