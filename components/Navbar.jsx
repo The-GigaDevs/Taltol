@@ -86,11 +86,11 @@ const Navbar = () => {
             <div
               style={{ cursor: 'pointer' }}
               onClick={() => {
-                dispatch(fetchQuotes({page: 1, pageSize: 10}));
+                dispatch(fetchQuotes({ page: 1, pageSize: 10 }));
                 router.push('/');
               }}
             >
-              <a className="navbar-brand">
+              <a href="#" className="navbar-brand">
                 t<span className="navbar-brand-mobile">altol</span>
               </a>
             </div>
@@ -246,7 +246,7 @@ const Navbar = () => {
                   <div
                     onClick={async () => {
                       await dispatch(signOut());
-                      await dispatch(fetchQuotes({page: 1, pageSize: 10}));
+                      await dispatch(fetchQuotes({ page: 1, pageSize: 10 }));
                       router.push('/login');
                     }}
                   >
