@@ -138,6 +138,16 @@ const getSingleAuthor = (id) => httpService
     .then(({ data }) => data)
     .catch(({ error }) => Promise.reject(error.response))
 
+const getSingleAuthorBySlug = (slug) => httpService
+    .get(`quotes/authors/${slug}`)
+    .then(({ data }) => data)
+    .catch(({ error }) => Promise.reject(error.response))
+
+const getSingleTopicBySlug = (slug) => httpService
+    .get(`quotes/categories/${slug}`)
+    .then(({ data }) => data)
+    .catch(({ error }) => Promise.reject(error.response))
+
 const getQuotesOfSingleCategory = (id, page) => httpService
     .get(`quotes?categories=${id}&page=${page}&show_tags=true`)
     .then(({data}) => data)
@@ -203,6 +213,8 @@ const authService = {
     updateAuthor,
     getDropdownOptions,
     saveDropdownOptions,
-    getDropdownQuotes
+    getDropdownQuotes,
+    getSingleAuthorBySlug,
+    getSingleTopicBySlug
 }
 export default authService;

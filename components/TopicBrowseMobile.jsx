@@ -35,7 +35,7 @@ const TopicBrowseMobile = () => {
             <Link
               key={index}
               passHref
-              href={`/category/${encodeURIComponent(category.id)}`}
+              href={`/topic/${encodeURIComponent(category.link_slug) + '-quotes'}`}
             >
               <li key={index} className="topic-browse-list-item">
                 {`${category.name} Quotes`}

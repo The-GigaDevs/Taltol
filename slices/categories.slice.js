@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
-const { getCategories , getCategory, getSingleCategory , getQuotesOfSingleCategory} = authService;
+const { getCategories , getCategory, getSingleCategory , getQuotesOfSingleCategory, getSingleTopicBySlug} = authService;
 //initialize categories state
 const initialState = {
     categories: [],
@@ -13,6 +13,21 @@ export const fetchSingleCategory = createAsyncThunk(
     async (categoryId) => {
         const result = toast.promise(
             getSingleCategory(categoryId), 
+            {
+                success: 'Category fetched!',
+                error:'Unable to load this category',
+                pending:'Loading category...'
+            }
+        );
+        return result
+    }
+)
+
+export const fetchSingleCategorySlug = createAsyncThunk(
+    "categories/fetchSingleCategorySlug", 
+    async (categorySlug) => {
+        const result = toast.promise(
+            getSingleTopicBySlug(categorySlug), 
             {
                 success: 'Category fetched!',
                 error:'Unable to load this category',
@@ -73,6 +88,12 @@ export const categoriesSlice = createSlice({
             state.singleCategory = action.payload;
         },
         [fetchSingleCategory.rejected] : (state, action) => {
+            state.singleCategory = null;
+        },
+        [fetchSingleCategorySlug.fulfilled] : (state, action) => {
+            state.singleCategory = action.payload;
+        },
+        [fetchSingleCategorySlug.rejected] : (state, action) => {
             state.singleCategory = null;
         },
         

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import authService from '../../services/auth.service';
-import { fetchSingleCategory } from '../../slices/categories.slice';
+import { fetchSingleCategorySlug } from "../../slices/categories.slice";
 import AdminDescriptionField from './AdminDescriptionField';
 import AdminGoBack from './AdminGoBack';
 
@@ -22,7 +22,7 @@ const AdminForm = () => {
   useEffect(() => {
     if(router.query.category) {
       
-    dispatch(fetchSingleCategory(router.query.category))
+    dispatch(fetchSingleCategorySlug(router.query.category))
     }
   },[])
 

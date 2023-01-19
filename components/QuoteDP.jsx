@@ -112,7 +112,7 @@ export default function QuoteDP({
           </span>
           from{" "}
           <Link
-            href={`/author/${encodeURIComponent(singleQuote?.author?.id)}`}
+            href={`/author/${encodeURIComponent(singleQuote?.author?.slug)+ '-quotes'}`}
             passHref
           >
             <span className="quote-body-heading-author">
@@ -134,7 +134,7 @@ export default function QuoteDP({
 
             <div className="quote-body-author-profile">
               <Link
-                href={`/author/${encodeURIComponent(singleQuote?.author?.id)}`}
+                href={`/author/${encodeURIComponent(singleQuote?.author?.slug)+ '-quotes'}`}
                 passHref
               >
                 <span className="quote-body-author-name">
@@ -220,7 +220,7 @@ export default function QuoteDP({
 
         <section className="quote-body-other-quotes">
           <Link
-            href={`/author/${encodeURIComponent(singleQuote?.author?.id)}`}
+            href={`/author/${encodeURIComponent(singleQuote?.author?.slug)+ '-quotes'}`}
             passHref
           >
             <h3 className="quote-body-other-quotes-title">

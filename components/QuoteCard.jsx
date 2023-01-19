@@ -158,13 +158,13 @@ const QuoteCard = props => {
             router.push(
               {
                 pathname: '/admin/admin-author-page',
-                query: { author: quote?.author.id },
+                query: { author: quote?.author.slug },
               },
               '/admin/admin-author-page'
             );
           } else {
             //goto to the author page
-            router.push(`/author/${encodeURIComponent(quote?.author?.id)}`);
+            router.push(`/author/${encodeURIComponent(quote?.author?.slug) + '-quotes'}`);
           }
         }}
       >

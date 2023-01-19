@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import authService from '../../services/auth.service';
-import { fetchSingleAuthor } from '../../slices/authors.slice';
+import { fetchSingleAuthorSlug } from '../../slices/authors.slice';
 import AdminAuthorDescriptionAvatar from './AdminAuthorDescriptionAvatar';
 import AdminGoBack from './AdminGoBack';
 const { addAuthor , updateAuthor} = authService
@@ -17,7 +17,7 @@ const AdminAuthorForm = () => {
 
   useEffect(() => {
     if(router.query.author){
-      dispatch(fetchSingleAuthor(router.query.author));
+      dispatch(fetchSingleAuthorSlug(router.query.author));
     }
   }, []);
 

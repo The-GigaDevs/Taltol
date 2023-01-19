@@ -1,7 +1,7 @@
 import { createAsyncThunk , createSlice, current} from "@reduxjs/toolkit";    
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
-const { getAuthors, getAuthorQuotes, getAuthor, getSingleAuthor } = authService;
+const { getAuthors, getAuthorQuotes, getAuthor, getSingleAuthor, getSingleAuthorBySlug } = authService;
 //initialize authors state
 const initialState = {
     authors: [],
@@ -60,6 +60,21 @@ export const fetchSingleAuthor = createAsyncThunk(
     }
 )
 
+export const fetchSingleAuthorSlug = createAsyncThunk(
+    "authors/fetchSingleAuthorSlug",
+    async (slug) => {
+        const result = toast.promise(
+            getSingleAuthorBySlug(slug),
+            {
+                success:'Single author fetched!',
+                pending:'Loading author...',
+                error: 'Unable to load this author'
+            }
+        );
+        return result;
+    }
+)
+
 export const getAllQuotesOfAuthor = createAsyncThunk(
     "authors/getAllQuotesOfAuthor",
     async (authorId) => {
@@ -101,6 +116,12 @@ export const authorsSlice = createSlice({
             state.singleAuthor = action.payload
         },
         [fetchSingleAuthor.rejected]: (state, action) => {
+            state.singleAuthor = null
+        },
+        [fetchSingleAuthorSlug.fulfilled]: (state, action) => {
+            state.singleAuthor = action.payload
+        },
+        [fetchSingleAuthorSlug.rejected]: (state, action) => {
             state.singleAuthor = null
         }
     },

@@ -11,9 +11,7 @@ import TopicBrowse from '../../components/TopicBrowse';
 import { fetchSingleCategory } from '../../slices/categories.slice';
 import { fetchQuotesOfCategory } from '../../slices/quotes.slice';
 
-const Category = ({ id }) => {
-
-        const slug = useRouter().query.name?.toLocaleLowerCase();
+const Category = ({ slug }) => {
 
     const dispatch = useDispatch()
     const [ page , setPage] = useState(1);
@@ -33,12 +31,14 @@ const Category = ({ id }) => {
         }
     }, [quotesRedux?.results])
     useEffect(() => {
-        if(!singleCategoryRedux || singleCategoryRedux?.id !== id) {
+        if(!singleCategoryRedux || singleCategoryRedux?.link_slug !== slug) {
             dispatch(fetchSingleCategory(slug));
         }
-        dispatch(fetchQuotesOfCategory({id, page}))
+        if(singleCategoryRedux?.id) {
+            dispatch(fetchQuotesOfCategory({ id: singleCategoryRedux?.id, page }))
+        }
 
-    }, [id, dispatch, page])
+    }, [singleCategoryRedux?.id, slug, dispatch, page])
 
     return (
         <>
@@ -82,7 +82,7 @@ export async function getServerSideProps(ctx) {
     const { params } = ctx;
     if (params) {
         return {
-            props: { id: params.id }
+            props: { slug: String(params.id).replace('-quotes', '') }
         };
     }
     return null;

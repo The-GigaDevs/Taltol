@@ -7,10 +7,10 @@ import Navbar from '../../components/Navbar';
 import ProFooter from '../../components/ProFooter';
 import QuoteCards from '../../components/QuoteCards';
 import TopicBrowse from '../../components/TopicBrowse';
-import { fetchSingleAuthor } from '../../slices/authors.slice';
+import { fetchSingleAuthor, fetchSingleAuthorSlug } from '../../slices/authors.slice';
 import { fetchQuotesOfAuthorWithPage } from '../../slices/quotes.slice';
 
-const Author = ({ id }) => {
+const Author = ({ slug }) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [tags, setTags] = useState([]);
@@ -27,13 +27,15 @@ const Author = ({ id }) => {
 
     }
   }, [quotesRedux?.results]);
-  
+
   useEffect(() => {
-    if (!singleAuthorRedux || singleAuthorRedux?.id !== id) {
-      dispatch(fetchSingleAuthor(id));
+    if (!singleAuthorRedux || singleAuthorRedux?.slug !== slug) {
+      dispatch(fetchSingleAuthorSlug(slug));
     }
-    dispatch(fetchQuotesOfAuthorWithPage({ id, page }));
-  }, [id, page ]);
+    if (singleAuthorRedux?.id) {
+      dispatch(fetchQuotesOfAuthorWithPage({ id: singleAuthorRedux.id, page }));
+    }
+  }, [singleAuthorRedux?.id, slug, page]);
 
   return (
     <>
@@ -68,7 +70,7 @@ const Author = ({ id }) => {
               />
             </section>
             <section className="category-main-right-content">
-              <TopicBrowse user={true}/>
+              <TopicBrowse user={true} />
             </section>
           </div>
         </div>
@@ -84,7 +86,7 @@ export async function getServerSideProps(ctx) {
   const { params } = ctx;
   if (params) {
     return {
-      props: { id: params.id },
+      props: { slug: String(params.id).replace('-quotes', '') },
     };
   }
   return null;

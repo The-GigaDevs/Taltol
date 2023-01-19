@@ -89,13 +89,13 @@ const TopicsModal = props => {
                   passHref
                   href={{
                     pathname: props.pathname
-                      ? `/category/${encodeURIComponent(category.id)}`
+                      ? `/topic/${encodeURIComponent(category.link_slug) + '-quotes'}`
                       : `/admin/admin-topics-page`,
                     query: { category: category.id, name: category.link_slug },
                   }}
                   as={
                     props.pathname
-                      ? `/category/${encodeURIComponent(category.id)}`
+                      ? `/topic/${encodeURIComponent(category.link_slug)  + '-quotes'}`
                       : `/admin/admin-topics-page`
                   }
                 >
